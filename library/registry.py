@@ -2,6 +2,7 @@ import os
 import json
 from jsonschema import validate, ValidationError
 
+
 class SchemaRegistry:
     def __init__(self):
         self.objects = {}
@@ -15,20 +16,23 @@ class SchemaRegistry:
             self.process_meta_schema = json.load(file)
 
     def validate_schema(self, schema, meta_schema):
-        try:
-            validate(instance=schema, schema=meta_schema)
-            print(f"Schema {schema['id']} is valid.")
-        except ValidationError as e:
-            print(f"Schema {schema['id']} is invalid: {e.message}")
-            raise
+        validate(instance=schema, schema=meta_schema)
 
     def register_object(self, schema_name, schema):
-        self.validate_schema(schema, self.object_meta_schema)
-        self.objects[schema_name] = schema
+        try:
+            self.validate_schema(schema, self.object_meta_schema)
+            self.objects[schema_name] = schema
+            print(f"Object schema '{schema_name}' registered successfully.")
+        except ValidationError as e:
+            print(f"Failed to register object schema '{schema_name}': {e.message}")
 
     def register_process(self, schema_name, schema):
-        self.validate_schema(schema, self.process_meta_schema)
-        self.processes[schema_name] = schema
+        try:
+            self.validate_schema(schema, self.process_meta_schema)
+            self.processes[schema_name] = schema
+            print(f"Process schema '{schema_name}' registered successfully.")
+        except ValidationError as e:
+            print(f"Failed to register process schema '{schema_name}': {e.message}")
 
     def get_object_schema(self, schema_name):
         return self.objects.get(schema_name)
