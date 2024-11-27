@@ -4,12 +4,14 @@ from jsonschema import validate, ValidationError
 from schemas import object_meta_schema, process_meta_schema, object_schemas_dir, process_schemas_dir
 
 # Function to validate a schema against a meta-schema
-def validate_schema(schema, meta_schema):
+def validate_schema(schema, meta_schema, verbose=True):
     try:
         validate(instance=schema, schema=meta_schema)
-        print(f"Schema {schema['id']} is valid.")
+        if verbose:
+            print(f"Schema {schema['id']} is valid.")
     except ValidationError as e:
-        print(f"Schema {schema['id']} is invalid: {e.message}")
+        if verbose:
+            print(f"Schema {schema['id']} is invalid: {e.message}")
 
 # Function to load and validate schemas from a directory
 def validate_schemas_from_directory(directory, meta_schema):
@@ -20,8 +22,10 @@ def validate_schemas_from_directory(directory, meta_schema):
                 schema = json.load(schema_file)
                 validate_schema(schema, meta_schema)
 
-# Validate object schemas
-validate_schemas_from_directory(object_schemas_dir, object_meta_schema)
 
-# Validate process schemas
-validate_schemas_from_directory(process_schemas_dir, process_meta_schema)
+if __name__ == '__main__':
+    # Validate object schemas
+    validate_schemas_from_directory(object_schemas_dir, object_meta_schema)
+
+    # Validate process schemas
+    validate_schemas_from_directory(process_schemas_dir, process_meta_schema)

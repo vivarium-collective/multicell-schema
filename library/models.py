@@ -16,14 +16,14 @@ def validate_models(models_dir):
                 # Validate objects
                 for obj_name, obj_schema in model['structure']['objects'].items():
                     try:
-                        validate_schema(obj_schema, object_meta_schema)
+                        validate_schema(obj_schema, object_meta_schema, verbose=False)
                     except ValidationError:
                         print(f"Object '{obj_name}' in model '{model['id']}' is invalid.")
 
                 # Validate processes
                 for proc_name, proc_schema in model['structure']['processes'].items():
                     try:
-                        validate_schema(proc_schema, process_meta_schema)
+                        validate_schema(proc_schema, process_meta_schema, verbose=False)
                     except ValidationError:
                         print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
 
