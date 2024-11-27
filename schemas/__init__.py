@@ -1,6 +1,6 @@
 import os
 import json
-from library.registry import SchemaRegistry
+from library.registry import SchemaRegistry, object_meta_schema, process_meta_schema
 
 # Create an instance of SchemaRegistry
 schema_registry = SchemaRegistry()

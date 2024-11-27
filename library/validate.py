@@ -1,13 +1,7 @@
 import os
 import json
 from jsonschema import validate, ValidationError
-
-# Load meta-schemas from JSON files
-with open('schemas/metaschema/object_schema.json', 'r') as file:
-    object_meta_schema = json.load(file)
-
-with open('schemas/metaschema/process_schema.json', 'r') as file:
-    process_meta_schema = json.load(file)
+from schemas import object_meta_schema, process_meta_schema, object_schemas_dir, process_schemas_dir
 
 # Function to validate a schema against a meta-schema
 def validate_schema(schema, meta_schema):
@@ -27,7 +21,7 @@ def validate_schemas_from_directory(directory, meta_schema):
                 validate_schema(schema, meta_schema)
 
 # Validate object schemas
-validate_schemas_from_directory('schemas/objects', object_meta_schema)
+validate_schemas_from_directory(object_schemas_dir, object_meta_schema)
 
 # Validate process schemas
-validate_schemas_from_directory('schemas/processes', process_meta_schema)
+validate_schemas_from_directory(process_schemas_dir, process_meta_schema)
