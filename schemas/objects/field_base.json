@@ -1,0 +1,16 @@
+{
+    "id": "obj_002",
+    "name": "Field",
+    "attributes": {
+        "name": {
+            "type": "string",
+            "default": "Field",
+            "description": "The name of the field."
+        },
+        "data": {
+            "type": "array",
+            "default": [],
+            "description": "The data of the field."
+        }
+    }
+}

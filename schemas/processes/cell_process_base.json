@@ -1,0 +1,9 @@
+{
+    "id": "proc_001",
+    "name": "Cell Process",
+    "attributes": {},
+    "participating_objects": [
+        "Cell"
+    ],
+    "dynamics": {}
+}
