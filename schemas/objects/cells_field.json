@@ -1,6 +1,6 @@
 {
     "id": "obj_003",
-    "name": "CellsField",
+    "type": "CellsField",
     "boundary_conditions": {},
     "contained_object_types": ["Cell"],
     "attributes": {}

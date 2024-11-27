@@ -1,6 +1,6 @@
 {
     "id": "obj_001",
-    "name": "Cell",
+    "type": "Cell",
     "boundary_conditions": {},
     "contained_object_types": [],
     "attributes": {

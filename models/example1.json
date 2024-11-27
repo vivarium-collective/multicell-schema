@@ -1,57 +1,48 @@
 {
     "id": "model_001",
     "name": "Example Model",
-    "objects": ["Cell", "Field"],
-    "processes": ["Cell Process", "Field Process"],
-    "structure": {
-        "objects": {
-            "Cell": {
-                "id": "obj_001",
-                "name": "ChasteCell",
-                "type": "Cell",
-                "inherits_from": "BaseCell",
-                "attributes": {
-                    "mass": 50,
-                    "volume": 100
-                }
-            },
-            "Field": {
-                "id": "obj_002",
-                "name": "ChasteField",
-                "type": "Field",
-                "inherits_from": "BaseField",
-                "attributes": {
-                    "value": 0
-                }
+    "objects": {
+        "Cell": {
+            "id": "cell_001",
+            "type": "Cell",
+            "attributes": {
+                "mass": 50,
+                "volume": 100
             }
         },
-        "processes": {
-            "Cell Process": {
-                "id": "proc_001",
-                "name": "Cell Growth",
-                "type": "sbml_utc_process",
-                "attributes": {
-                    "sbml_model": "growth_model.xml"
-                },
-                "participating_objects": [
-                    "Cell",
-                    "Medium"
-                ],
-                "dynamics": {
-                    "type": "growth",
-                    "Kcat": 0.02,
-                    "KM": 0.05
-                }
-            },
-            "Field Process": {
-                "id": "proc_002",
-                "name": "Field Process",
-                "attributes": {},
-                "participating_objects": [
-                    "Field"
-                ],
-                "dynamics": {}
+        "Field": {
+            "id": "field_001",
+            "type": "Field",
+            "attributes": {
+                "value": 0
             }
+        }
+    },
+    "processes": {
+        "Cell Process": {
+            "id": "growth_001",
+            "type": "sbml_utc_process",
+            "attributes": {
+                "sbml_model": "growth_model.xml"
+            },
+            "participating_objects": [
+                "Cell",
+                "Medium"
+            ],
+            "dynamics": {
+                "type": "growth",
+                "Kcat": 0.02,
+                "KM": 0.05
+            }
+        },
+        "Field Process": {
+            "id": "proc_002",
+            "name": "Field Process",
+            "attributes": {},
+            "participating_objects": [
+                "Field"
+            ],
+            "dynamics": {}
         }
     }
 }
