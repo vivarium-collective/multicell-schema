@@ -1,0 +1,9 @@
+{
+    "id": "proc_002",
+    "name": "Field Process",
+    "attributes": {},
+    "participating_objects": [
+        "Field"
+    ],
+    "dynamics": {}
+}
