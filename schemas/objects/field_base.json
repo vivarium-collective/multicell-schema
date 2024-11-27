@@ -1,6 +1,8 @@
 {
     "id": "obj_002",
     "name": "Field",
+    "boundary_conditions": {},
+    "contained_object_types": [],
     "attributes": {
         "name": {
             "type": "string",

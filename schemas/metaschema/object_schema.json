@@ -1,0 +1,11 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "boundary_conditions": {"type": "object"},
+        "contained_object_types": {"type": "array"},
+        "attributes": {"type": "object"}
+    },
+    "required": ["id", "name", "boundary_conditions", "contained_object_types", "attributes"]
+}

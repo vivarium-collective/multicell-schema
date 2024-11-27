@@ -1,6 +1,8 @@
 {
     "id": "obj_001",
     "name": "Cell",
+    "boundary_conditions": {},
+    "contained_object_types": [],
     "attributes": {
         "mass": {
             "type": "float",
