@@ -3,6 +3,7 @@ import json
 from jsonschema import validate, ValidationError
 from library.validate import validate_schema, object_meta_schema, process_meta_schema
 
+
 # Function to validate a single model
 def validate_model(model_path):
     with open(model_path, 'r') as model_file:
@@ -22,8 +23,17 @@ def validate_model(model_path):
             try:
                 validate_schema(proc_schema, process_meta_schema, verbose=False)
                 print(f"Process '{proc_name}' in model '{model['id']}' is valid.")
+
+                # TODO: check processes participating objects' types
+                # for obj_name in proc_schema['participating_objects']:
+                #     pass
+
             except ValidationError:
                 print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
+
+        # TODO: Validate containment rules
+        # validate_containment(model)
+
 
 # Function to validate all models in the models directory
 def validate_models(models_dir):

@@ -1,0 +1,16 @@
+{
+    "id": "proc_003",
+    "type": "Cell Growth Process",
+    "inherits_from": "Cell Process",
+    "attributes": {
+      "growth_rate": {
+        "type": "float",
+        "unit": "1/h",
+        "default": 0.02
+      }
+    },
+    "participating_objects": [
+        "Cell"
+    ],
+    "dynamics": {}
+}

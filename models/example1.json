@@ -1,33 +1,41 @@
 {
-    "id": "model_001",
-    "name": "Example Model",
+    "id": "model_002",
+    "name": "Nested Example Model",
     "objects": {
-        "Cell": {
-            "id": "cell_001",
-            "type": "Cell",
+        "MainField": {
+            "id": "field_001",
+            "type": "Field",
+            "attributes": {
+                "name": "Main Field",
+                "data": [1, 2, 3]
+            }
+        },
+        "SubField": {
+            "id": "field_002",
+            "type": "Field",
+            "attributes": {
+                "name": "Sub Field",
+                "data": [4, 5, 6]
+            }
+        },
+        "CellsField": {
+            "id": "cells_001",
+            "type": "CellsField",
             "attributes": {
                 "mass": 50,
                 "volume": 100
             }
-        },
-        "Field": {
-            "id": "field_001",
-            "type": "Field",
-            "attributes": {
-                "value": 0
-            }
         }
     },
     "processes": {
-        "Cell Process": {
-            "id": "growth_001",
-            "type": "sbml_utc_process",
+        "CellGrowthProcess": {
+            "id": "proc_001",
+            "type": "Cell Process",
             "attributes": {
-                "sbml_model": "growth_model.xml"
+                "growth_rate": 0.1
             },
             "participating_objects": [
-                "Cell",
-                "Medium"
+                "CellsField"
             ],
             "dynamics": {
                 "type": "growth",
@@ -35,14 +43,26 @@
                 "KM": 0.05
             }
         },
-        "Field Process": {
+        "FieldInteractionProcess": {
             "id": "proc_002",
-            "name": "Field Process",
+            "type": "Field Process",
             "attributes": {},
             "participating_objects": [
-                "Field"
+                "MainField",
+                "SubField"
             ],
-            "dynamics": {}
+            "dynamics": {
+                "type": "interaction",
+                "interaction_rate": 0.01
+            }
+        }
+    },
+    "structure": {
+        "Environment": {
+            "MainField": {
+                "SubField": {},
+                "CellsField": {}
+            }
         }
     }
 }
