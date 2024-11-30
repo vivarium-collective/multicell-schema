@@ -1,4 +1,4 @@
 {
-    "id": "error",
-    "type": "Error"
+    "type": "Error",
+    "description": "This is put here to test that errors are caught by the validator."
 }

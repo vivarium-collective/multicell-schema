@@ -7,5 +7,5 @@
         "participating_objects": {"type": "array"},
         "dynamics": {"type": "object"}
     },
-    "required": ["id", "type", "attributes", "participating_objects", "dynamics"]
+    "required": ["type", "attributes", "participating_objects", "dynamics"]
 }

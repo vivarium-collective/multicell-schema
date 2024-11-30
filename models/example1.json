@@ -6,15 +6,17 @@
             "id": "field_001",
             "type": "Field",
             "attributes": {
-                "name": "Main Field",
-                "data": [1, 2, 3]
+                "bounds": {
+                    "x": 10,
+                    "y": 10,
+                    "z": 10
+                }
             }
         },
         "SubField": {
             "id": "field_002",
             "type": "Field",
             "attributes": {
-                "name": "Sub Field",
                 "data": [4, 5, 6]
             }
         },

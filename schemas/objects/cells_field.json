@@ -1,7 +1,27 @@
 {
-    "id": "obj_003",
     "type": "CellsField",
     "boundary_conditions": {},
     "contained_object_types": ["Cell"],
-    "attributes": {}
+    "attributes": {
+        "bounds": {
+            "x": "float",
+            "y": "float",
+            "z": "float"
+        },
+        "grid_size": {
+            "x": "float",
+            "y": "float",
+            "z": "float"
+        },
+        "cell species": {
+            "type": "list[string]",
+            "default": "[x]",
+            "description": "List of the cell species."
+        },
+        "cells": {
+            "type": "list[Cell]",
+            "default": "[]",
+            "description": "List of cells."
+        }
+    }
 }

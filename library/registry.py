@@ -23,10 +23,10 @@ class SchemaRegistry:
         self.process_meta_schema = process_meta_schema
 
 
-        # TODO: need to save allowed object containments
-        # self.allowed_containments = {}
+        # to save allowed object containments
+        self.allowed_containments = {}
 
-        # TODO: need to save type inheritance
+        # to save type inheritance
         # self.type_inheritance = {}
 
     def validate_schema(self, schema, meta_schema):
@@ -38,12 +38,12 @@ class SchemaRegistry:
             self.objects[schema_name] = schema
             print(f"Object schema '{schema_name}' registered successfully.")
 
-            # contained_object_types = schema.get('contained_object_types')
-            # if contained_object_types:
-            #     for obj_type in contained_object_types:
-            #         if obj_type not in self.allowed_containments:
-            #             self.allowed_containments[obj_type] = []
-            #         self.allowed_containments[obj_type].append(schema_name)
+            contained_object_types = schema.get('contained_object_types')
+            if contained_object_types:
+                for obj_type in contained_object_types:
+                    if obj_type not in self.allowed_containments:
+                        self.allowed_containments[obj_type] = []
+                    self.allowed_containments[obj_type].append(schema_name)
 
         except ValidationError as e:
             print(f"Failed to register object schema '{schema_name}': {e.message}")

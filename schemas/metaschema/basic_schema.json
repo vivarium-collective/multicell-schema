@@ -1,0 +1,6 @@
+{
+    "unit": {
+        "type": "string",
+        "enum": ["um", "um^2", "um^3", "pg"]
+    }
+}

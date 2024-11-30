@@ -1,5 +1,4 @@
 {
-    "id": "proc_003",
     "type": "Cell Growth Process",
     "inherits_from": "Cell Process",
     "attributes": {

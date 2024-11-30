@@ -10,10 +10,10 @@ def validate_schema(schema, meta_schema, verbose=True):
     try:
         validate(instance=schema, schema=meta_schema)
         if verbose:
-            print(f"Schema {schema['id']} is valid.")
+            print(f"Schema {schema['type']} is valid.")
     except ValidationError as e:
         if verbose:
-            print(f"Schema {schema['id']} is invalid: {e.message}")
+            print(f"Schema {schema['type']} is invalid: {e.message}")
 
 # Function to load and validate schemas from a directory
 def validate_schemas_from_directory(directory, meta_schema):

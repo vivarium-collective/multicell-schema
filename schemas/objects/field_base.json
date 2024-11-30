@@ -1,18 +1,33 @@
 {
-    "id": "obj_002",
     "type": "Field",
     "boundary_conditions": {},
     "contained_object_types": [],
     "attributes": {
-        "name": {
-            "type": "string",
-            "default": "Field",
-            "description": "The name of the field."
+        "molecular species": {
+            "type": "list[string]",
+            "default": ["x"],
+            "description": "List of the molecular species."
         },
-        "data": {
-            "type": "array",
-            "default": [],
-            "description": "The data of the field."
+        "bounds": {
+            "x": "float",
+            "y": "float",
+            "z": "float",
+            "unit": "um",
+            "default": {
+                "x": 100,
+                "y": 100,
+                "z": 100
+            }
+        },
+        "grid_size": {
+            "x": "float",
+            "y": "float",
+            "z": "float",
+            "default": {
+                "x": 100,
+                "y": 100,
+                "z": 100
+            }
         }
     }
 }
