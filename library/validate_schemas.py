@@ -1,7 +1,9 @@
 import os
 import json
 from jsonschema import validate, ValidationError
-from schemas import object_meta_schema, process_meta_schema, object_schemas_dir, process_schemas_dir
+from library.registry import (
+    object_schemas_dir, process_schemas_dir, object_meta_schema, process_meta_schema)
+
 
 # Function to validate a schema against a meta-schema
 def validate_schema(schema, meta_schema, verbose=True):

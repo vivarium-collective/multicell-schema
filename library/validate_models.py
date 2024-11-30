@@ -1,7 +1,7 @@
 import os
 import json
 from jsonschema import validate, ValidationError
-from library.validate import validate_schema, object_meta_schema, process_meta_schema
+from library.validate_schemas import validate_schema, object_meta_schema, process_meta_schema
 
 
 # Function to validate a single model
