@@ -1,7 +1,6 @@
 {
     "type": "object",
     "properties": {
-        "id": {"type": "string"},
         "type": {"type": "string"},
         "boundary_conditions": {"type": "object"},
         "contained_object_types": {"type": "array"},
