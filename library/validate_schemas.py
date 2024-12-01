@@ -6,7 +6,7 @@ from library.registry import (
 
 
 # Function to validate a schema against a meta-schema
-def validate_schema(schema, meta_schema, verbose=True):
+def validate_schema(schema, meta_schema, verbose=False):
     try:
         validate(instance=schema, schema=meta_schema)
         if verbose:

@@ -2,9 +2,11 @@ import os
 import json
 from jsonschema import validate, ValidationError
 from library.validate_schemas import validate_schema, object_meta_schema, process_meta_schema
+from schema import schema_registry
+
 
 class SchemaCreator:
-    def __init__(self, schema_type, json_path=None):
+    def __init__(self, schema_type, json_path=None, name=None):
         self.schema_type = schema_type
         self.schema = {
             "type": schema_type,
@@ -12,7 +14,7 @@ class SchemaCreator:
             "required": []
         }
         if json_path:
-            self.load_from_json(json_path)
+            self.load_from_json(json_path, name)
 
     def add_property(self, name, property_schema, required=False):
         self.schema[name] = property_schema
@@ -27,29 +29,45 @@ class SchemaCreator:
         else:
             raise ValueError("Unsupported schema type")
 
-    def save(self, filename, directory="schema"):
+    def save(self, filename, directory="schema", overwrite=False):
         directory = os.path.join(directory, self.schema_type) # objects or processes
         try:
             self.validate()
         except ValidationError as e:
             print(f"Schema validation failed: {e.message}")
             return
+
+        # Register the schema in the registry
+        try:
+            if self.schema_type == "object":
+                schema_registry.register_object(self.schema["type"], self.schema)
+            elif self.schema_type == "process":
+                schema_registry.register_process(self.schema["type"], self.schema)
+        except ValueError as e:
+            if not overwrite:
+                print(f"Failed to register schema: {e}")
+                return
+            else:
+                print(f"Overwriting schema despite registration failure: {e}")
+
         if not os.path.exists(directory):
             os.makedirs(directory)
         with open(os.path.join(directory, filename), 'w') as file:
             json.dump(self.schema, file, indent=4)
         print(f"Schema saved to {os.path.join(directory, filename)}")
 
-    def load_from_json(self, json_path):
+    def load_from_json(self, json_path, name):
+        assert name is not None, "Name must be provided when loading from JSON"
         with open(json_path, 'r') as file:
             loaded_schema = json.load(file)
         self.schema.update(loaded_schema)
         self.schema["inherits_from"] = json_path
+        self.schema["type"] = name
 
 
 class ObjectCreator(SchemaCreator):
     def __init__(self, name=None, attributes={}, boundary_conditions={}, contained_objects=[], json_path=None):
-        super().__init__("object", json_path)
+        super().__init__("object", json_path, name)
         if not json_path:
             self.add_property("type", name)
             self.add_property("attributes", attributes)
@@ -76,7 +94,7 @@ if __name__ == '__main__':
         boundary_conditions={"condition": "string"},
         contained_objects={"sub_object": "string"}
     )
-    object_creator.save("example_object.json")
+    object_creator.save("example_object.json", overwrite=True)
 
     # Create a process schema
     process_creator = ProcessCreator(
@@ -85,12 +103,12 @@ if __name__ == '__main__':
         participating_objects=["object1", "object2"],
         dynamics={"dynamic_property": {}}
     )
-    process_creator.save("example_process.json")
+    process_creator.save("example_process.json", overwrite=True)
 
     # Load a schema from JSON
-    object_creator = ObjectCreator(json_path="schema/object/example_object.json")
+    object_creator = ObjectCreator(json_path="schema/object/example_object.json", name="example_object2")
 
     # add to the object schema
     object_creator.add_property("new_property", {"type": "string"})
-    object_creator.save("example_object_updated.json")
-    print(object_creator.schema)
+    object_creator.save("example_object2.json", overwrite=True)
+    # print(object_creator.schema)
