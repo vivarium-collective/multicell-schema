@@ -1,1 +1,1 @@
-from schema import schema_registry
+# from schema import schema_registry

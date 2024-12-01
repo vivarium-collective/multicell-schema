@@ -2,7 +2,7 @@ import os
 import json
 from jsonschema import validate, ValidationError
 from library.validate_schemas import validate_schema, object_meta_schema, process_meta_schema
-from schemas import schema_registry
+from schema import schema_registry
 
 
 def validate_containment(structure):

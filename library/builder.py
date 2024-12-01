@@ -90,9 +90,9 @@ if __name__ == '__main__':
     # Create an object schema
     object_creator = ObjectCreator(
         name="example_object",
-        attributes={"size": "integer"},
-        boundary_conditions={"condition": "string"},
-        contained_objects={"sub_object": "string"}
+        attributes={},
+        boundary_conditions={},
+        contained_objects=["sub_object"]
     )
     object_creator.save("example_object.json", overwrite=True)
 
@@ -101,7 +101,7 @@ if __name__ == '__main__':
         name="example_process",
         attributes={"id": "string", "rate": "number"},
         participating_objects=["object1", "object2"],
-        dynamics={"dynamic_property": {}}
+        dynamics={}
     )
     process_creator.save("example_process.json", overwrite=True)
 
