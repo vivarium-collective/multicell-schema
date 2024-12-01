@@ -2,6 +2,17 @@ import os
 import json
 from jsonschema import validate, ValidationError
 from library.validate_schemas import validate_schema, object_meta_schema, process_meta_schema
+from schemas import schema_registry
+
+
+def validate_containment(structure):
+    for struct, substruct in structure.items():
+        # assert struct, substruct relation is valid in schema_registry.allowed_containments
+        if struct in schema_registry.allowed_containments:
+            pass
+
+        else:
+            print(f"Invalid containment: {struct} not found")
 
 
 # Function to validate a single model
@@ -32,7 +43,7 @@ def validate_model(model_path):
                 print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
 
         # TODO: Validate containment rules
-        # validate_containment(model)
+        validate_containment(model['structure'])
 
 
 # Function to validate all models in the models directory

@@ -25,9 +25,13 @@ def validate_schemas_from_directory(directory, meta_schema):
                 validate_schema(schema, meta_schema)
 
 
-if __name__ == '__main__':
+def test_validate_schema():
     # Validate object schemas
     validate_schemas_from_directory(object_schemas_dir, object_meta_schema)
 
     # Validate process schemas
     validate_schemas_from_directory(process_schemas_dir, process_meta_schema)
+
+
+if __name__ == '__main__':
+    test_validate_schema()

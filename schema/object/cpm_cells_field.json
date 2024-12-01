@@ -1,0 +1,37 @@
+{
+    "type": "CPMCellsField",
+    "inherits_from": ["CellsField"],
+    "boundary_conditions": {},
+    "contained_object_types": ["Cell"],
+    "attributes": {
+        "bounds": {
+            "x": "float",
+            "y": "float",
+            "z": "float"
+        },
+        "grid_size": {
+            "x": "float",
+            "y": "float",
+            "z": "float"
+        },
+        "cell species": {
+            "type": "list[string]",
+            "default": "[x]",
+            "description": "List of the cell species."
+        },
+        "cells": {
+            "type": "list[Cell]",
+            "default": "[]",
+            "description": "List of cells."
+        },
+        "temperature": {
+            "type": "float",
+            "default": 37.0,
+            "description": "Temperature of the Cellular Potts model environment."
+        },
+        "adhesion_matrix": {
+            "type": "list[list[float]]",
+            "description": "Matrix defining adhesion energies between different cell types."
+        }
+    }
+}

@@ -2,10 +2,15 @@ import os
 import json
 from jsonschema import validate, ValidationError
 
-object_schemas_dir = 'schemas/objects'
-process_schemas_dir = 'schemas/processes'
-objects_meta_schema_path = 'schemas/metaschema/object_schema.json'
-processes_meta_schema_path = 'schemas/metaschema/process_schema.json'
+# Get the base directory of the current script
+base_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(base_dir)
+
+# Define paths relative to the project root
+object_schemas_dir = os.path.join(project_root, 'schema/object')
+process_schemas_dir = os.path.join(project_root, 'schema/process')
+objects_meta_schema_path = os.path.join(project_root, 'schema/metaschema/object_schema.json')
+processes_meta_schema_path = os.path.join(project_root, 'schema/metaschema/process_schema.json')
 
 # Load meta-schemas from JSON files
 with open(objects_meta_schema_path, 'r') as file:
@@ -28,17 +33,20 @@ class SchemaRegistry:
         # save process-object participation
         self.process_participation = {}
 
-        # to save type inheritance
-        # self.type_inheritance = {}
+        # save type inheritance
+        self.object_inheritance = {}
+        self.process_inheritance = {}
 
     def validate_schema(self, schema, meta_schema):
         validate(instance=schema, schema=meta_schema)
 
     def register_object(self, schema_name, schema):
+        if schema_name in self.objects:
+            raise ValueError(f"Object schema '{schema_name}' is already registered.")
         try:
             self.validate_schema(schema, self.object_meta_schema)
             self.objects[schema_name] = schema
-            print(f"Object schema '{schema_name}' registered successfully.")
+            # print(f"Object schema '{schema_name}' registered successfully.")
 
             contained_object_types = schema.get('contained_object_types')
             if contained_object_types:
@@ -47,14 +55,20 @@ class SchemaRegistry:
                 for obj_type in contained_object_types:
                     self.allowed_containments[schema_name].append(obj_type)
 
+            # Register inheritance
+            inherits_from = schema.get('inherits_from', [])
+            self.object_inheritance[schema_name] = inherits_from
+
         except ValidationError as e:
             print(f"Failed to register object schema '{schema_name}': {e.message}")
 
     def register_process(self, schema_name, schema):
+        if schema_name in self.processes:
+            raise ValueError(f"Process schema '{schema_name}' is already registered.")
         try:
             self.validate_schema(schema, self.process_meta_schema)
             self.processes[schema_name] = schema
-            print(f"Process schema '{schema_name}' registered successfully.")
+            # print(f"Process schema '{schema_name}' registered successfully.")
 
             participating_objects = schema.get('participating_objects')
             if participating_objects:
@@ -62,6 +76,10 @@ class SchemaRegistry:
                     self.process_participation[schema_name] = []
                 for obj_type in participating_objects:
                     self.process_participation[schema_name].append(obj_type)
+
+            # Register inheritance
+            inherits_from = schema.get('inherits_from', [])
+            self.process_inheritance[schema_name] = inherits_from
 
         except ValidationError as e:
             print(f"Failed to register process schema '{schema_name}': {e.message}")
@@ -84,7 +102,7 @@ def register_schemas_from_directory(directory, register_function):
 
 
 if __name__ == '__main__':
-    from schemas import schema_registry
+    from schema import schema_registry
 
     print("Object schemas:")
     print(schema_registry.objects)
@@ -94,3 +112,7 @@ if __name__ == '__main__':
     print(schema_registry.allowed_containments)
     print("Process participation:")
     print(schema_registry.process_participation)
+    print("Object inheritance:")
+    print(schema_registry.object_inheritance)
+    print("Process inheritance:")
+    print(schema_registry.process_inheritance)
