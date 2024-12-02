@@ -22,7 +22,7 @@ def create_graph_from_model(model_path):
         label = f"{proc_name}:{proc_data['type']}"
         dot.node(proc_name, label, shape='rectangle')
         for obj in proc_data['participating_objects']:
-            dot.edge(proc_name, obj, style='dashed')
+            dot.edge(obj, proc_name, style='dashed', dir='back')
 
     # Add containment relations with thicker edges and no arrowhead
     for parent, children in model['structure'].items():

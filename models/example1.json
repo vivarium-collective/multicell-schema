@@ -55,7 +55,7 @@
                 "growth_rate": 0.1
             },
             "participating_objects": [
-                "cells_001"
+                "cell_001"
             ],
             "dynamics": {
                 "type": "growth",
@@ -64,6 +64,20 @@
             }
         },
         "proc_002": {
+            "type": "CellGrowth",
+            "attributes": {
+                "growth_rate": 0.1
+            },
+            "participating_objects": [
+                "cell_002"
+            ],
+            "dynamics": {
+                "type": "growth",
+                "Kcat": 0.02,
+                "KM": 0.05
+            }
+        },
+        "proc_003": {
             "type": "FieldProcess",
             "attributes": {},
             "participating_objects": [
