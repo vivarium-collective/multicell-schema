@@ -3,32 +3,31 @@ import json
 from graphviz import Digraph
 from registry import project_root
 
-
 def create_graph_from_model(model_path):
-
     # add to project_root
     model_path = os.path.join(project_root, model_path)
-
 
     with open(model_path, 'r') as file:
         model = json.load(file)
 
     dot = Digraph(comment='Model Graph')
 
-    # Add objects as circles
+    # Add objects as circles with labels including their types
     for obj_name, obj_data in model['objects'].items():
-        dot.node(obj_name, obj_name, shape='circle')
+        label = f"{obj_name}:{obj_data['type']}"
+        dot.node(obj_name, label, shape='circle')
 
-    # Add processes as rectangles and connect to participating objects
+    # Add processes as rectangles and connect to participating objects with dashed edges
     for proc_name, proc_data in model['processes'].items():
-        dot.node(proc_name, proc_name, shape='rectangle')
+        label = f"{proc_name}:{proc_data['type']}"
+        dot.node(proc_name, label, shape='rectangle')
         for obj in proc_data['participating_objects']:
-            dot.edge(proc_name, obj)
+            dot.edge(proc_name, obj, style='dashed')
 
-    # Add containment relations
+    # Add containment relations with thicker edges and no arrowhead
     for parent, children in model['structure'].items():
         for child in children:
-            dot.edge(parent, child)
+            dot.edge(parent, child, style='bold', arrowhead='none')
 
     return dot
 

@@ -33,11 +33,18 @@
                 ]
             }
         },
-        "single_cell_001": {
+        "cell_001": {
             "type": "Cell",
             "attributes": {
                 "mass": 50,
                 "volume": 100
+            }
+        },
+        "cell_002": {
+            "type": "Cell",
+            "attributes": {
+                "mass": 10,
+                "volume": 20
             }
         }
     },
@@ -70,7 +77,8 @@
     },
     "structure": {
         "cells_001": [
-            "single_cell_001"
+            "cell_001",
+            "cell_002"
         ]
     }
 }
