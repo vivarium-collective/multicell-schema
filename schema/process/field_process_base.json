@@ -1,5 +1,5 @@
 {
-    "type": "Field Process",
+    "type": "FieldProcess",
     "attributes": {},
     "participating_objects": [
         "Field"

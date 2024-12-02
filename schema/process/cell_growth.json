@@ -1,5 +1,5 @@
 {
-    "type": "Cell Growth Process",
+    "type": "CellGrowth",
     "inherits_from": "Cell Process",
     "attributes": {
       "growth_rate": {

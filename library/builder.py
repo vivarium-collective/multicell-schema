@@ -3,6 +3,7 @@ import json
 from jsonschema import validate, ValidationError
 from library.validate_schemas import validate_schema, object_meta_schema, process_meta_schema
 from schema import schema_registry
+from library.registry import project_root
 
 
 class SchemaCreator:
@@ -30,7 +31,7 @@ class SchemaCreator:
             raise ValueError("Unsupported schema type")
 
     def save(self, filename, directory="schema", overwrite=False):
-        directory = os.path.join(directory, self.schema_type) # objects or processes
+        directory = os.path.join(project_root, directory, self.schema_type) # objects or processes
         try:
             self.validate()
         except ValidationError as e:

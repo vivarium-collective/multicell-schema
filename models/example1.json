@@ -2,8 +2,7 @@
     "id": "model_002",
     "name": "Nested Example Model",
     "objects": {
-        "MainField": {
-            "id": "field_001",
+        "field_001": {
             "type": "Field",
             "attributes": {
                 "bounds": {
@@ -13,16 +12,29 @@
                 }
             }
         },
-        "SubField": {
-            "id": "field_002",
-            "type": "Field",
+        "cells_001": {
+            "type": "CellsField",
             "attributes": {
-                "data": [4, 5, 6]
+                "bounds": {
+                    "x": 10,
+                    "y": 10,
+                    "z": 10
+                },
+                "grid_size": {
+                    "x": 10,
+                    "y": 10,
+                    "z": 10
+                },
+                "cell_species": ["single_cell"],
+                "temperature": 37.0,
+                "adhesion_matrix": [
+                    [0.1, 0.2],
+                    [0.2, 0.1]
+                ]
             }
         },
-        "CellsField": {
-            "id": "cells_001",
-            "type": "CellsField",
+        "single_cell_001": {
+            "type": "Cell",
             "attributes": {
                 "mass": 50,
                 "volume": 100
@@ -30,14 +42,13 @@
         }
     },
     "processes": {
-        "CellGrowthProcess": {
-            "id": "proc_001",
-            "type": "Cell Process",
+        "proc_001": {
+            "type": "CellGrowth",
             "attributes": {
                 "growth_rate": 0.1
             },
             "participating_objects": [
-                "CellsField"
+                "cells_001"
             ],
             "dynamics": {
                 "type": "growth",
@@ -45,26 +56,21 @@
                 "KM": 0.05
             }
         },
-        "FieldInteractionProcess": {
-            "id": "proc_002",
-            "type": "Field Process",
+        "proc_002": {
+            "type": "FieldProcess",
             "attributes": {},
             "participating_objects": [
-                "MainField",
-                "SubField"
+                "field_001",
+                "cells_001"
             ],
             "dynamics": {
-                "type": "interaction",
                 "interaction_rate": 0.01
             }
         }
     },
     "structure": {
-        "Environment": {
-            "MainField": {
-                "SubField": {},
-                "CellsField": {}
-            }
-        }
+        "cells_001": [
+            "single_cell_001"
+        ]
     }
 }

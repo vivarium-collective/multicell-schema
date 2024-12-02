@@ -5,14 +5,25 @@ from library.validate_schemas import validate_schema, object_meta_schema, proces
 from schema import schema_registry
 
 
-def validate_containment(structure):
-    for struct, substruct in structure.items():
-        # assert struct, substruct relation is valid in schema_registry.allowed_containments
-        if struct in schema_registry.allowed_containments:
-            pass
+def validate_containment(model):
+    structure = model['structure']
+    for parent, children in structure.items():
+        parent_type = model['objects'][parent]['type']
 
-        else:
-            print(f"Invalid containment: {struct} not found")
+        assert parent_type in schema_registry.object_inheritance, f"Object '{parent}' does not have inheritance information"
+
+
+        if parent_type not in schema_registry.allowed_containments:
+            print(f"Invalid containment: {parent_type} not found in allowed containments")
+            continue
+
+        allowed_children = schema_registry.allowed_containments[parent_type]
+        for child in children:
+            child_type = model['objects'][child]['type']
+            if child_type not in allowed_children:
+                # Check inheritance
+                if not any(base_type in allowed_children for base_type in schema_registry.object_inheritance.get(child_type, [])):
+                    print(f"Invalid containment: {child_type} is not allowed within {parent_type}")
 
 
 # Function to validate a single model
@@ -43,7 +54,7 @@ def validate_model(model_path):
                 print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
 
         # TODO: Validate containment rules
-        validate_containment(model['structure'])
+        validate_containment(model)
 
 
 # Function to validate all models in the models directory
