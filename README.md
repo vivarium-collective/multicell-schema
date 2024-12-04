@@ -20,9 +20,11 @@ This project contains models and schemas for validating and building JSON schema
     - `process_schema.json`: Meta-schema for process validation.
 
 - `library/`: Contains Python scripts for schema validation and building.
-  - `builder.py`: Script for building schemas using a Python API.
-  - `validate_schemas.py`: Script for validating schemas.
+   - `validate_schemas.py`: Script for validating schemas.
+  - `validate_models.py`: Script for validating models.
   - `registry.py`: Script for managing schema directories and meta-schemas.
+  - `builder.py`: Script for building schemas using a Python API.
+  - `graph.py`: Script for generating a graph figure of object and process dependencies in a multicell model.
 
 - `basic_schema.json`: Defines basic types, including arrays and units.
 

@@ -2,7 +2,8 @@
     "type": "FieldProcess",
     "attributes": {},
     "participating_objects": [
-        "Field"
+        "Field",
+        "CellsField"
     ],
     "dynamics": {}
 }
