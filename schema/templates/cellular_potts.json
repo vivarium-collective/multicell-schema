@@ -1,0 +1,28 @@
+{
+  "id": "template_001",
+  "name": "Cellular Potts Model",
+  "objects": {
+    "cell_field": "CPMCellField",
+    "cells": "CellPopulation",
+    "field": "Field"
+  },
+  "processes": {
+    "contact_force": {
+      "type": "ContactForce",
+      "attributes": {
+        "contact_energy_matrix": "array[array[float]]"
+      },
+      "condition": {
+        "cell_field": {
+          "minimum distance": "float"
+        }
+      },
+      "participating_objects": [
+        "cell_field"
+      ]
+    }
+  },
+  "structure": {
+    "cell_field": ["cells"]
+  }
+}

@@ -1,5 +1,5 @@
 {
-    "type": "CPMCellsField",
+    "type": "CPMCellField",
     "inherits_from": ["CellField"],
     "boundary_conditions": {},
     "contained_object_types": ["Cell"],
