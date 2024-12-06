@@ -4,7 +4,8 @@
         "type": {"type": "string"},
         "attributes": {"type": "object"},
         "participating_objects": {"type": "array"},
-        "dynamics": {"type": "object"}
+        "dynamics": {"type": "object"},
+        "conditions": {"type": "array"}
     },
     "required": ["type", "attributes", "participating_objects", "dynamics"]
 }

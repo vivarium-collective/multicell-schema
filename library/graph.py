@@ -35,3 +35,6 @@ def create_graph_from_model(model_path):
 if __name__ == "__main__":
     graph = create_graph_from_model('models/example1.json')
     graph.render('../output/model_graph', format='png')
+
+    graph = create_graph_from_model('models/cell_sorting.json')
+    graph.render('../output/cell_sorting', format='png')

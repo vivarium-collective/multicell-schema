@@ -3,7 +3,7 @@
     "attributes": {},
     "participating_objects": [
         "Field",
-        "CellsField"
+        "CellField"
     ],
     "dynamics": {}
 }

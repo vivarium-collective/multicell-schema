@@ -13,7 +13,7 @@
             }
         },
         "cells_001": {
-            "type": "CellsField",
+            "type": "CPMCellField",
             "attributes": {
                 "bounds": {
                     "x": 10,
@@ -66,7 +66,7 @@
         "proc_002": {
             "type": "CellGrowth",
             "attributes": {
-                "growth_rate": 0.1
+                "growth_rate": 0.2
             },
             "participating_objects": [
                 "cell_002"

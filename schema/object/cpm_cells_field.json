@@ -1,6 +1,6 @@
 {
     "type": "CPMCellsField",
-    "inherits_from": ["CellsField"],
+    "inherits_from": ["CellField"],
     "boundary_conditions": {},
     "contained_object_types": ["Cell"],
     "attributes": {

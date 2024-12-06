@@ -1,0 +1,55 @@
+{
+  "id": "model_002",
+  "name": "Cell Sorting Model",
+  "objects": {
+    "cell_field": {
+      "type": "CellField",
+      "attributes": {
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "z": 10
+        },
+        "grid_size": {
+          "x": 10,
+          "y": 10,
+          "z": 10
+        },
+        "cell_species": ["cells1", "cells2"],
+        "minimum distance": 10
+      }
+    },
+    "cell1": {
+      "type": "CellPopulation",
+      "attributes": {
+        "mass": 50,
+        "volume": 100,
+        "location": [5, 5, 5]
+      }
+    },
+    "cell2": {
+      "type": "Cell",
+      "attributes": {
+        "mass": 10,
+        "volume": 20
+      }
+    }
+  },
+  "processes": {
+    "contact_force": {
+        "type": "ContactForce",
+        "attributes": {
+            "contact_energy_matrix": [[0.1, 0.2],[0.2, 0.1]]
+        },
+        "condition": {
+          "cell_field": {"minimum distance": 1}
+        },
+        "participating_objects": [
+            "cell_field"
+        ]
+    }
+  },
+  "structure": {
+    "cell_field": ["cell1", "cell2"]
+  }
+}

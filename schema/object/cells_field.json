@@ -1,12 +1,12 @@
 {
-    "type": "CellsField",
+    "type": "CellField",
     "boundary_conditions": {},
     "contained_object_types": ["Cell"],
     "attributes": {
         "bounds": {
-            "x": "float",
-            "y": "float",
-            "z": "float"
+            "x": "um",
+            "y": "um",
+            "z": "um"
         },
         "grid_size": {
             "x": "float",
@@ -23,5 +23,6 @@
             "default": "[]",
             "description": "List of cells."
         }
-    }
+    },
+    "required": ["bounds", "grid_size"]
 }

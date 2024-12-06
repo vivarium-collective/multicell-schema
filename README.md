@@ -20,7 +20,7 @@ This project contains models and schemas for validating and building JSON schema
     - `process_schema.json`: Meta-schema for process validation.
 
 - `library/`: Contains Python scripts for schema validation and building.
-   - `validate_schemas.py`: Script for validating schemas.
+  - `validate_schemas.py`: Script for validating schemas.
   - `validate_models.py`: Script for validating models.
   - `registry.py`: Script for managing schema directories and meta-schemas.
   - `builder.py`: Script for building schemas using a Python API.

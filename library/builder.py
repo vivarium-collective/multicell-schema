@@ -95,6 +95,7 @@ if __name__ == '__main__':
         boundary_conditions={},
         contained_objects=["sub_object"]
     )
+    object_creator.validate()
     object_creator.save("example_object.json", overwrite=True)
 
     # Create a process schema
