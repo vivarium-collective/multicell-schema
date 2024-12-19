@@ -2,27 +2,17 @@
   "id": "template_001",
   "name": "Cellular Potts Model",
   "objects": {
-    "cell_field": "CPMCellField",
-    "cells": "CellPopulation",
-    "field": "Field"
+    "cell_field": {
+      "type": "CPMCellField",
+      "contained_object": "cells"},
+    "cells": {"type": "CellPopulation"},
+    "chemical_field": {"type": "Field"}
   },
   "processes": {
     "contact_force": {
       "type": "ContactForce",
-      "attributes": {
-        "contact_energy_matrix": "array[array[float]]"
-      },
-      "condition": {
-        "cell_field": {
-          "minimum distance": "float"
-        }
-      },
-      "participating_objects": [
-        "cell_field"
-      ]
+      "condition": {"object": "cell_field"},
+      "participating_objects": ["cell_field"]
     }
-  },
-  "structure": {
-    "cell_field": ["cells"]
   }
 }

@@ -28,33 +28,38 @@ def validate_containment(model):
 
 # Function to validate a single model
 def validate_model(model_path):
-    with open(model_path, 'r') as model_file:
-        model = json.load(model_file)
-        print(f"Validating model: {model['id']}")
+    try:
+        with open(model_path, 'r') as model_file:
+            model = json.load(model_file)
+            print(f"Validating model: {model['id']}")
 
-        # Validate objects
-        for obj_name, obj_schema in model['objects'].items():
-            try:
-                validate_schema(obj_schema, object_meta_schema, verbose=False)
-                print(f"Object '{obj_name}' in model '{model['id']}' is valid.")
-            except ValidationError:
-                print(f"Object '{obj_name}' in model '{model['id']}' is invalid.")
+            # Validate objects
+            for obj_name, obj_schema in model['objects'].items():
+                try:
+                    validate_schema(obj_schema, object_meta_schema, verbose=False)
+                    print(f"Object '{obj_name}' in model '{model['id']}' is valid.")
+                except ValidationError:
+                    print(f"Object '{obj_name}' in model '{model['id']}' is invalid.")
 
-        # Validate processes
-        for proc_name, proc_schema in model['processes'].items():
-            try:
-                validate_schema(proc_schema, process_meta_schema, verbose=False)
-                print(f"Process '{proc_name}' in model '{model['id']}' is valid.")
+            # Validate processes
+            for proc_name, proc_schema in model['processes'].items():
+                try:
+                    validate_schema(proc_schema, process_meta_schema, verbose=False)
+                    print(f"Process '{proc_name}' in model '{model['id']}' is valid.")
 
-                # TODO: check processes participating objects' types
-                # for obj_name in proc_schema['participating_objects']:
-                #     pass
+                    # TODO: check processes participating objects' types
+                    # for obj_name in proc_schema['participating_objects']:
+                    #     pass
 
-            except ValidationError:
-                print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
+                except ValidationError:
+                    print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
 
-        # TODO: Validate containment rules
-        validate_containment(model)
+            # TODO: Validate containment rules
+            validate_containment(model)
+    except AssertionError as e:
+        print(f"AssertionError in model '{model_path}': {e}")
+    except Exception as e:
+        print(f"An error occurred while validating model '{model_path}': {str(e)}")
 
 
 # Function to validate all models in the models directory

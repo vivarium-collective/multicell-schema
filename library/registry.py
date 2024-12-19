@@ -1,5 +1,6 @@
 import os
 import json
+from json.decoder import JSONDecodeError
 from jsonschema import validate, ValidationError
 
 # Get the base directory of the current script
@@ -94,11 +95,15 @@ class SchemaRegistry:
 def register_schemas_from_directory(directory, register_function):
     for filename in os.listdir(directory):
         if filename.endswith('.json'):
-            schema_path = os.path.join(directory, filename)
-            with open(schema_path, 'r') as schema_file:
-                schema = json.load(schema_file)
-                schema_name = os.path.splitext(filename)[0]
-                register_function(schema_name, schema)
+            file_path = os.path.join(directory, filename)
+            try:
+                with open(file_path, 'r') as schema_file:
+                    schema = json.load(schema_file)
+                register_function(schema)
+            except JSONDecodeError as e:
+                print(f"Failed to decode JSON in file {file_path}: {e.msg} at line {e.lineno} column {e.colno}")
+            except Exception as e:
+                print(f"An error occurred while processing file {file_path}: {str(e)}")
 
 
 if __name__ == '__main__':

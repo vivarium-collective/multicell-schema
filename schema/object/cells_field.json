@@ -4,22 +4,22 @@
     "contained_object_types": ["Cell"],
     "attributes": {
         "bounds": {
-            "x": "um",
-            "y": "um",
-            "z": "um"
+            "x": {"type": "um"},
+            "y": {"type": "um"},
+            "z": {"type": "um"}
         },
         "grid_size": {
-            "x": "float",
-            "y": "float",
-            "z": "float"
+            "x": {"type": "float"},
+            "y": {"type": "float"},
+            "z": {"type": "float"}
         },
         "cell species": {
-            "type": "list[string]",
+            "type": "array",
             "default": "[x]",
             "description": "List of the cell species."
         },
         "cells": {
-            "type": "list[Cell]",
+            "type": "array",
             "default": "[]",
             "description": "List of cells."
         }

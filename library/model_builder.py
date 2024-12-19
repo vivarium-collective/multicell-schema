@@ -3,7 +3,7 @@ import json
 from library.graph import create_graph_from_model
 
 
-class ModelCreator:
+class ModelBuilder:
     def __init__(self, model_name):
         self.model = {
             "id": model_name,
@@ -48,7 +48,7 @@ class ModelCreator:
 
 # Example usage
 if __name__ == '__main__':
-    model_creator = ModelCreator("creator_example1")
+    model_creator = ModelBuilder("creator_example1")
 
     # Add objects
     model_creator.add_object("cell_field", "CPMCellField", attributes={"bounds": {"x": 100, "y": 100, "z": 100}})

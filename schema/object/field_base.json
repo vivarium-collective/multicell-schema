@@ -4,7 +4,7 @@
     "contained_object_types": [],
     "attributes": {
         "molecular species": {
-            "type": "list[string]",
+            "type": "array",
             "default": ["x"],
             "description": "List of the molecular species."
         },

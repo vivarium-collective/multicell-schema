@@ -4,14 +4,12 @@
     "contained_object_types": [],
     "attributes": {
         "mass": {
-            "type": "float",
-            "unit": "pg",
+            "type": "pg",
             "default": 1,
             "description": "The mass of the cell."
         },
         "volume": {
-            "type": "float",
-            "unit": "um^3",
+            "type": "um^3",
             "default": 1,
             "description": "The volume of the cell."
         }
