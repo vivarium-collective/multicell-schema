@@ -4,7 +4,8 @@
   "objects": {
     "cell_field": {
       "type": "CPMCellField",
-      "contained_object": "cells"},
+      "contained_objects": ["cells"]
+    },
     "cells": {"type": "CellPopulation"},
     "chemical_field": {"type": "Field"}
   },
