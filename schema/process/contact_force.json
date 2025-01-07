@@ -1,0 +1,14 @@
+{
+    "type": "ContactForce",
+    "attributes": {
+        "contact_energy_matrix": "array[array[float]]"
+    },
+    "participating_objects": [
+        "CellField"
+    ],
+    "condition": {
+        "object": "CellField",
+        "attribute": "contact_energy_matrix"
+    },
+    "dynamics": {}
+}

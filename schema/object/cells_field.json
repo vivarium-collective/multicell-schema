@@ -4,14 +4,21 @@
     "contained_object_types": ["Cell"],
     "attributes": {
         "bounds": {
-            "x": "um",
-            "y": "um",
-            "z": "um"
+            "x": {"type": "um"},
+            "y": {"type": "um"},
+            "z": {"type": "um"},
+            "required": ["x", "y"]
         },
         "grid_size": {
-            "x": "float",
-            "y": "float",
-            "z": "float"
+            "x": {"type": "float"},
+            "y": {"type": "float"},
+            "z": {"type": "float"},
+            "required": ["x", "y"]
+        },
+        "medium": {
+            "type": "string",
+            "default": "fluid",
+            "description": "what type of object fills an empty space"
         },
         "cell species": {
             "type": "list[string]",

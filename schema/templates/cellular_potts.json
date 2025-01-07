@@ -4,18 +4,13 @@
   "objects": {
     "cell_field": "CPMCellField",
     "cells": "CellPopulation",
-    "field": "Field"
+    "chemical_field": "Field"
   },
   "processes": {
     "contact_force": {
       "type": "ContactForce",
-      "attributes": {
-        "contact_energy_matrix": "array[array[float]]"
-      },
       "condition": {
-        "cell_field": {
-          "minimum distance": "float"
-        }
+        "object": "cell_field"
       },
       "participating_objects": [
         "cell_field"

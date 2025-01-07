@@ -4,16 +4,20 @@
     "contained_object_types": [],
     "attributes": {
         "mass": {
-            "type": "float",
-            "unit": "pg",
+            "type": "pg",
             "default": 1,
             "description": "The mass of the cell."
         },
         "volume": {
-            "type": "float",
-            "unit": "um^3",
+            "type": "um^3",
             "default": 1,
             "description": "The volume of the cell."
-        }
+        },
+        "locus": {
+            "type": "list -- could be center, surface region, volume region, extent (min, max), etc.",
+            "center": ["um", "um", "um"],
+            "description": "Locus is a complex attribute containing Center (coordinates), SurfaceRegion (Region), VolumeRegion (Region), Volume (scalar), surfaceArea (scalar)"
+        },
+        "required": ["mass", "volume"]
     }
 }

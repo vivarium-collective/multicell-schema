@@ -1,5 +1,5 @@
 {
-    "type": "Cell Process",
+    "type": "CellProcess",
     "attributes": {},
     "participating_objects": [
         "Cell"

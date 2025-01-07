@@ -5,7 +5,7 @@
       "growth_rate": {
         "type": "float",
         "unit": "1/h",
-        "default": 0.02
+        "default": 0.0
       }
     },
     "participating_objects": [

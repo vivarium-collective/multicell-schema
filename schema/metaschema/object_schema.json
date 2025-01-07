@@ -4,7 +4,8 @@
         "type": {"type": "string"},
         "boundary_conditions": {"type": "object"},
         "contained_object_types": {"type": "array"},
-        "attributes": {"type": "object"}
+        "attributes": {"type": "object"},
+        "inherits_from": {"type": "list"}
     },
     "required": ["type", "boundary_conditions", "contained_object_types", "attributes"]
 }

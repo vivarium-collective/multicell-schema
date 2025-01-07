@@ -1,0 +1,40 @@
+{
+  "id": "template_002",
+  "name": "Cell Sorting Model",
+  "objects": {
+      "dark": "Cell",
+      "light": "Cell",
+      "environment": "CellField",
+      "medium": "Field"
+  },
+  "processes": {
+    "volume exclusion": {
+      "type": "VolumeExclusion",
+      "participating_objects": [
+        "dark",
+        "light",
+        "medium"
+      ]
+    },
+    "contact force": {
+      "type": "ContactForce",
+      "participating_objects": [
+        "environment"
+      ]
+    },
+    "fluctuation": {
+      "type": "MotileForce",
+      "participating_objects": [
+          "dark",
+          "light"
+      ]
+    }
+  },
+  "structure": {
+      "environment": [
+        "dark",
+        "light",
+        "medium"
+      ]
+  }
+}
