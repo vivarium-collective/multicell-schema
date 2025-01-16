@@ -1,0 +1,21 @@
+{
+  "type": "Material",
+  "attributes": {
+    "mass": {
+      "type": "pg",
+      "default": 1,
+      "description": "The mass of the material."
+    },
+    "volume": {
+      "type": "um^3",
+      "default": 1,
+      "description": "The volume of the material."
+    },
+    "region": {
+      "type": "list -- could be center, surface region, volume region, extent (min, max), etc.",
+      "center": ["um", "um", "um"],
+      "description": "Region is a complex attribute containing Center (coordinates), SurfaceRegion (Region), VolumeRegion (Region), Volume (scalar), surfaceArea (scalar)"
+    },
+    "required": ["mass", "volume"]
+  }
+}

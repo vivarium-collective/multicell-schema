@@ -1,23 +1,7 @@
 {
     "type": "Cell",
+    "inherits_from": ["Material"],
     "boundary_conditions": {},
     "contained_object_types": [],
-    "attributes": {
-        "mass": {
-            "type": "pg",
-            "default": 1,
-            "description": "The mass of the cell."
-        },
-        "volume": {
-            "type": "um^3",
-            "default": 1,
-            "description": "The volume of the cell."
-        },
-        "locus": {
-            "type": "list -- could be center, surface region, volume region, extent (min, max), etc.",
-            "center": ["um", "um", "um"],
-            "description": "Locus is a complex attribute containing Center (coordinates), SurfaceRegion (Region), VolumeRegion (Region), Volume (scalar), surfaceArea (scalar)"
-        },
-        "required": ["mass", "volume"]
-    }
+    "attributes": {}
 }

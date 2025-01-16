@@ -5,7 +5,8 @@
       "dark": "Cell",
       "light": "Cell",
       "environment": "CellField",
-      "medium": "Field"
+      "external_medium": "Field",
+      "cytoplasmic_medium": "Field"
   },
   "processes": {
     "volume exclusion": {
@@ -13,7 +14,7 @@
       "participating_objects": [
         "dark",
         "light",
-        "medium"
+        "external_medium"
       ]
     },
     "contact force": {
@@ -28,12 +29,24 @@
           "dark",
           "light"
       ]
+    },
+    "endocytosis": {
+      "type": "Endocytosis",
+      "participating_objects": [
+          "external_medium",
+          "cytoplasmic_medium",
+        ["dark", "medium"],
+        ["light", "medium"]
+      ]
     }
   },
   "structure": {
       "environment": [
         "dark",
         "light",
+        "external_medium"
+      ],
+      "dark": [
         "medium"
       ]
   }

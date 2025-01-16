@@ -1,3 +1,8 @@
 {
-  "type": "VolumeExclusion"
+  "type": "VolumeExclusion",
+  "attributes": {},
+  "participating_objects": ["Cell", "ECM"],
+  "dynamics": {},
+  "conditions": {},
+  "inherits_from": {}
 }
