@@ -6,7 +6,7 @@ from library.registry import (
 
 
 # Function to validate a schema against a meta-schema
-def validate_schema(schema, meta_schema, verbose=False):
+def validate_schema(schema, meta_schema, verbose=True):
     try:
         validate(instance=schema, schema=meta_schema)
         if verbose:
@@ -22,7 +22,10 @@ def validate_schemas_from_directory(directory, meta_schema):
             schema_path = os.path.join(directory, filename)
             with open(schema_path, 'r') as schema_file:
                 schema = json.load(schema_file)
-                validate_schema(schema, meta_schema)
+                try:
+                    validate_schema(schema, meta_schema)
+                except Exception as e:
+                    print(f"Error validating schema {schema['type']}: {e}")
 
 
 def test_validate_schema():

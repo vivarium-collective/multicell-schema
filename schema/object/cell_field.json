@@ -21,13 +21,19 @@
             "description": "what type of object fills an empty space"
         },
         "cell species": {
-            "type": "list[string]",
-            "default": "[x]",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "default": ["none"],
             "description": "List of the cell species."
         },
         "cells": {
-            "type": "list[Cell]",
-            "default": "[]",
+            "type": "array",
+            "items": {
+                "$ref": "schemas/cell_schema.json"
+            },
+            "default": [],
             "description": "List of cells."
         }
     },
