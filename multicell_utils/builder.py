@@ -1,7 +1,7 @@
 import os
 import json
 from jsonschema import validate, ValidationError
-from multicell_utils.validate_schemas import validate_schema, object_meta_schema, process_meta_schema
+from multicell_utils.validate import validate_schema, object_meta_schema, process_meta_schema
 from schema import schema_registry
 from multicell_utils.registry import project_root
 from multicell_utils.graph import create_graph_from_model

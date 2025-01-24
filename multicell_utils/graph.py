@@ -3,6 +3,7 @@ import json
 from graphviz import Digraph
 from registry import project_root
 
+
 def create_graph_from_model(model_path):
     # add to project_root
     model_path = os.path.join(project_root, model_path)

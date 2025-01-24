@@ -1,9 +1,8 @@
 import os
 import json
 from jsonschema import validate, ValidationError
-from multicell_utils.validate_schemas import validate_schema, object_meta_schema, process_meta_schema
 from schema import schema_registry
-from multicell_utils.registry import object_schemas_dir, process_schemas_dir
+from multicell_utils.registry import object_schemas_dir, process_schemas_dir, object_meta_schema, process_meta_schema
 
 
 def validate_containment(model):
