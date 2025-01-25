@@ -1,3 +1,7 @@
 {
   "type": "Universe",
+  "inherits_from": [],
+  "boundary_conditions": {},
+  "contained_object_types": [],
+  "attributes": {}
 }

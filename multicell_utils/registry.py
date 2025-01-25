@@ -45,22 +45,23 @@ class SchemaRegistry:
             raise ValueError(f"Object schema '{schema_name}' is already registered.")
         try:
             self.validate_schema(schema, self.object_meta_schema)
-            self.objects[schema_name] = schema
-            # print(f"Object schema '{schema_name}' registered successfully.")
-
-            contained_object_types = schema.get('contained_object_types')
-            if contained_object_types:
-                if schema_name not in self.allowed_containments:
-                    self.allowed_containments[schema_name] = []
-                for obj_type in contained_object_types:
-                    self.allowed_containments[schema_name].append(obj_type)
-
-            # Register inheritance
-            inherits_from = schema.get('inherits_from', [])
-            self.object_inheritance[schema_name] = inherits_from
-
         except ValidationError as e:
-            print(f"Failed to register object schema '{schema_name}': {e.message}")
+            print(f"Failed to register object schema '{schema_name} with metaschema {self.object_meta_schema}': {e.message}")
+
+        self.objects[schema_name] = schema
+        # print(f"Object schema '{schema_name}' registered successfully.")
+
+        contained_object_types = schema.get('contained_object_types')
+        if contained_object_types:
+            if schema_name not in self.allowed_containments:
+                self.allowed_containments[schema_name] = []
+            for obj_type in contained_object_types:
+                self.allowed_containments[schema_name].append(obj_type)
+
+        # Register inheritance
+        inherits_from = schema.get('inherits_from', [])
+        self.object_inheritance[schema_name] = inherits_from
+
 
     def register_process(self, schema_name, schema):
         if schema_name in self.processes:
@@ -96,9 +97,15 @@ def register_schemas_from_directory(directory, register_function):
         if filename.endswith('.json'):
             schema_path = os.path.join(directory, filename)
             with open(schema_path, 'r') as schema_file:
-                schema = json.load(schema_file)
-                schema_name = os.path.splitext(filename)[0]
-                register_function(schema_name, schema)
+                try:
+                    schema = json.load(schema_file)
+                    schema_name = os.path.splitext(filename)[0]
+                except Exception as e:
+                    print(f"Failed to load schema from file '{filename}': {e}")
+                try:
+                    register_function(schema_name, schema)
+                except Exception as e:
+                    print(f"Failed to register schema '{schema_name}' from file '{filename}': {e}")
 
 
 if __name__ == '__main__':

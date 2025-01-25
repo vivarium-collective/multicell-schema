@@ -1,5 +1,8 @@
 {
   "type": "Material",
+  "inherits_from": [],
+  "boundary_conditions": {},
+  "contained_object_types": [],
   "attributes": {
     "mass": {
       "type": "pg",
