@@ -1,7 +1,9 @@
 import os
 import json
+
 from jsonschema import validate, ValidationError
 from multicell_utils.validate import validate_schema, object_meta_schema, process_meta_schema
+from multicell_utils import pf
 from schema import schema_registry
 from multicell_utils.registry import project_root
 from multicell_utils.graph import create_graph_from_model
@@ -88,16 +90,43 @@ class ProcessCreator(SchemaCreator):
             self.add_property("dynamics", dynamics)
             self.schema["type"] = name
 
+def make_unique_id():
+    models_dir = os.path.join(project_root, 'models')
+    existing_ids = []
+
+    if os.path.exists(models_dir):
+        for filename in os.listdir(models_dir):
+            if filename.endswith('.json'):
+                with open(os.path.join(models_dir, filename), 'r') as file:
+                    model = json.load(file)
+                    existing_ids.append(model['id'])
+
+    max_id = 0
+    for model_id in existing_ids:
+        if model_id.startswith('model_'):
+            try:
+                num = int(model_id.split('_')[1])
+                if num > max_id:
+                    max_id = num
+            except ValueError:
+                continue
+
+    new_id = f"model_{max_id + 1:06d}"
+    return new_id
 
 class ModelBuilder:
-    def __init__(self, model_name):
+    def __init__(self, model_name, id=None):
         self.model = {
-            "id": model_name,
+            "id": id or make_unique_id(),
             "name": model_name,
             "objects": {},
             "processes": {},
             "structure": {}
         }
+
+    def __repr__(self):
+        # Return a string representation of the model dictionary
+        return f"ModelBuilder({pf(self.model)})"
 
     def add_object(self, name, obj_type, attributes={}, boundary_conditions={}, contained_objects=[]):
         self.model["objects"][name] = {
@@ -136,8 +165,6 @@ def test_schema_creator():
     # Create an object schema
     object_creator = ObjectCreator(
         name="example_object",
-        attributes={},
-        boundary_conditions={},
         contained_objects=["sub_object"]
     )
     object_creator.validate()
@@ -148,7 +175,6 @@ def test_schema_creator():
         name="example_process",
         attributes={"id": "string", "rate": "number"},
         participating_objects=["object1", "object2"],
-        dynamics={}
     )
     process_creator.save("example_process.json", overwrite=True)
 
@@ -159,6 +185,9 @@ def test_schema_creator():
     object_creator.add_property("new_property", {"type": "string"})
     object_creator.save("example_object2.json", overwrite=True)
     # print(object_creator.schema)
+
+
+
 
 def test_model_builder():
     model_creator = ModelBuilder("creator_example1")

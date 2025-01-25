@@ -123,6 +123,6 @@ if __name__ == '__main__':
     # # Validate a specific model
     # validate_model('models/example1.json')
 
-    # Validate all models in the 'models' directory
-    print("VALIDATING MODELS")
-    validate_models('models')
+    # # Validate all models in the 'models' directory
+    # print("VALIDATING MODELS")
+    # validate_models('models')

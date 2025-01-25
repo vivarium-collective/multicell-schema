@@ -1,7 +1,7 @@
 import os
 import json
 from graphviz import Digraph
-from registry import project_root
+from multicell_utils.registry import project_root
 
 
 def create_graph_from_model(model_path):
