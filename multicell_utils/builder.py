@@ -2,7 +2,7 @@ import os
 import json
 
 from jsonschema import validate, ValidationError
-from multicell_utils.validate import validate_schema, object_meta_schema, process_meta_schema
+from multicell_utils.validate import validate_schema, object_meta_schema, process_meta_schema, validate_model
 from multicell_utils import pf
 from schema import schema_registry
 from multicell_utils.registry import project_root
@@ -98,7 +98,11 @@ def make_unique_id():
         for filename in os.listdir(models_dir):
             if filename.endswith('.json'):
                 with open(os.path.join(models_dir, filename), 'r') as file:
-                    model = json.load(file)
+                    try:
+                        model = json.load(file)
+                    except json.JSONDecodeError:
+                        print(f"Error loading model from {filename}")
+                        continue
                     existing_ids.append(model['id'])
 
     max_id = 0
@@ -128,7 +132,26 @@ class ModelBuilder:
         # Return a string representation of the model dictionary
         return f"ModelBuilder({pf(self.model)})"
 
-    def add_object(self, name, obj_type, attributes={}, boundary_conditions={}, contained_objects=[]):
+    def verify(self, verbose=True):
+        validate_model(self.model)
+
+    def graph(self):
+        return create_graph_from_model(self.model)
+
+    def add_object(self,
+                   name,
+                   obj_type,
+                   attributes=None,
+                   boundary_conditions=None,
+                   contained_objects=None
+                   ):
+        if contained_objects is None:
+            contained_objects = []
+        if boundary_conditions is None:
+            boundary_conditions = {}
+        if attributes is None:
+            attributes = {}
+
         self.model["objects"][name] = {
             "type": obj_type,
             "attributes": attributes,
@@ -137,23 +160,43 @@ class ModelBuilder:
         if contained_objects:
             self.model["structure"][name] = contained_objects
 
-    def add_process(self, name, proc_type, attributes={}, participating_objects=[]):
+    def add_process(self,
+                    name,
+                    proc_type,
+                    participating_objects=None,
+                    attributes=None
+                    ):
+        if attributes is None:
+            attributes = {}
+        if participating_objects is None:
+            participating_objects = []
+        elif isinstance(participating_objects, str):
+            participating_objects = [participating_objects]
+        assert isinstance(participating_objects, list), "Participating objects must be a list or string"
+
         self.model["processes"][name] = {
             "type": proc_type,
             "attributes": attributes,
             "participating_objects": participating_objects
         }
 
-    def link_containment(self, parent, child):
-        if parent not in self.model["structure"]:
-            self.model["structure"][parent] = []
-        self.model["structure"][parent].append(child)
+    def link_containment(self, parent_name, child_name):
+        if parent_name not in self.model["structure"]:
+            self.model["structure"][parent_name] = []
+        self.model["structure"][parent_name].append(child_name)
 
-    def link_participation(self, process, obj):
-        if process in self.model["processes"]:
-            self.model["processes"][process]["participating_objects"].append(obj)
+    def link_object(self, process_name, object_name):
+        if process_name in self.model["processes"]:
+            self.model["processes"][process_name]["participating_objects"].append(object_name)
 
     def save(self, filename, directory="models"):
+
+        try:
+            self.verify()
+        except ValidationError as e:
+            print(f"Model validation failed: {e.message}")
+            return
+
         if not os.path.exists(directory):
             os.makedirs(directory)
         with open(os.path.join(directory, filename), 'w') as file:
@@ -190,28 +233,17 @@ def test_schema_creator():
 
 
 def test_model_builder():
-    model_creator = ModelBuilder("creator_example1")
-
-    # Add objects
-    model_creator.add_object("cell_field", "CPMCellField", attributes={"bounds": {"x": 100, "y": 100, "z": 100}})
-    model_creator.add_object("cells", "CellPopulation", attributes={"species": ["A", "B"]})
-    model_creator.add_object("field", "Field", attributes={"molecular_species": ["X", "Y"]})
-
-    # Add process
-    model_creator.add_process("contact_force", "ContactForce", attributes={"contact_energy_matrix": [[1, 2], [2, 1]]}, participating_objects=["cell_field"])
-
-    # Link containment
-    model_creator.link_containment("cell_field", "cells")
-
-    # Save model
-    model_creator.save("creator_example1.json")
-
-    # Graph model
-    graph = create_graph_from_model('models/creator_example1.json')
-    graph.render('output/creator_example1', format='png')
+    b = ModelBuilder(model_name='demo')
+    b.add_object(name='universe', obj_type='Universe', contained_objects=['cell field'])
+    b.add_object(name='cell field', obj_type='CellField', contained_objects=['cell'])
+    b.add_object(name='cell', obj_type='Cell')
+    b.add_process(name='growth', proc_type='Growth', participating_objects='cell')
+    b.add_process(name='volume exclusion', proc_type='VolumeExclusion', participating_objects='cell field')
+    b.verify()
+    b.save(filename='builder_test.json')
 
     # TODO: load model from JSON and visualize it
 
 if __name__ == '__main__':
-    test_schema_creator()
+    # test_schema_creator()
     test_model_builder()

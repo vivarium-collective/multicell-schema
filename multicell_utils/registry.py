@@ -48,30 +48,33 @@ class SchemaRegistry:
     def validate_schema(self, schema, meta_schema):
         validate(instance=schema, schema=meta_schema)
 
-    def register_object(self, schema_name, schema):
-        if schema_name in self.objects:
-            raise ValueError(f"Object schema '{schema_name}' is already registered.")
+    def register_object(self, schema):
+        object_type = schema['type']
+
+        if object_type in self.objects:
+            raise ValueError(f"Object schema '{object_type}' is already registered.")
         try:
             self.validate_schema(schema, self.object_meta_schema)
         except ValidationError as e:
-            print(f"Failed to register object schema '{schema_name} with metaschema {self.object_meta_schema}': {e.message}")
+            print(f"Failed to register object schema '{object_type} with metaschema {self.object_meta_schema}': {e.message}")
 
-        self.objects[schema_name] = schema
+        self.objects[object_type] = schema
         # print(f"Object schema '{schema_name}' registered successfully.")
 
         contained_object_types = schema.get('contained_object_types')
         if contained_object_types:
-            if schema_name not in self.allowed_containments:
-                self.allowed_containments[schema_name] = []
+            if object_type not in self.allowed_containments:
+                self.allowed_containments[object_type] = []
             for obj_type in contained_object_types:
-                self.allowed_containments[schema_name].append(obj_type)
+                self.allowed_containments[object_type].append(obj_type)
 
         # Register inheritance
         inherits_from = schema.get('inherits_from', [])
-        self.object_inheritance[schema_name] = inherits_from
+        self.object_inheritance[object_type] = inherits_from
 
 
-    def register_process(self, schema_name, schema):
+    def register_process(self, schema):
+        schema_name = schema['type']
         if schema_name in self.processes:
             raise ValueError(f"Process schema '{schema_name}' is already registered.")
         try:
@@ -93,7 +96,8 @@ class SchemaRegistry:
         except ValidationError as e:
             print(f"Failed to register process schema '{schema_name}': {e.message}")
 
-    def register_template(self, schema_name, schema):
+    def register_template(self, schema):
+        schema_type = schema['type']
         pass
 
     def get_object_schema(self, schema_name):
@@ -114,7 +118,7 @@ def register_schemas_from_directory(directory, register_function):
                 except Exception as e:
                     print(f"Failed to load schema from file '{filename}': {e}")
                 try:
-                    register_function(schema_name, schema)
+                    register_function(schema)
                 except Exception as e:
                     print(f"Failed to register schema '{schema_name}' from file '{filename}': {e}")
 

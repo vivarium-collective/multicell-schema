@@ -4,12 +4,11 @@ from graphviz import Digraph
 from multicell_utils.registry import project_root
 
 
-def create_graph_from_model(model_path):
-    # add to project_root
-    model_path = os.path.join(project_root, model_path)
-
-    with open(model_path, 'r') as file:
-        model = json.load(file)
+def create_graph_from_model(model):
+    if isinstance(model, str):
+        model_path = os.path.join(project_root, model)
+        with open(model_path, 'r') as file:
+            model = json.load(file)
 
     dot = Digraph(comment='Model Graph')
 

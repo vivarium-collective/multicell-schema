@@ -13,7 +13,10 @@ def validate_containment(model):
     for parent, children in structure.items():
         parent_type = model['objects'][parent]['type']
 
-        assert parent_type in schema_registry.object_inheritance, f"Object '{parent}' does not have inheritance information"
+        try:
+            assert parent_type in schema_registry.object_inheritance, f"Object '{parent}' does not have inheritance information"
+        except:
+            breakpoint()
 
         if parent_type not in schema_registry.allowed_containments:
             print(f"Invalid containment: {parent_type} not found in allowed containments")
@@ -29,32 +32,35 @@ def validate_containment(model):
 
 
 # Function to validate a single model
-def validate_model(model_path):
-    with open(model_path, 'r') as model_file:
-        model = json.load(model_file)
-        print(f"Validating model: {model['id']}")
+def validate_model(model):
+    if isinstance(model, str):
+        model_path = model
+        with open(model_path, 'r') as model_file:
+            model = json.load(model_file)
+    assert isinstance(model, dict), "Model must be a dictionary"
+    # print(f"Validating model: {model['id']}")
 
-        # Validate objects
-        for obj_name, obj_schema in model['objects'].items():
-            try:
-                validate_schema(obj_schema, object_meta_schema)
-            except ValidationError as e:
-                print(f"Object '{obj_name}' in model '{model['id']}' is invalid.")
+    # Validate objects
+    for obj_name, obj_schema in model['objects'].items():
+        try:
+            validate_schema(obj_schema, object_meta_schema)
+        except ValidationError as e:
+            print(f"Object '{obj_name}' in model '{model['id']}' is invalid.")
 
-        # Validate processes
-        for proc_name, proc_schema in model['processes'].items():
-            try:
-                validate_schema(proc_schema, process_meta_schema)
+    # Validate processes
+    for proc_name, proc_schema in model['processes'].items():
+        try:
+            validate_schema(proc_schema, process_meta_schema)
 
-                # TODO: check processes participating objects' types
-                # for obj_name in proc_schema['participating_objects']:
-                #     pass
+            # TODO: check processes participating objects' types
+            # for obj_name in proc_schema['participating_objects']:
+            #     pass
 
-            except ValidationError as e:
-                print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
+        except ValidationError as e:
+            print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
 
-        # TODO: Validate containment rules
-        validate_containment(model)
+    # TODO: Validate containment rules
+    validate_containment(model)
 
 
 # Function to validate all models in the models directory
