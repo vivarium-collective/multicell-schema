@@ -1,4 +1,4 @@
-from library.registry import SchemaRegistry, object_schemas_dir, \
+from multicell_utils.registry import SchemaRegistry, object_schemas_dir, \
     process_schemas_dir, register_schemas_from_directory
 
 # Create an instance of SchemaRegistry
