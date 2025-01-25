@@ -37,22 +37,20 @@ def validate_model(model_path):
         # Validate objects
         for obj_name, obj_schema in model['objects'].items():
             try:
-                validate_schema(obj_schema, object_meta_schema, verbose=False)
-                print(f"Object '{obj_name}' in model '{model['id']}' is valid.")
-            except ValidationError:
+                validate_schema(obj_schema, object_meta_schema)
+            except ValidationError as e:
                 print(f"Object '{obj_name}' in model '{model['id']}' is invalid.")
 
         # Validate processes
         for proc_name, proc_schema in model['processes'].items():
             try:
-                validate_schema(proc_schema, process_meta_schema, verbose=False)
-                print(f"Process '{proc_name}' in model '{model['id']}' is valid.")
+                validate_schema(proc_schema, process_meta_schema)
 
                 # TODO: check processes participating objects' types
                 # for obj_name in proc_schema['participating_objects']:
                 #     pass
 
-            except ValidationError:
+            except ValidationError as e:
                 print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
 
         # TODO: Validate containment rules
@@ -71,14 +69,12 @@ def validate_models(models_dir):
 
 
 # Function to validate a schema against a meta-schema
-def validate_schema(schema, meta_schema, verbose=True):
+def validate_schema(schema, meta_schema):
     try:
         validate(instance=schema, schema=meta_schema)
-        if verbose:
-            print(f"Schema {schema['type']} is valid.")
+        print(f"Schema {schema['type']} is valid.")
     except ValidationError as e:
-        if verbose:
-            print(f"Schema {schema['type']} is invalid")  #: {e.message}")
+        print(f"Schema {schema['type']} is invalid")
 
 
 # Function to load and validate schemas from a directory
