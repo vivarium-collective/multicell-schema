@@ -10,5 +10,5 @@
         "object": "CellField",
         "attribute": "contact_energy_matrix"
     },
-    "dynamics": {}
+    "update": {}
 }

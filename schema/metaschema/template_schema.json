@@ -8,22 +8,24 @@
       "type": "string"
     },
     "objects": {
-      "type": "array",
-      "items": {
-        "$ref": "schema/metaschema/object_schema.json"
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
       }
     },
     "processes": {
-      "type": "array",
-      "items": {
-        "$ref": "schema/metaschema/process_schema.json"
+      "type": "object",
+      "properties": {
+        "type": {"type": "string"},
+        "attributes": {"type": "object"},
+        "participating_objects": {"type": "array"}
       }
-    },
-    "required": [
-      "id",
-      "name",
-      "objects",
-      "processes"
-    ]
-  }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "objects",
+    "processes"
+  ]
 }

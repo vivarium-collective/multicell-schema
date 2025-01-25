@@ -2,7 +2,7 @@
   "type": "VolumeExclusion",
   "attributes": {},
   "participating_objects": ["Cell", "ECM"],
-  "dynamics": {},
+  "update": {},
   "conditions": [],
   "inherits_from": []
 }

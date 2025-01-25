@@ -5,5 +5,5 @@
         "Field",
         "CellField"
     ],
-    "dynamics": {}
+    "update": {}
 }

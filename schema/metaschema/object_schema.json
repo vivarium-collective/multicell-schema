@@ -7,5 +7,5 @@
         "attributes": {"type": "object"},
         "inherits_from": {"type": "array"}
     },
-    "required": ["type", "boundary_conditions", "contained_object_types", "attributes"]
+    "required": ["type", "attributes"]
 }

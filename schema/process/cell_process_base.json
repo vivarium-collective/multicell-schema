@@ -4,5 +4,5 @@
     "participating_objects": [
         "Cell"
     ],
-    "dynamics": {}
+    "update": {}
 }

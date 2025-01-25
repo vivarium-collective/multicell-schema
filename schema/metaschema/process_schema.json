@@ -4,9 +4,9 @@
         "type": {"type": "string"},
         "attributes": {"type": "object"},
         "participating_objects": {"type": "array"},
-        "dynamics": {"type": "object"},
+        "update": {"type": "object"},
         "conditions": {"type": "array"},
         "inherits_from": {"type": "array"}
     },
-    "required": ["type", "attributes", "participating_objects", "dynamics"]
+    "required": ["type", "attributes", "participating_objects", "update"]
 }

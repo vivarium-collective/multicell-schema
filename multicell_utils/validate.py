@@ -72,9 +72,9 @@ def validate_models(models_dir):
 def validate_schema(schema, meta_schema):
     try:
         validate(instance=schema, schema=meta_schema)
-        print(f"Schema {schema['type']} is valid.")
+        print(f"Schema {schema.get('type', schema.get('name', schema.get('id')))} is valid.")
     except ValidationError as e:
-        print(f"Schema {schema['type']} is invalid")
+        print(f"Schema {schema.get('type', schema.get('name', schema.get('id')))}: is invalid: \n {e.message}")
 
 
 # Function to load and validate schemas from a directory
@@ -87,7 +87,7 @@ def validate_schemas_from_directory(directory, meta_schema):
                 try:
                     validate_schema(schema, meta_schema)
                 except Exception as e:
-                    print(f"Error validating schema {schema['type']}: {e}")
+                    print(f"Error validating schema file {schema_file}: {e}")
 
 
 # Function to load and validated templates from a directory
@@ -100,7 +100,7 @@ def validate_templates_from_directory(directory, meta_schema):
                 try:
                     validate_schema(template, meta_schema)
                 except Exception as e:
-                    print(f"Error validating template {template['id']}: {template['name']}: {e}")
+                    print(f"Error validating template file {template_file}: {e}")
 
 
 def test_validate_schema():
