@@ -13,14 +13,10 @@ def validate_containment(model):
     for parent, children in structure.items():
         parent_type = model['objects'][parent]['type']
 
-        try:
-            assert parent_type in schema_registry.object_inheritance, f"Object '{parent}' does not have inheritance information"
-        except:
-            breakpoint()
+        assert parent_type in schema_registry.object_inheritance, f"Object '{parent}' does not have inheritance information"
 
         if parent_type not in schema_registry.allowed_containments:
-            print(f"Invalid containment: {parent_type} not found in allowed containments")
-            continue
+            raise ValueError(f"Invalid containment: {parent_type} does not claim contained objects")
 
         allowed_children = schema_registry.allowed_containments[parent_type]
         for child in children:
@@ -28,7 +24,7 @@ def validate_containment(model):
             if child_type not in allowed_children:
                 # Check inheritance
                 if not any(base_type in allowed_children for base_type in schema_registry.object_inheritance.get(child_type, [])):
-                    print(f"Invalid containment: {child_type} is not allowed within {parent_type}")
+                    print(f"Invalid containment: {child_type} object is not contained by {parent_type}")
 
 
 # Function to validate a single model
