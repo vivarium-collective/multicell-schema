@@ -1,5 +1,7 @@
 import os
 import json
+from tempfile import template
+
 from jsonschema import validate, ValidationError
 
 # Get the base directory of the current script
@@ -9,8 +11,10 @@ project_root = os.path.dirname(base_dir)
 # Define paths relative to the project root
 object_schemas_dir = os.path.join(project_root, 'schema/object')
 process_schemas_dir = os.path.join(project_root, 'schema/process')
+templates_dir = os.path.join(project_root, 'schema/templates')
 objects_meta_schema_path = os.path.join(project_root, 'schema/metaschema/object_schema.json')
 processes_meta_schema_path = os.path.join(project_root, 'schema/metaschema/process_schema.json')
+templates_meta_schema_path = os.path.join(project_root, 'schema/metaschema/template_schema.json')
 
 # Load meta-schemas from JSON files
 with open(objects_meta_schema_path, 'r') as file:
@@ -18,6 +22,9 @@ with open(objects_meta_schema_path, 'r') as file:
 
 with open(processes_meta_schema_path, 'r') as file:
     process_meta_schema = json.load(file)
+
+with open(templates_meta_schema_path, 'r') as file:
+    template_meta_schema = json.load(file)
 
 
 class SchemaRegistry:

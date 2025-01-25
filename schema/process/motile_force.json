@@ -1,4 +1,7 @@
 {
   "type": "MotileForce",
-
+  "inherits_from": [],
+  "attributes": {},
+  "participating_objects": [],
+  "dynamics": {}
 }

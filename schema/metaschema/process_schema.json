@@ -6,7 +6,7 @@
         "participating_objects": {"type": "array"},
         "dynamics": {"type": "object"},
         "conditions": {"type": "array"},
-        "inherits_from": {"type": "list"}
+        "inherits_from": {"type": "array"}
     },
     "required": ["type", "attributes", "participating_objects", "dynamics"]
 }

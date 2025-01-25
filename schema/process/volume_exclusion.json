@@ -3,6 +3,6 @@
   "attributes": {},
   "participating_objects": ["Cell", "ECM"],
   "dynamics": {},
-  "conditions": {},
-  "inherits_from": {}
+  "conditions": [],
+  "inherits_from": []
 }

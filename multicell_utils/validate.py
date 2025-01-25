@@ -2,7 +2,10 @@ import os
 import json
 from jsonschema import validate, ValidationError
 from schema import schema_registry
-from multicell_utils.registry import object_schemas_dir, process_schemas_dir, object_meta_schema, process_meta_schema
+from multicell_utils.registry import (
+    object_schemas_dir, process_schemas_dir, templates_dir,
+    object_meta_schema, process_meta_schema, template_meta_schema
+)
 
 
 def validate_containment(model):
@@ -87,6 +90,19 @@ def validate_schemas_from_directory(directory, meta_schema):
                 except Exception as e:
                     print(f"Error validating schema {schema['type']}: {e}")
 
+# Function to load and validated templates from a directory
+def validate_templates_from_directory(directory, meta_schema):
+    for filename in os.listdir(directory):
+        if filename.endswith('.json'):
+            template_path = os.path.join(directory, filename)
+            with open(template_path, 'r') as template_file:
+                template = json.load(template_file)
+                try:
+                    validate_schema(template, meta_schema)
+                except Exception as e:
+                    print(f"Error validating template {template['id']}: {template['name']}: {e}")
+
+
 
 def test_validate_schema():
     # Validate object schemas
@@ -95,13 +111,19 @@ def test_validate_schema():
     # Validate process schemas
     validate_schemas_from_directory(process_schemas_dir, process_meta_schema)
 
+    # Validate templates
+    validate_templates_from_directory(templates_dir, template_meta_schema)
+
+
 
 if __name__ == '__main__':
+    # Validate object schemas
+    print("Validating schemas")
+    test_validate_schema()
+
     # # Validate a specific model
     # validate_model('models/example1.json')
 
     # Validate all models in the 'models' directory
+    print("Validating models")
     validate_models('models')
-
-    # Validate object schemas
-    test_validate_schema()

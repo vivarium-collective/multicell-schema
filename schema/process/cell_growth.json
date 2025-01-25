@@ -1,6 +1,6 @@
 {
     "type": "CellGrowth",
-    "inherits_from": "Cell Process",
+    "inherits_from": ["Cell Process"],
     "attributes": {
       "growth_rate": {
         "type": "float",

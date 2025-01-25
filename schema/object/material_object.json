@@ -15,7 +15,7 @@
       "description": "The volume of the material."
     },
     "region": {
-      "type": "list -- could be center, surface region, volume region, extent (min, max), etc.",
+      "type": "array -- could be center, surface region, volume region, extent (min, max), etc.",
       "center": ["um", "um", "um"],
       "description": "Region is a complex attribute containing Center (coordinates), SurfaceRegion (Region), VolumeRegion (Region), Volume (scalar), surfaceArea (scalar)"
     },
