@@ -33,6 +33,7 @@ class SchemaRegistry:
         self.processes = {}
         self.object_meta_schema = object_meta_schema
         self.process_meta_schema = process_meta_schema
+        self.template_meta_schema = template_meta_schema
 
         # to save allowed object containments
         self.allowed_containments = {}
@@ -91,6 +92,9 @@ class SchemaRegistry:
 
         except ValidationError as e:
             print(f"Failed to register process schema '{schema_name}': {e.message}")
+
+    def register_template(self, schema_name, schema):
+        pass
 
     def get_object_schema(self, schema_name):
         return self.objects.get(schema_name)

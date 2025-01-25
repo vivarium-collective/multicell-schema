@@ -15,7 +15,6 @@ def validate_containment(model):
 
         assert parent_type in schema_registry.object_inheritance, f"Object '{parent}' does not have inheritance information"
 
-
         if parent_type not in schema_registry.allowed_containments:
             print(f"Invalid containment: {parent_type} not found in allowed containments")
             continue
@@ -65,7 +64,10 @@ def validate_models(models_dir):
     for filename in os.listdir(models_dir):
         if filename.endswith('.json'):
             model_path = os.path.join(models_dir, filename)
-            validate_model(model_path)
+            try:
+                validate_model(model_path)
+            except Exception as e:
+                print(f"Error validating model {model_path}: {e}")
 
 
 # Function to validate a schema against a meta-schema
@@ -76,7 +78,8 @@ def validate_schema(schema, meta_schema, verbose=True):
             print(f"Schema {schema['type']} is valid.")
     except ValidationError as e:
         if verbose:
-            print(f"Schema {schema['type']} is invalid: {e.message}")
+            print(f"Schema {schema['type']} is invalid")  #: {e.message}")
+
 
 # Function to load and validate schemas from a directory
 def validate_schemas_from_directory(directory, meta_schema):
@@ -90,6 +93,7 @@ def validate_schemas_from_directory(directory, meta_schema):
                 except Exception as e:
                     print(f"Error validating schema {schema['type']}: {e}")
 
+
 # Function to load and validated templates from a directory
 def validate_templates_from_directory(directory, meta_schema):
     for filename in os.listdir(directory):
@@ -101,7 +105,6 @@ def validate_templates_from_directory(directory, meta_schema):
                     validate_schema(template, meta_schema)
                 except Exception as e:
                     print(f"Error validating template {template['id']}: {template['name']}: {e}")
-
 
 
 def test_validate_schema():
@@ -118,12 +121,12 @@ def test_validate_schema():
 
 if __name__ == '__main__':
     # Validate object schemas
-    print("Validating schemas")
+    print("VALIDATING SCHEMAS")
     test_validate_schema()
 
     # # Validate a specific model
     # validate_model('models/example1.json')
 
     # Validate all models in the 'models' directory
-    print("Validating models")
+    print("VALIDATING MODELS")
     validate_models('models')
