@@ -4,7 +4,10 @@ from graphviz import Digraph
 from multicell_utils.registry import project_root, make_structure
 
 
-def create_graph_from_model(model):
+def create_graph_from_model(model,
+                            # filename=None,
+                            # output_dir='out',
+                            ):
     if isinstance(model, str):
         model_path = os.path.join(project_root, model)
         with open(model_path, 'r') as file:
@@ -29,6 +32,12 @@ def create_graph_from_model(model):
     for parent, children in structure.items():
         for child in children:
             dot.edge(parent, child, style='bold', arrowhead='none')
+
+    # if filename is not None:
+    #     format = 'png'
+    #     os.makedirs(output_dir, exist_ok=True)
+    #     fig_path = os.path.join(output_dir, filename)
+    #     dot.render(fig_path, format=format)
 
     return dot
 

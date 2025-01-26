@@ -171,7 +171,10 @@ class ModelBuilder:
         schema_registry.validate_template(self.model)
 
     def graph(self):
-        return create_graph_from_model(self.model)
+        return create_graph_from_model(self.model,
+                                        # filename=None,
+                                        # output_dir=None
+                                       )
 
     def add_object(self,
                    name,
@@ -213,15 +216,6 @@ class ModelBuilder:
             "attributes": attributes,
             "participating_objects": participating_objects
         }
-
-    # def link_containment(self, parent_name, child_name):
-    #     if parent_name not in self.model["structure"]:
-    #         self.model["structure"][parent_name] = []
-    #     self.model["structure"][parent_name].append(child_name)
-
-    # def link_object(self, process_name, object_name):
-    #     if process_name in self.model["processes"]:
-    #         self.model["processes"][process_name]["participating_objects"].append(object_name)
 
     def save(self, filename, directory="models"):
         try:

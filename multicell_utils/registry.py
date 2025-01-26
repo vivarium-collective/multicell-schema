@@ -91,7 +91,17 @@ class SchemaRegistry:
             for obj_name in participating_objects_names:
                 assert obj_name in model['objects'], f"Participating object '{obj_name}' is not valid for process '{proc_name}'"
                 obj_type = model['objects'][obj_name]['type']
-                assert obj_type in participating_objects_types, f"Object '{obj_name}' of type '{obj_type}' is not valid for process type '{process_type}' with allowed types {participating_objects_types}"
+
+                # object types that inherit from this type are also allowed
+                inherited = self.object_inheritance.get(obj_type, [])
+                allowed_obj_types = inherited + [obj_type]
+
+                assert any(obj in participating_objects_types for obj in allowed_obj_types), \
+                    (f"None of the allowed object types {allowed_obj_types} are valid for process type '{process_type}' "
+                     f"with allowed types {participating_objects_types}")
+
+                # assert allowed_obj_types in participating_objects_types, \
+                #     f"Object '{obj_name}' of type '{obj_type}' is not valid for process type '{process_type}' with allowed types {participating_objects_types}"
 
         # Validate containment structure
         self.validate_containment(model)
