@@ -27,6 +27,7 @@ with open(templates_meta_schema_path, 'r') as file:
     template_meta_schema = json.load(file)
 
 
+
 class SchemaRegistry:
     def __init__(self):
         self.objects = {}
@@ -48,7 +49,56 @@ class SchemaRegistry:
     def validate_schema(self, schema, meta_schema):
         validate(instance=schema, schema=meta_schema)
 
+    def validate_template(self, model):
+        # self.validate_schema(schema, self.template_meta_schema)
+        # Validate objects
+        for obj_name, obj_schema in model['objects'].items():
+            try:
+                self.validate_schema(obj_schema, object_meta_schema)
+                # print(f"Object '{obj_name}' is valid.")
+            except ValidationError as e:
+                raise ValueError(f"Object '{obj_name}' in model '{model['id']}' is invalid. {e.message}")
+                # return (f"Object '{obj_name}' in model '{model['id']}' is invalid.")
+
+        # Validate processes
+        for proc_name, proc_schema in model['processes'].items():
+            process_type = proc_schema['type']
+            assert process_type in self.processes, f"Process '{process_type}' is not registered."
+
+            try:
+                self.validate_schema(proc_schema, process_meta_schema)
+
+                # TODO: check processes participating objects' types
+                # for obj_name in proc_schema['participating_objects']:
+                #     pass
+
+            except ValidationError as e:
+                print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
+
+        # TODO: Validate containment rules
+        self.validate_containment(model)
+
+    def validate_containment(self, model):
+        structure = model['structure']
+        for parent, children in structure.items():
+            parent_type = model['objects'][parent]['type']
+
+            assert parent_type in self.object_inheritance, f"Object '{parent}' does not have inheritance information"
+
+            if parent_type not in self.allowed_containments:
+                raise ValueError(f"Invalid containment: {parent_type} does not claim contained objects")
+
+            allowed_children = self.allowed_containments[parent_type]
+            for child in children:
+                child_type = model['objects'][child]['type']
+                if child_type not in allowed_children:
+                    # Check inheritance
+                    if not any(base_type in allowed_children for base_type in self.object_inheritance.get(child_type, [])):
+                        print(f"Invalid containment: {child_type} object is not contained by {parent_type}")
+
     def register_object(self, schema):
+        # TODO -- this should be register_object_schema
+
         object_type = schema['type']
 
         if object_type in self.objects:
@@ -97,7 +147,7 @@ class SchemaRegistry:
             print(f"Failed to register process schema '{schema_name}': {e.message}")
 
     def register_template(self, schema):
-        schema_type = schema['type']
+        schema_name = schema['name']
         pass
 
     def get_object_schema(self, schema_name):

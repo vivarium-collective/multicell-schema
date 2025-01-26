@@ -1,0 +1,15 @@
+{
+  "type": "Diffusion",
+  "inherits_from": [],
+  "attributes": {
+    "diffusion_coeffient": {
+      "type": "float",
+      "unit": "um^2/s",
+      "default": 0.0
+    }
+  },
+  "participating_objects": [
+      "Field"
+  ],
+  "update": {}
+}

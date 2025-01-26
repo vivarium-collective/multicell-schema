@@ -1,8 +1,8 @@
 import os
 import json
 
-from jsonschema import validate, ValidationError
-from multicell_utils.validate import validate_schema, object_meta_schema, process_meta_schema, validate_model
+from jsonschema import ValidationError
+from multicell_utils.validate import validate_schema, object_meta_schema, process_meta_schema
 from multicell_utils import pf
 from schema import schema_registry
 from multicell_utils.registry import project_root
@@ -133,14 +133,14 @@ class ModelBuilder:
         return f"ModelBuilder({pf(self.model)})"
 
     def verify(self, verbose=True):
-        validate_model(self.model)
+        schema_registry.validate_template(self.model)
 
     def graph(self):
         return create_graph_from_model(self.model)
 
     def add_object(self,
                    name,
-                   obj_type,
+                   object_type,
                    attributes=None,
                    boundary_conditions=None,
                    contained_objects=None
@@ -153,7 +153,7 @@ class ModelBuilder:
             attributes = {}
 
         self.model["objects"][name] = {
-            "type": obj_type,
+            "type": object_type,
             "attributes": attributes,
             "boundary_conditions": boundary_conditions
         }
@@ -162,7 +162,7 @@ class ModelBuilder:
 
     def add_process(self,
                     name,
-                    proc_type,
+                    process_type,
                     participating_objects=None,
                     attributes=None
                     ):
@@ -175,7 +175,7 @@ class ModelBuilder:
         assert isinstance(participating_objects, list), "Participating objects must be a list or string"
 
         self.model["processes"][name] = {
-            "type": proc_type,
+            "type": process_type,
             "attributes": attributes,
             "participating_objects": participating_objects
         }
@@ -202,6 +202,7 @@ class ModelBuilder:
         with open(os.path.join(directory, filename), 'w') as file:
             json.dump(self.model, file, indent=4)
         print(f"Model saved to {os.path.join(directory, filename)}")
+
 
 # Example usage
 def test_schema_creator():
@@ -233,14 +234,16 @@ def test_schema_creator():
 
 
 def test_model_builder():
-    b = ModelBuilder(model_name='demo')
-    b.add_object(name='universe', obj_type='Universe', contained_objects=['cell field'])
-    b.add_object(name='cell field', obj_type='CellField', contained_objects=['cell'])
-    b.add_object(name='cell', obj_type='Cell')
-    b.add_process(name='growth', proc_type='Growth', participating_objects='cell')
-    b.add_process(name='volume exclusion', proc_type='VolumeExclusion', participating_objects='cell field')
-    b.verify()
-    b.save(filename='builder_test.json')
+    demo_model = ModelBuilder(model_name='demo')
+    demo_model.add_object(name='universe', object_type='Universe', contained_objects=['cell field', 'chemical field'])
+    demo_model.add_object(name='chemical field', object_type='Field')
+    demo_model.add_object(name='cell field', object_type='CellField', contained_objects=['cell'])
+    demo_model.add_object(name='cell', object_type='Cell')
+    demo_model.add_process(name='growth', process_type='CellGrowth', participating_objects='cell')
+    demo_model.add_process(name='diffusion', process_type='Diffusion', participating_objects='chemical field')
+    demo_model.add_process(name='volume exclusion', process_type='VolumeExclusion', participating_objects='cell field')
+    demo_model.verify()
+    demo_model.save(filename='builder_test.json')
 
     # TODO: load model from JSON and visualize it
 
