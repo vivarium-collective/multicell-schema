@@ -70,8 +70,20 @@ class SchemaCreator:
 
 
 class ObjectCreator(SchemaCreator):
-    def __init__(self, name=None, attributes={}, boundary_conditions={}, contained_objects=[], json_path=None):
+    def __init__(self,
+                 name=None,
+                 attributes=None,
+                 boundary_conditions=None,
+                 contained_objects=None,
+                 json_path=None
+                 ):
         super().__init__("object", json_path, name)
+        if contained_objects is None:
+            contained_objects = []
+        if boundary_conditions is None:
+            boundary_conditions = {}
+        if attributes is None:
+            attributes = {}
         if not json_path:
             self.add_property("type", name)
             self.add_property("attributes", attributes)
@@ -120,6 +132,8 @@ def make_unique_id():
 
 class ModelBuilder:
     def __init__(self, model_name, id=None):
+        # TODO load a base model from JSON
+
         self.model = {
             "id": id or make_unique_id(),
             "name": model_name,
@@ -128,12 +142,14 @@ class ModelBuilder:
             "structure": {}
         }
 
+
     def __repr__(self):
         # Return a string representation of the model dictionary
         return f"ModelBuilder({pf(self.model)})"
 
     def verify(self, verbose=True):
         schema_registry.validate_template(self.model)
+        print("Model verification successful.")
 
     def graph(self):
         return create_graph_from_model(self.model)
@@ -155,10 +171,9 @@ class ModelBuilder:
         self.model["objects"][name] = {
             "type": object_type,
             "attributes": attributes,
-            "boundary_conditions": boundary_conditions
+            "boundary_conditions": boundary_conditions,
+            "contained_objects": contained_objects
         }
-        if contained_objects:
-            self.model["structure"][name] = contained_objects
 
     def add_process(self,
                     name,
@@ -180,14 +195,14 @@ class ModelBuilder:
             "participating_objects": participating_objects
         }
 
-    def link_containment(self, parent_name, child_name):
-        if parent_name not in self.model["structure"]:
-            self.model["structure"][parent_name] = []
-        self.model["structure"][parent_name].append(child_name)
+    # def link_containment(self, parent_name, child_name):
+    #     if parent_name not in self.model["structure"]:
+    #         self.model["structure"][parent_name] = []
+    #     self.model["structure"][parent_name].append(child_name)
 
-    def link_object(self, process_name, object_name):
-        if process_name in self.model["processes"]:
-            self.model["processes"][process_name]["participating_objects"].append(object_name)
+    # def link_object(self, process_name, object_name):
+    #     if process_name in self.model["processes"]:
+    #         self.model["processes"][process_name]["participating_objects"].append(object_name)
 
     def save(self, filename, directory="models"):
 

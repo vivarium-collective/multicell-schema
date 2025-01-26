@@ -55,11 +55,20 @@ class SchemaRegistry:
             except ValidationError as e:
                 raise ValueError(f"Object '{obj_name}' in model '{model['id']}' is invalid. {e.message}")
 
-            # TODO -- get containment from object?
+            # get containment from object
             object_type = obj_schema['type']
             contained_objects = obj_schema.get('contained_objects')
             if contained_objects:
-                allowed_obj_type = self.allowed_containments[object_type]
+                allowed_obj_types = self.allowed_containments[object_type]
+                for object_name in contained_objects:
+                    contained_object_type = model['objects'][object_name]['type']
+
+                    # TODO -- may need to check inheritance
+                    inherited = self.object_inheritance.get(contained_object_type, [])
+                    # check that the object type or its base types are allowed to be contained
+                    assert (contained_object_type in allowed_obj_types or
+                            any(base_type in allowed_obj_types for base_type in inherited)
+                            ), f"Object '{object_name}' is not allowed to be contained by '{obj_name}'"
 
         # Validate processes
         for proc_name, proc_schema in model['processes'].items():
