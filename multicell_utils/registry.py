@@ -55,8 +55,10 @@ class SchemaRegistry:
             except ValidationError as e:
                 raise ValueError(f"Object '{obj_name}' in model '{model['id']}' is invalid. {e.message}")
 
-            # get containment from object
             object_type = obj_schema['type']
+            assert object_type in self.object_types, f"Object type '{object_type}' is not registered."
+
+            # get containment from object
             contained_objects = obj_schema.get('contained_objects')
             if contained_objects:
                 allowed_obj_types = self.allowed_containments[object_type]
@@ -78,10 +80,6 @@ class SchemaRegistry:
 
             # check that participating objects are valid
             participating_objects = proc_schema.get('participating_objects')
-
-
-
-
 
             try:
                 self.validate_schema(process_full_schema, process_meta_schema)

@@ -149,7 +149,6 @@ class ModelBuilder:
 
     def verify(self, verbose=True):
         schema_registry.validate_template(self.model)
-        print("Model verification successful.")
 
     def graph(self):
         return create_graph_from_model(self.model)
@@ -262,6 +261,22 @@ def test_model_builder():
 
     # TODO: load model from JSON and visualize it
 
+
+def test_invalid_model():
+    demo = ModelBuilder(model_name='demo2')
+    demo.add_object(name='universe', object_type='DoesNotExist')
+    # assert that this raises an error for pytest
+    try:
+        demo.verify()
+    except Exception:
+        pass
+    else:
+        raise AssertionError("Model validation should have failed")
+
+
+
+
 if __name__ == '__main__':
     # test_schema_creator()
+    test_invalid_model()
     test_model_builder()
