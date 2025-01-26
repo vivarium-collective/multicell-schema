@@ -152,16 +152,22 @@ def make_unique_id():
     return new_id
 
 class ModelBuilder:
-    def __init__(self, model_name, id=None):
-        # TODO load a base model from JSON
-
-        self.model = {
-            "id": id or make_unique_id(),
-            "name": model_name,
-            "objects": {},
-            "processes": {},
-        }
-
+    def __init__(self, model_name=None, model_file=None):
+        # TODO -- load model with id?
+        models_path = 'models'
+        if model_file:
+            if not model_file.endswith('.json'):
+                model_file += '.json'
+            model_file = os.path.join(project_root, models_path, model_file)
+            with open(model_file, 'r') as file:
+                self.model = json.load(file)
+        else:
+            self.model = {
+                "id": make_unique_id(),
+                "name": model_name,
+                "objects": {},
+                "processes": {},
+            }
 
     def __repr__(self):
         # Return a string representation of the model dictionary
