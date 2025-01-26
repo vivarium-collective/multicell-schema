@@ -290,6 +290,12 @@ def test_invalid_model():
     demo3.add_process(name='growth', process_type='CellGrowth', participating_objects='cell2')
     verify_model_fails(demo3)
 
+    # model with process that has an object that is not allowed
+    demo4 = ModelBuilder(model_name='demo4')
+    demo4.add_object(name='cell', object_type='Cell')
+    demo4.add_process(name='diffusion', process_type='Diffusion', participating_objects='cell')
+    verify_model_fails(demo4)
+
 
 
 
