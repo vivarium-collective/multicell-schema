@@ -1,7 +1,7 @@
 import os
 import json
 from graphviz import Digraph
-from multicell_utils.registry import project_root
+from multicell_utils.registry import project_root, make_structure
 
 
 def create_graph_from_model(model):
@@ -25,7 +25,8 @@ def create_graph_from_model(model):
             dot.edge(obj, proc_name, style='dashed', dir='back')
 
     # Add containment relations with thicker edges and no arrowhead
-    for parent, children in model['structure'].items():
+    structure = make_structure(model)
+    for parent, children in structure.items():
         for child in children:
             dot.edge(parent, child, style='bold', arrowhead='none')
 

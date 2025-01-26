@@ -139,7 +139,6 @@ class ModelBuilder:
             "name": model_name,
             "objects": {},
             "processes": {},
-            "structure": {}
         }
 
 
@@ -204,13 +203,13 @@ class ModelBuilder:
     #         self.model["processes"][process_name]["participating_objects"].append(object_name)
 
     def save(self, filename, directory="models"):
-
         try:
             self.verify()
         except ValidationError as e:
             print(f"Model validation failed: {e.message}")
             return
 
+        # absolute_directory = os.path.join(project_root, directory)
         if not os.path.exists(directory):
             os.makedirs(directory)
         with open(os.path.join(directory, filename), 'w') as file:

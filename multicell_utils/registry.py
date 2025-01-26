@@ -25,6 +25,14 @@ with open(templates_meta_schema_path, 'r') as file:
     template_meta_schema = json.load(file)
 
 
+def make_structure(model):
+    structure = {}
+    for obj_name, obj_schema in model['objects'].items():
+        contained_objects = obj_schema.get('contained_objects')
+        if contained_objects:
+            structure[obj_name] = contained_objects
+    return structure
+
 
 class SchemaRegistry:
     def __init__(self):
@@ -81,24 +89,25 @@ class SchemaRegistry:
             # check that participating objects names are in model object keys
             for obj_name in participating_objects_names:
                 assert obj_name in model['objects'], f"Participating object '{obj_name}' is not valid for process '{proc_name}'"
-
                 obj_type = model['objects'][obj_name]['type']
                 assert obj_type in participating_objects_types, f"Object '{obj_name}' of type '{obj_type}' is not valid for process type '{process_type}' with allowed types {participating_objects_types}"
-
 
         # TODO: Validate containment rules
         self.validate_containment(model)
 
     def validate_containment(self, model):
-        structure = model['structure']
+        structure = make_structure(model)
         for parent, children in structure.items():
             parent_type = model['objects'][parent]['type']
 
+            # Check if parent object is registered
             assert parent_type in self.object_inheritance, f"Object '{parent}' does not have inheritance information"
 
+            # Check if parent object can contain children
             if parent_type not in self.allowed_containments:
                 raise ValueError(f"Invalid containment: {parent_type} does not claim contained objects")
 
+            # Check if children types are allowed to be contained by the parent type
             allowed_children_types = self.allowed_containments[parent_type]
             for child in children:
                 child_type = model['objects'][child]['type']
