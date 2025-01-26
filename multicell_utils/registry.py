@@ -65,9 +65,8 @@ class SchemaRegistry:
                 for object_name in contained_objects:
                     contained_object_type = model['objects'][object_name]['type']
 
-                    # TODO -- may need to check inheritance
-                    inherited = self.object_inheritance.get(contained_object_type, [])
                     # check that the object type or its base types are allowed to be contained
+                    inherited = self.object_inheritance.get(contained_object_type, [])
                     assert (contained_object_type in allowed_obj_types or
                             any(base_type in allowed_obj_types for base_type in inherited)
                             ), f"Object '{object_name}' is not allowed to be contained by '{obj_name}'"
@@ -75,21 +74,17 @@ class SchemaRegistry:
         # Validate processes
         for proc_name, proc_schema in model['processes'].items():
             process_type = proc_schema['type']
-            # assert process_type in self.process_inheritance, f"Process '{process_type}' is not registered."
-            process_full_schema = self.process_types[process_type]
+            # process_full_schema = self.process_types[process_type]
+            participating_objects_names = proc_schema.get('participating_objects', [])
+            participating_objects_types = self.process_types[process_type].get('participating_objects', [])
 
-            # check that participating objects are valid
-            participating_objects = proc_schema.get('participating_objects')
+            # check that participating objects names are in model object keys
+            for obj_name in participating_objects_names:
+                assert obj_name in model['objects'], f"Participating object '{obj_name}' is not valid for process '{proc_name}'"
 
-            try:
-                self.validate_schema(process_full_schema, process_meta_schema)
+                obj_type = model['objects'][obj_name]['type']
+                assert obj_type in participating_objects_types, f"Object '{obj_name}' of type '{obj_type}' is not valid for process type '{process_type}' with allowed types {participating_objects_types}"
 
-                # TODO: check processes participating objects' types
-                # for obj_name in proc_schema['participating_objects']:
-                #     pass
-
-            except ValidationError as e:
-                print(f"Process '{proc_name}' in model '{model['id']}' is invalid.")
 
         # TODO: Validate containment rules
         self.validate_containment(model)

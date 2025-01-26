@@ -255,28 +255,45 @@ def test_model_builder():
     demo_model.add_object(name='cell', object_type='Cell')
     demo_model.add_process(name='growth', process_type='CellGrowth', participating_objects='cell')
     demo_model.add_process(name='diffusion', process_type='Diffusion', participating_objects='chemical field')
-    demo_model.add_process(name='volume exclusion', process_type='VolumeExclusion', participating_objects='cell field')
+    demo_model.add_process(name='volume exclusion', process_type='VolumeExclusion', participating_objects='cell')
     demo_model.verify()
     demo_model.save(filename='builder_test.json')
 
     # TODO: load model from JSON and visualize it
 
 
-def test_invalid_model():
-    demo = ModelBuilder(model_name='demo2')
-    demo.add_object(name='universe', object_type='DoesNotExist')
-    # assert that this raises an error for pytest
+def verify_model_fails(model):
     try:
-        demo.verify()
-    except Exception:
+        model.verify()
+    except:
         pass
     else:
         raise AssertionError("Model validation should have failed")
+
+
+def test_invalid_model():
+
+    # model with object type that does not exist
+    demo = ModelBuilder(model_name='demo2')
+    demo.add_object(name='universe', object_type='DoesNotExist')
+    verify_model_fails(demo)
+
+    # model with object that contains an object type that is not allowed
+    demo2 = ModelBuilder(model_name='demo2')
+    demo2.add_object(name='cell_field', object_type='CellField', contained_objects=['field'])
+    demo2.add_object(name='field', object_type='Field')
+    verify_model_fails(demo2)
+
+    # model with process that has an object that does not exist
+    demo3 = ModelBuilder(model_name='demo3')
+    demo3.add_object(name='cell', object_type='Cell')
+    demo3.add_process(name='growth', process_type='CellGrowth', participating_objects='cell2')
+    verify_model_fails(demo3)
 
 
 
 
 if __name__ == '__main__':
     # test_schema_creator()
-    # test_invalid_model()
+    test_invalid_model()
     test_model_builder()
