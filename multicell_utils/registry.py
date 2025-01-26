@@ -116,11 +116,9 @@ class SchemaRegistry:
                     if not any(base_type in allowed_children_types for base_type in self.object_inheritance.get(child_type, [])):
                         print(f"Invalid containment: {child_type} object is not contained by {parent_type}")
 
-    def register_object(self, schema, object_name):
-        # TODO -- this should be register_object_schema
-
-        object_type = schema['type']
-
+    def register_object(self, schema, object_type):
+        if 'type' in schema:
+            object_type = schema['type']
         if object_type in self.object_types:
             raise ValueError(f"Object schema '{object_type}' is already registered.")
         try:
@@ -143,10 +141,11 @@ class SchemaRegistry:
         self.object_inheritance[object_type] = inherits_from
 
 
-    def register_process(self, schema, process_name):
-        process_type = schema['type']
+    def register_process(self, schema, process_type=None):
+        if 'type' in schema:
+            process_type = schema['type']
         if process_type in self.process_types:
-            raise ValueError(f"Process schema type '{process_name}' is already registered.")
+            raise ValueError(f"Process schema type '{process_type}' is already registered.")
         try:
             self.validate_schema(schema, self.process_meta_schema)
             self.process_types[process_type] = schema

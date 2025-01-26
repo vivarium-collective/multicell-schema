@@ -11,13 +11,11 @@ from multicell_utils.registry import (
 
 # Function to validate a schema against a meta-schema
 def validate_schema(schema, meta_schema):
+    schema_repr = schema.get('type', schema.get('name', schema.get('id')))
     try:
         validate(instance=schema, schema=meta_schema)
-        print(f"Schema {schema.get('type', schema.get('name', schema.get('id')))} is valid.")
+        # print(f"Schema {schema_repr} is valid.")
     except ValidationError as e:
-        schema_repr = schema.get('type', schema.get('name', schema.get('id')))
-
-
         print(f"Schema {schema_repr}: is invalid: \n {e.message}")
 
 

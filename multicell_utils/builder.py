@@ -10,17 +10,32 @@ from multicell_utils.graph import create_graph_from_model
 
 
 class SchemaCreator:
-    def __init__(self, schema_type, json_path=None, name=None):
+    def __init__(self,
+                 schema_type,
+                 json_path=None,
+                 name=None,
+                 inherits_from=None,
+                 ):
+        inherits_from = inherits_from or []
+        if isinstance(inherits_from, str):
+            inherits_from = [inherits_from]
+
         self.schema_type = schema_type
         self.schema = {
             "type": schema_type,
-            "properties": {},
-            "required": []
+            "inherits_from": inherits_from,
+            "attributes": {},
+            # "required": []
         }
         if json_path:
             self.load_from_json(json_path, name)
 
     def add_property(self, name, property_schema, required=False):
+        # if name in self.schema:
+        #     raise ValueError(f"Property {name} already exists in schema")
+        if property_schema is None:
+            return
+
         self.schema[name] = property_schema
         if required:
             self.schema["required"].append(name)
@@ -33,20 +48,12 @@ class SchemaCreator:
         else:
             raise ValueError("Unsupported schema type")
 
-    def save(self, filename, directory="schema", overwrite=False):
-        directory = os.path.join(project_root, directory, self.schema_type) # objects or processes
-        try:
-            self.validate()
-        except ValidationError as e:
-            print(f"Schema validation failed: {e.message}")
-            return
-
-        # Register the schema in the registry
+    def register(self, overwrite=False):
         try:
             if self.schema_type == "object":
-                schema_registry.register_object(self.schema["type"], self.schema)
+                schema_registry.register_object(self.schema, self.schema["type"])
             elif self.schema_type == "process":
-                schema_registry.register_process(self.schema["type"], self.schema)
+                schema_registry.register_process(self.schema, self.schema["type"])
         except ValueError as e:
             if not overwrite:
                 print(f"Failed to register schema: {e}")
@@ -54,11 +61,20 @@ class SchemaCreator:
             else:
                 print(f"Overwriting schema despite registration failure: {e}")
 
+    def save(self, filename, directory="schema"):
+        try:
+            self.validate()
+        except ValidationError as e:
+            raise ValidationError(f"Schema validation failed: {e.message}")
+
+        # directory = os.path.join(project_root, directory, self.schema_type) # objects or processes
+        directory = os.path.join(directory, self.schema_type)
+
         if not os.path.exists(directory):
             os.makedirs(directory)
         with open(os.path.join(directory, filename), 'w') as file:
             json.dump(self.schema, file, indent=4)
-        print(f"Schema saved to {os.path.join(directory, filename)}")
+            print(f"Schema saved to {os.path.join(directory, filename)}")
 
     def load_from_json(self, json_path, name):
         assert name is not None, "Name must be provided when loading from JSON"
@@ -71,36 +87,41 @@ class SchemaCreator:
 
 class ObjectCreator(SchemaCreator):
     def __init__(self,
-                 name=None,
+                 type,
+                 inherits_from=None,
                  attributes=None,
                  boundary_conditions=None,
                  contained_objects=None,
                  json_path=None
                  ):
-        super().__init__("object", json_path, name)
-        if contained_objects is None:
-            contained_objects = []
-        if boundary_conditions is None:
-            boundary_conditions = {}
-        if attributes is None:
-            attributes = {}
-        if not json_path:
-            self.add_property("type", name)
-            self.add_property("attributes", attributes)
-            self.add_property("boundary_conditions", boundary_conditions)
+        super().__init__("object", json_path, type, inherits_from=inherits_from)
+        if contained_objects is not None:
             self.add_property("contained_objects", list(contained_objects))
-            self.schema["type"] = name
+        if boundary_conditions is not None:
+            self.add_property("boundary_conditions", boundary_conditions)
+        if attributes is not None:
+            self.add_property("attributes", attributes)
+
+        self.schema["type"] = type
 
 
 class ProcessCreator(SchemaCreator):
-    def __init__(self, name=None, attributes={}, participating_objects=[], dynamics={}, json_path=None):
-        super().__init__("process", json_path)
-        if not json_path:
-            self.add_property("type", name)
-            self.add_property("attributes", attributes)
-            self.add_property("participating_objects", participating_objects)
+    def __init__(self,
+                 type,
+                 inherits_from=None,
+                 attributes=None,
+                 participating_objects=None,
+                 dynamics=None,
+                 json_path=None
+                 ):
+        super().__init__("process", json_path, inherits_from=inherits_from)
+        if dynamics is not None:
             self.add_property("dynamics", dynamics)
-            self.schema["type"] = name
+        if participating_objects is not None:
+            self.add_property("participating_objects", participating_objects)
+        if attributes is not None:
+            self.add_property("attributes", attributes)
+        self.schema["type"] = type
 
 def make_unique_id():
     models_dir = os.path.join(project_root, 'models')
@@ -146,7 +167,7 @@ class ModelBuilder:
         # Return a string representation of the model dictionary
         return f"ModelBuilder({pf(self.model)})"
 
-    def verify(self, verbose=True):
+    def validate(self, verbose=True):
         schema_registry.validate_template(self.model)
 
     def graph(self):
@@ -204,7 +225,7 @@ class ModelBuilder:
 
     def save(self, filename, directory="models"):
         try:
-            self.verify()
+            self.validate()
         except ValidationError as e:
             print(f"Model validation failed: {e.message}")
             return
@@ -255,15 +276,15 @@ def test_model_builder():
     demo_model.add_process(name='growth', process_type='CellGrowth', participating_objects='cell')
     demo_model.add_process(name='diffusion', process_type='Diffusion', participating_objects='chemical field')
     demo_model.add_process(name='volume exclusion', process_type='VolumeExclusion', participating_objects='cell')
-    demo_model.verify()
+    demo_model.validate()
     demo_model.save(filename='builder_test.json')
 
     # TODO: load model from JSON and visualize it
 
 
-def verify_model_fails(model):
+def validate_model_fails(model):
     try:
-        model.verify()
+        model.validate()
     except:
         pass
     else:
@@ -275,25 +296,25 @@ def test_invalid_model():
     # model with object type that does not exist
     demo = ModelBuilder(model_name='demo2')
     demo.add_object(name='universe', object_type='DoesNotExist')
-    verify_model_fails(demo)
+    validate_model_fails(demo)
 
     # model with object that contains an object type that is not allowed
     demo2 = ModelBuilder(model_name='demo2')
     demo2.add_object(name='cell_field', object_type='CellField', contained_objects=['field'])
     demo2.add_object(name='field', object_type='Field')
-    verify_model_fails(demo2)
+    validate_model_fails(demo2)
 
     # model with process that has an object that does not exist
     demo3 = ModelBuilder(model_name='demo3')
     demo3.add_object(name='cell', object_type='Cell')
     demo3.add_process(name='growth', process_type='CellGrowth', participating_objects='cell2')
-    verify_model_fails(demo3)
+    validate_model_fails(demo3)
 
     # model with process that has an object that is not allowed
     demo4 = ModelBuilder(model_name='demo4')
     demo4.add_object(name='cell', object_type='Cell')
     demo4.add_process(name='diffusion', process_type='Diffusion', participating_objects='cell')
-    verify_model_fails(demo4)
+    validate_model_fails(demo4)
 
 
 
