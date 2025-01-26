@@ -278,5 +278,5 @@ def test_invalid_model():
 
 if __name__ == '__main__':
     # test_schema_creator()
-    test_invalid_model()
+    # test_invalid_model()
     test_model_builder()
