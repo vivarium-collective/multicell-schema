@@ -2,6 +2,6 @@
     "type": "Cell",
     "inherits_from": ["Material"],
     "boundary_conditions": {},
-    "contained_object_types": [],
+    "contained_objects": [],
     "attributes": {}
 }

@@ -3,7 +3,7 @@
     "properties": {
         "type": {"type": "string"},
         "boundary_conditions": {"type": "object"},
-        "contained_object_types": {"type": "array"},
+        "contained_objects": {"type": "array"},
         "attributes": {"type": "object"},
         "inherits_from": {"type": "array"}
     },

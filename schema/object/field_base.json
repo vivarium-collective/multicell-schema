@@ -1,7 +1,7 @@
 {
     "type": "Field",
     "boundary_conditions": {},
-    "contained_object_types": [],
+    "contained_objects": [],
     "attributes": {
         "molecular species": {
             "type": "list[string]",

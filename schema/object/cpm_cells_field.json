@@ -2,7 +2,7 @@
     "type": "CPMCellField",
     "inherits_from": ["CellField"],
     "boundary_conditions": {},
-    "contained_object_types": ["Cell"],
+    "contained_objects": ["Cell"],
     "attributes": {
         "temperature": {
             "type": "float",

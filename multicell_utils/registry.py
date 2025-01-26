@@ -50,7 +50,6 @@ class SchemaRegistry:
         validate(instance=schema, schema=meta_schema)
 
     def validate_template(self, model):
-        # self.validate_schema(schema, self.template_meta_schema)
         # Validate objects
         for obj_name, obj_schema in model['objects'].items():
             try:
@@ -58,15 +57,26 @@ class SchemaRegistry:
                 # print(f"Object '{obj_name}' is valid.")
             except ValidationError as e:
                 raise ValueError(f"Object '{obj_name}' in model '{model['id']}' is invalid. {e.message}")
-                # return (f"Object '{obj_name}' in model '{model['id']}' is invalid.")
+
+            # TODO -- get containment from object?
+            containing_objects = obj_schema.get('contained_objects')
+            object_type = obj_schema['type']
 
         # Validate processes
         for proc_name, proc_schema in model['processes'].items():
             process_type = proc_schema['type']
-            assert process_type in self.processes, f"Process '{process_type}' is not registered."
+            assert process_type in self.process_inheritance, f"Process '{proc_name}' is not registered."
+            process_full_schema = self.processes[process_type]
+
+            # check that participating objects are valid
+            participating_objects = proc_schema.get('participating_objects')
+
+
+
+
 
             try:
-                self.validate_schema(proc_schema, process_meta_schema)
+                self.validate_schema(process_full_schema, process_meta_schema)
 
                 # TODO: check processes participating objects' types
                 # for obj_name in proc_schema['participating_objects']:
@@ -96,7 +106,7 @@ class SchemaRegistry:
                     if not any(base_type in allowed_children for base_type in self.object_inheritance.get(child_type, [])):
                         print(f"Invalid containment: {child_type} object is not contained by {parent_type}")
 
-    def register_object(self, schema):
+    def register_object(self, schema, object_name):
         # TODO -- this should be register_object_schema
 
         object_type = schema['type']
@@ -108,14 +118,14 @@ class SchemaRegistry:
         except ValidationError as e:
             print(f"Failed to register object schema '{object_type} with metaschema {self.object_meta_schema}': {e.message}")
 
-        self.objects[object_type] = schema
+        self.objects[object_name] = schema
         # print(f"Object schema '{schema_name}' registered successfully.")
 
-        contained_object_types = schema.get('contained_object_types')
-        if contained_object_types:
+        contained_objects = schema.get('contained_objects')
+        if contained_objects:
             if object_type not in self.allowed_containments:
                 self.allowed_containments[object_type] = []
-            for obj_type in contained_object_types:
+            for obj_type in contained_objects:
                 self.allowed_containments[object_type].append(obj_type)
 
         # Register inheritance
@@ -123,30 +133,31 @@ class SchemaRegistry:
         self.object_inheritance[object_type] = inherits_from
 
 
-    def register_process(self, schema):
-        schema_name = schema['type']
-        if schema_name in self.processes:
-            raise ValueError(f"Process schema '{schema_name}' is already registered.")
+    def register_process(self, schema, process_name):
+        process_type = schema['type']
+        if process_type in self.processes:
+            raise ValueError(f"Process schema type '{process_type}' is already registered.")
         try:
             self.validate_schema(schema, self.process_meta_schema)
-            self.processes[schema_name] = schema
+            self.processes[process_type] = schema
             # print(f"Process schema '{schema_name}' registered successfully.")
 
             participating_objects = schema.get('participating_objects')
             if participating_objects:
-                if schema_name not in self.process_participation:
-                    self.process_participation[schema_name] = []
+                if process_name not in self.process_participation:
+                    self.process_participation[process_type] = []
                 for obj_type in participating_objects:
-                    self.process_participation[schema_name].append(obj_type)
+                    self.process_participation[process_type].append(obj_type)
 
             # Register inheritance
             inherits_from = schema.get('inherits_from', [])
-            self.process_inheritance[schema_name] = inherits_from
+            schema_type = schema['type']
+            self.process_inheritance[schema_type] = inherits_from
 
         except ValidationError as e:
-            print(f"Failed to register process schema '{schema_name}': {e.message}")
+            print(f"Failed to register process schema '{process_name}': {e.message}")
 
-    def register_template(self, schema):
+    def register_template(self, schema, template_name):
         schema_name = schema['name']
         pass
 
@@ -168,7 +179,7 @@ def register_schemas_from_directory(directory, register_function):
                 except Exception as e:
                     print(f"Failed to load schema from file '{filename}': {e}")
                 try:
-                    register_function(schema)
+                    register_function(schema, schema_name)
                 except Exception as e:
                     print(f"Failed to register schema '{schema_name}' from file '{filename}': {e}")
 

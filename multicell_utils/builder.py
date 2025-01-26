@@ -76,7 +76,7 @@ class ObjectCreator(SchemaCreator):
             self.add_property("type", name)
             self.add_property("attributes", attributes)
             self.add_property("boundary_conditions", boundary_conditions)
-            self.add_property("contained_object_types", list(contained_objects))
+            self.add_property("contained_objects", list(contained_objects))
             self.schema["type"] = name
 
 

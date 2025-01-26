@@ -2,7 +2,7 @@
     "type": "CellField",
     "boundary_conditions": {},
     "inherits_from": ["Field"],
-    "contained_object_types": ["Cell"],
+    "contained_objects": ["Cell"],
     "attributes": {
         "bounds": {
             "x": {"type": "um"},

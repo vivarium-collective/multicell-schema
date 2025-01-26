@@ -2,7 +2,7 @@
   "type": "Material",
   "inherits_from": [],
   "boundary_conditions": {},
-  "contained_object_types": [],
+  "contained_objects": [],
   "attributes": {
     "mass": {
       "type": "pg",

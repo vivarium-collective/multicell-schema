@@ -3,5 +3,5 @@
   "inherits_from": ["Material"],
   "boundary_conditions": {},
   "attributes": {},
-  "contained_object_types": []
+  "contained_objects": []
 }
