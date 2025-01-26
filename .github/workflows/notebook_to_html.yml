@@ -37,7 +37,7 @@ jobs:
         git config --local user.name "GitHub Action"
         git fetch origin
         mv notebooks/demo.html /tmp/demo.html
-        mv notebooks/core.html /tmp/cell_sorting.html
+        mv notebooks/cell_sorting.html /tmp/cell_sorting.html
         git checkout gh-pages || git checkout -b gh-pages
         git pull origin gh-pages
         mv /tmp/demo.html notebooks/demo.html
