@@ -41,7 +41,7 @@ jobs:
         git checkout gh-pages || git checkout -b gh-pages
         git pull origin gh-pages
         mv /tmp/demo.html notebooks/demo.html
-        mv /tmp/core.html notebooks/cell_sorting.html 
+        mv /tmp/cell_sorting.html notebooks/cell_sorting.html 
         git add notebooks/demo.html
         git add notebooks/cell_sorting.html
         git diff-index --quiet HEAD || git commit -m "Update HTML files" 
