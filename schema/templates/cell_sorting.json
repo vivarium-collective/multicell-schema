@@ -1,53 +1,59 @@
 {
-  "id": "template_002",
-  "name": "Cell Sorting Model",
-  "objects": {
-      "dark": "Cell",
-      "light": "Cell",
-      "environment": "CellField",
-      "external_medium": "Field",
-      "cytoplasmic_medium": "Field"
-  },
-  "processes": {
-    "volume exclusion": {
-      "type": "VolumeExclusion",
-      "participating_objects": [
-        "dark",
-        "light",
-        "external_medium"
-      ]
+    "id": "model_000004",
+    "name": "Cell Sorting",
+    "objects": {
+        "dark": {
+            "type": "Cell",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        },
+        "light": {
+            "type": "Cell",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        },
+        "environment": {
+            "type": "CellField",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "dark",
+                "light"
+            ]
+        },
+        "external_material": {
+            "type": "Material",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        }
     },
-    "contact force": {
-      "type": "ContactForce",
-      "participating_objects": [
-        "environment"
-      ]
-    },
-    "fluctuation": {
-      "type": "MotileForce",
-      "participating_objects": [
-          "dark",
-          "light"
-      ]
-    },
-    "endocytosis": {
-      "type": "Endocytosis",
-      "participating_objects": [
-          "external_medium",
-          "cytoplasmic_medium",
-        ["dark", "medium"],
-        ["light", "medium"]
-      ]
+    "processes": {
+        "volume exclusion": {
+            "type": "VolumeExclusion",
+            "attributes": {},
+            "participating_objects": [
+                "dark",
+                "light",
+                "external_material"
+            ]
+        },
+        "contact": {
+            "type": "ContactForce",
+            "attributes": {},
+            "participating_objects": [
+                "environment"
+            ]
+        },
+        "fluctuation": {
+            "type": "MotileForce",
+            "attributes": {},
+            "participating_objects": [
+                "dark",
+                "light"
+            ]
+        }
     }
-  },
-  "structure": {
-      "environment": [
-        "dark",
-        "light",
-        "external_medium"
-      ],
-      "dark": [
-        "medium"
-      ]
-  }
 }

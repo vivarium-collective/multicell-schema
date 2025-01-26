@@ -2,6 +2,6 @@
   "type": "MotileForce",
   "inherits_from": [],
   "attributes": {},
-  "participating_objects": [],
+  "participating_objects": ["Cell"],
   "update": {}
 }

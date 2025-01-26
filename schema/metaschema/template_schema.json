@@ -9,8 +9,11 @@
     },
     "objects": {
       "type": "object",
-      "additionalProperties": {
-        "type": "string"
+      "properties": {
+        "type": {"type": "string"},
+        "attributes": {"type": "object"},
+        "boundary_conditions": {"type": "object"},
+        "contained_objects": {"type": "array"}
       }
     },
     "processes": {

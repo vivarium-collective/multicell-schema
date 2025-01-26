@@ -71,6 +71,7 @@ class SchemaRegistry:
             if contained_objects:
                 allowed_obj_types = self.allowed_containments[object_type]
                 for object_name in contained_objects:
+                    assert object_name in model['objects'], f"Contained object '{object_name}' within '{obj_name}' is not in model"
                     contained_object_type = model['objects'][object_name]['type']
 
                     # check that the object type or its base types are allowed to be contained
@@ -86,13 +87,13 @@ class SchemaRegistry:
             participating_objects_names = proc_schema.get('participating_objects', [])
             participating_objects_types = self.process_types[process_type].get('participating_objects', [])
 
-            # check that participating objects names are in model object keys
+            # check that participating objects names are in model objects
             for obj_name in participating_objects_names:
                 assert obj_name in model['objects'], f"Participating object '{obj_name}' is not valid for process '{proc_name}'"
                 obj_type = model['objects'][obj_name]['type']
                 assert obj_type in participating_objects_types, f"Object '{obj_name}' of type '{obj_type}' is not valid for process type '{process_type}' with allowed types {participating_objects_types}"
 
-        # TODO: Validate containment rules
+        # Validate containment structure
         self.validate_containment(model)
 
     def validate_containment(self, model):
@@ -100,19 +101,18 @@ class SchemaRegistry:
         for parent, children in structure.items():
             parent_type = model['objects'][parent]['type']
 
-            # Check if parent object is registered
+            # assert parent object is registered
             assert parent_type in self.object_inheritance, f"Object '{parent}' does not have inheritance information"
 
-            # Check if parent object can contain children
+            # assert parent object can contain children
             if parent_type not in self.allowed_containments:
                 raise ValueError(f"Invalid containment: {parent_type} does not claim contained objects")
 
-            # Check if children types are allowed to be contained by the parent type
+            # assert children types can be contained by the parent type
             allowed_children_types = self.allowed_containments[parent_type]
             for child in children:
                 child_type = model['objects'][child]['type']
                 if child_type not in allowed_children_types:
-                    # Check inheritance
                     if not any(base_type in allowed_children_types for base_type in self.object_inheritance.get(child_type, [])):
                         print(f"Invalid containment: {child_type} object is not contained by {parent_type}")
 
