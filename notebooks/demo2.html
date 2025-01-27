@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>cell_sorting</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>demo2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7510,7 +7510,27 @@ a.anchor-link {
 </style>
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=initial_id">
+<main>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8a91c2a0daa0371">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="Demo2-Notebook">Demo2 Notebook<a class="anchor-link" href="#Demo2-Notebook">¶</a></h1><p>This notebook demonstrates more advanced use of the <code>ModelBuilder</code> class. It includes the following steps:</p>
+<ol>
+<li>Adding objects and processes schemas to the registry.</li>
+<li>Connecting objects and processes.</li>
+<li>Validating the model.</li>
+<li>Saving the model to a file.</li>
+<li>Loading a different model from a file.</li>
+<li>Visualizing the model.</li>
+</ol>
+<p>The <code>ModelBuilder</code> class allows for the creation and manipulation of complex models by defining objects and processes, and their interactions. This demo will guide you through the essential steps to create, validate, save, load, and visualize a model.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1b758152d3e84ef0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7518,35 +7538,14 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">multicell_utils.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelBuilder</span><span class="p">,</span> <span class="n">ProcessCreator</span><span class="p">,</span> <span class="n">ObjectCreator</span>
-
-<span class="n">cell_pop</span> <span class="o">=</span> <span class="n">ObjectCreator</span><span class="p">(</span>
-    <span class="nb">type</span><span class="o">=</span><span class="s1">'CellPopulation'</span><span class="p">,</span>
-    <span class="n">inherits_from</span><span class="o">=</span><span class="s1">'Cell'</span><span class="p">,</span>
-    <span class="n">contained_objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'Cell'</span><span class="p">]</span>
-<span class="p">)</span>
-<span class="n">cell_pop</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
-<span class="n">cell_pop</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">cell_pop</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">'cell_population.json'</span><span class="p">)</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># import the ModelBuilder, ProcessCreator, and ObjectCreator classes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">multicell_utils.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelBuilder</span><span class="p">,</span> <span class="n">ProcessCreator</span><span class="p">,</span> <span class="n">ObjectCreator</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Schema saved to schema/object/cell_population.json
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=265d587e2ef1266f">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5e997a4e1d63e9f7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7554,43 +7553,24 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">cell_sorting</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">'cell_sorting'</span><span class="p">)</span>
-<span class="n">cell_sorting</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'dark'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'CellPopulation'</span><span class="p">)</span>
-<span class="n">cell_sorting</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'light'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'CellPopulation'</span><span class="p">)</span>
-<span class="n">cell_sorting</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'environment'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'CellField'</span><span class="p">,</span> <span class="n">contained_objects</span><span class="o">=</span><span class="p">[</span><span class="s2">"dark"</span><span class="p">,</span> <span class="s2">"light"</span><span class="p">])</span>
-<span class="n">cell_sorting</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'external_material'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'Material'</span><span class="p">)</span>
-<span class="n">cell_sorting</span><span class="o">.</span><span class="n">add_process</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'volume exclusion'</span><span class="p">,</span> <span class="n">process_type</span><span class="o">=</span><span class="s1">'VolumeExclusion'</span><span class="p">,</span>
-                    <span class="n">participating_objects</span><span class="o">=</span><span class="p">[</span><span class="s2">"dark"</span><span class="p">,</span> <span class="s2">"light"</span><span class="p">,</span> <span class="s2">"external_material"</span><span class="p">])</span>
-<span class="n">cell_sorting</span><span class="o">.</span><span class="n">add_process</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'contact'</span><span class="p">,</span> <span class="n">process_type</span><span class="o">=</span><span class="s1">'ContactForce'</span><span class="p">,</span> <span class="n">participating_objects</span><span class="o">=</span><span class="p">[</span><span class="s2">"environment"</span><span class="p">])</span>
-<span class="n">cell_sorting</span><span class="o">.</span><span class="n">add_process</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'fluctuation'</span><span class="p">,</span> <span class="n">process_type</span><span class="o">=</span><span class="s1">'MotileForce'</span><span class="p">,</span> <span class="n">participating_objects</span><span class="o">=</span><span class="p">[</span><span class="s2">"dark"</span><span class="p">,</span> <span class="s2">"light"</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ca5e74999211e4a7">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">cell_sorting</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=79d8634bf2e3e821">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">cell_sorting</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">'cell_sorting.json'</span><span class="p">)</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># register a new object</span>
+<span class="n">new_object</span> <span class="o">=</span> <span class="n">ObjectCreator</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s1">'ExtracellularMatrix'</span><span class="p">,</span>
+    <span class="n">inherits_from</span><span class="o">=</span><span class="s1">'Material'</span><span class="p">,</span>
+    <span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">'density'</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">'stiffness'</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">new_object</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+<span class="n">new_object</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">new_object</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">'ecm_object.json'</span><span class="p">)</span>
+
+<span class="c1"># register a new process</span>
+<span class="n">new_process</span> <span class="o">=</span> <span class="n">ProcessCreator</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s1">'Collision'</span><span class="p">,</span>
+    <span class="n">participating_objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'ExtracellularMatrix'</span><span class="p">,</span> <span class="s1">'Cell'</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">new_process</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+<span class="n">new_process</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">new_process</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">'collision_process.json'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7603,13 +7583,61 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Model saved to models/cell_sorting.json
+<pre>Schema saved to schema/object/ecm_object.json
+Schema saved to schema/process/collision_process.json
 </pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=aaab59af82139ea">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=abc2a2dbd4d56877">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># build a model template that includes the new schemas</span>
+<span class="n">demo_model</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">'demo'</span><span class="p">)</span>
+<span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'chemical field'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'Field'</span><span class="p">)</span>
+<span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'extracellular matrix'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'ExtracellularMatrix'</span><span class="p">)</span>
+<span class="n">demo_model</span><span class="o">.</span><span class="n">add_process</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'collision'</span><span class="p">,</span> <span class="n">process_type</span><span class="o">=</span><span class="s1">'Collision'</span><span class="p">,</span> <span class="n">participating_objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'extracellular matrix'</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1d77484637ab116c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># validate and save</span>
+<span class="n">demo_model</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+<span class="n">demo_model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">'demo_model2.json'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Model saved to models/demo_model2.json
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b001044adb6cc057">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7617,7 +7645,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">cell_sorting</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># display the model as a graph</span>
+<span class="n">demo_model</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -7630,12 +7659,23 @@ a.anchor-link {
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
 <div class="jp-RenderedSVG jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="image/svg+xml" tabindex="0">
-<img alt="No description has been provided for this image" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8IS0tIEdlbmVyYXRlZCBieSBncmFwaHZpeiB2ZXJzaW9uIDkuMC4wICgwKQogLS0+CjwhLS0gUGFnZXM6IDEgLS0+Cjxzdmcgd2lkdGg9IjczM3B0IiBoZWlnaHQ9IjUwNXB0Igogdmlld0JveD0iMC4wMCAwLjAwIDczMy4yNSA1MDUuMTMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgo8ZyBpZD0iZ3JhcGgwIiBjbGFzcz0iZ3JhcGgiIHRyYW5zZm9ybT0ic2NhbGUoMSAxKSByb3RhdGUoMCkgdHJhbnNsYXRlKDQgNTAxLjEzKSI+Cjxwb2x5Z29uIGZpbGw9IndoaXRlIiBzdHJva2U9Im5vbmUiIHBvaW50cz0iLTQsNCAtNCwtNTAxLjEzIDcyOS4yNSwtNTAxLjEzIDcyOS4yNSw0IC00LDQiLz4KPCEtLSBkYXJrIC0tPgo8ZyBpZD0ibm9kZTEiIGNsYXNzPSJub2RlIj4KPHRpdGxlPmRhcms8L3RpdGxlPgo8ZWxsaXBzZSBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBjeD0iMzA4LjM5IiBjeT0iLTE3Ni4zOSIgcng9IjgxLjM0IiByeT0iODEuMzQiLz4KPHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzA4LjM5IiB5PSItMTcyLjE5IiBmb250LWZhbWlseT0iVGltZXMsc2VyaWYiIGZvbnQtc2l6ZT0iMTQuMDAiPmRhcms6Q2VsbFBvcHVsYXRpb248L3RleHQ+CjwvZz4KPCEtLSB2b2x1bWUgZXhjbHVzaW9uIC0tPgo8ZyBpZD0ibm9kZTUiIGNsYXNzPSJub2RlIj4KPHRpdGxlPnZvbHVtZSBleGNsdXNpb248L3RpdGxlPgo8cG9seWdvbiBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBwb2ludHM9IjM5Ni41NSwtMzYgMTc4LjIyLC0zNiAxNzguMjIsMCAzOTYuNTUsMCAzOTYuNTUsLTM2Ii8+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjI4Ny4zOSIgeT0iLTEzLjgiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+dm9sdW1lIGV4Y2x1c2lvbjpWb2x1bWVFeGNsdXNpb248L3RleHQ+CjwvZz4KPCEtLSBkYXJrJiM0NTsmZ3Q7dm9sdW1lIGV4Y2x1c2lvbiAtLT4KPGcgaWQ9ImVkZ2UxIiBjbGFzcz0iZWRnZSI+Cjx0aXRsZT5kYXJrJiM0NTsmZ3Q7dm9sdW1lIGV4Y2x1c2lvbjwvdGl0bGU+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1kYXNoYXJyYXk9IjUsMiIgZD0iTTI5Ni4xNCwtODQuMkMyOTMuNjksLTY1LjkyIDI5MS4zNiwtNDguNjEgMjg5LjczLC0zNi40MyIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIyOTIuNjQsLTg0LjQyIDI5Ny40NCwtOTMuODYgMjk5LjU4LC04My40OCAyOTIuNjQsLTg0LjQyIi8+CjwvZz4KPCEtLSBmbHVjdHVhdGlvbiAtLT4KPGcgaWQ9Im5vZGU3IiBjbGFzcz0ibm9kZSI+Cjx0aXRsZT5mbHVjdHVhdGlvbjwvdGl0bGU+Cjxwb2x5Z29uIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHBvaW50cz0iNTYzLjg4LC0zNiA0MTQuOSwtMzYgNDE0LjksMCA1NjMuODgsMCA1NjMuODgsLTM2Ii8+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjQ4OS4zOSIgeT0iLTEzLjgiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+Zmx1Y3R1YXRpb246TW90aWxlRm9yY2U8L3RleHQ+CjwvZz4KPCEtLSBkYXJrJiM0NTsmZ3Q7Zmx1Y3R1YXRpb24gLS0+CjxnIGlkPSJlZGdlNSIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+ZGFyayYjNDU7Jmd0O2ZsdWN0dWF0aW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNMzY1Ljg0LC0xMDMuMTFDMzc2LjExLC05Mi4wOSAzODcuMTQsLTgxLjMxIDM5OC4zOSwtNzIgNDE1LjE1LC01OC4xNCA0MzYsLTQ1LjcxIDQ1My41LC0zNi4zOCIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIzNjMuMzEsLTEwMC42OSAzNTkuMTcsLTExMC40NCAzNjguNDksLTEwNS40IDM2My4zMSwtMTAwLjY5Ii8+CjwvZz4KPCEtLSBsaWdodCAtLT4KPGcgaWQ9Im5vZGUyIiBjbGFzcz0ibm9kZSI+Cjx0aXRsZT5saWdodDwvdGl0bGU+CjxlbGxpcHNlIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIGN4PSI0ODkuMzkiIGN5PSItMTc2LjM5IiByeD0iODEuODQiIHJ5PSI4MS44NCIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI0ODkuMzkiIHk9Ii0xNzIuMTkiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+bGlnaHQ6Q2VsbFBvcHVsYXRpb248L3RleHQ+CjwvZz4KPCEtLSBsaWdodCYjNDU7Jmd0O3ZvbHVtZSBleGNsdXNpb24gLS0+CjxnIGlkPSJlZGdlMiIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+bGlnaHQmIzQ1OyZndDt2b2x1bWUgZXhjbHVzaW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNNDMyLjM4LC0xMDIuODVDNDIxLjc4LC05MS43NCA0MTAuMjgsLTgwLjk5IDM5OC4zOSwtNzIgMzc5LjA1LC01Ny4zOCAzNTUuMDQsLTQ1LjMxIDMzNC4zMSwtMzYuNCIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSI0MjkuNTMsLTEwNC45MiA0MzguODksLTEwOS44OCA0MzQuNjYsLTEwMC4xNyA0MjkuNTMsLTEwNC45MiIvPgo8L2c+CjwhLS0gbGlnaHQmIzQ1OyZndDtmbHVjdHVhdGlvbiAtLT4KPGcgaWQ9ImVkZ2U2IiBjbGFzcz0iZWRnZSI+Cjx0aXRsZT5saWdodCYjNDU7Jmd0O2ZsdWN0dWF0aW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNNDg5LjM5LC04Mi45NUM0ODkuMzksLTY1LjE1IDQ4OS4zOSwtNDguMzcgNDg5LjM5LC0zNi40NyIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSI0ODUuODksLTgyLjkzIDQ4OS4zOSwtOTIuOTMgNDkyLjg5LC04Mi45MyA0ODUuODksLTgyLjkzIi8+CjwvZz4KPCEtLSBlbnZpcm9ubWVudCAtLT4KPGcgaWQ9Im5vZGUzIiBjbGFzcz0ibm9kZSI+Cjx0aXRsZT5lbnZpcm9ubWVudDwvdGl0bGU+CjxlbGxpcHNlIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIGN4PSI0ODkuMzkiIGN5PSItNDA2Ljk1IiByeD0iOTAuMTgiIHJ5PSI5MC4xOCIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI0ODkuMzkiIHk9Ii00MDIuNzUiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+ZW52aXJvbm1lbnQ6Q2VsbEZpZWxkPC90ZXh0Pgo8L2c+CjwhLS0gZW52aXJvbm1lbnQmIzQ1OyZndDtkYXJrIC0tPgo8ZyBpZD0iZWRnZTciIGNsYXNzPSJlZGdlIj4KPHRpdGxlPmVudmlyb25tZW50JiM0NTsmZ3Q7ZGFyazwvdGl0bGU+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZD0iTTQzMy42MSwtMzM1LjUxQzQwOS42MSwtMzA1LjIxIDM4MS43OCwtMjcwLjA3IDM1OC40NiwtMjQwLjYxIi8+CjwvZz4KPCEtLSBlbnZpcm9ubWVudCYjNDU7Jmd0O2xpZ2h0IC0tPgo8ZyBpZD0iZWRnZTgiIGNsYXNzPSJlZGdlIj4KPHRpdGxlPmVudmlyb25tZW50JiM0NTsmZ3Q7bGlnaHQ8L3RpdGxlPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik00ODkuMzksLTMxNi42QzQ4OS4zOSwtMjk3LjQ1IDQ4OS4zOSwtMjc3LjMxIDQ4OS4zOSwtMjU4LjQ4Ii8+CjwvZz4KPCEtLSBjb250YWN0IC0tPgo8ZyBpZD0ibm9kZTYiIGNsYXNzPSJub2RlIj4KPHRpdGxlPmNvbnRhY3Q8L3RpdGxlPgo8cG9seWdvbiBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBwb2ludHM9IjcyNS4yNSwtMTk0LjM5IDU4OS41MiwtMTk0LjM5IDU4OS41MiwtMTU4LjM5IDcyNS4yNSwtMTU4LjM5IDcyNS4yNSwtMTk0LjM5Ii8+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjY1Ny4zOSIgeT0iLTE3Mi4xOSIgZm9udC1mYW1pbHk9IlRpbWVzLHNlcmlmIiBmb250LXNpemU9IjE0LjAwIj5jb250YWN0OkNvbnRhY3RGb3JjZTwvdGV4dD4KPC9nPgo8IS0tIGVudmlyb25tZW50JiM0NTsmZ3Q7Y29udGFjdCAtLT4KPGcgaWQ9ImVkZ2U0IiBjbGFzcz0iZWRnZSI+Cjx0aXRsZT5lbnZpcm9ubWVudCYjNDU7Jmd0O2NvbnRhY3Q8L3RpdGxlPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtZGFzaGFycmF5PSI1LDIiIGQ9Ik01NDkuMTYsLTMyNC42M0M1ODMuODMsLTI3Ny40NyA2MjQuNTEsLTIyMi4xMyA2NDQuNjksLTE5NC42NiIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSI1NDYuNTQsLTMyMi4yOCA1NDMuNDQsLTMzMi40MSA1NTIuMTgsLTMyNi40MyA1NDYuNTQsLTMyMi4yOCIvPgo8L2c+CjwhLS0gZXh0ZXJuYWxfbWF0ZXJpYWwgLS0+CjxnIGlkPSJub2RlNCIgY2xhc3M9Im5vZGUiPgo8dGl0bGU+ZXh0ZXJuYWxfbWF0ZXJpYWw8L3RpdGxlPgo8ZWxsaXBzZSBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBjeD0iMTA0LjM5IiBjeT0iLTE3Ni4zOSIgcng9IjEwNC4zOSIgcnk9IjEwNC4zOSIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSIxMDQuMzkiIHk9Ii0xNzIuMTkiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+ZXh0ZXJuYWxfbWF0ZXJpYWw6TWF0ZXJpYWw8L3RleHQ+CjwvZz4KPCEtLSBleHRlcm5hbF9tYXRlcmlhbCYjNDU7Jmd0O3ZvbHVtZSBleGNsdXNpb24gLS0+CjxnIGlkPSJlZGdlMyIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+ZXh0ZXJuYWxfbWF0ZXJpYWwmIzQ1OyZndDt2b2x1bWUgZXhjbHVzaW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNMTg5LjEzLC05Ny4xNkMxOTguOSwtODguNTUgMjA4Ljc5LC04MC4wMSAyMTguMzksLTcyIDIzMy4xMSwtNTkuNyAyNTAuMjEsLTQ2LjU2IDI2My43LC0zNi40NCIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIxODYuODksLTk0LjQ3IDE4MS43MiwtMTAzLjcyIDE5MS41MywtOTkuNzEgMTg2Ljg5LC05NC40NyIvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="/>
+<img alt="No description has been provided for this image" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8IS0tIEdlbmVyYXRlZCBieSBncmFwaHZpeiB2ZXJzaW9uIDkuMC4wICgwKQogLS0+CjwhLS0gUGFnZXM6IDEgLS0+Cjxzdmcgd2lkdGg9IjQ5MHB0IiBoZWlnaHQ9IjM4NHB0Igogdmlld0JveD0iMC4wMCAwLjAwIDQ5MC4zNyAzODMuNTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgo8ZyBpZD0iZ3JhcGgwIiBjbGFzcz0iZ3JhcGgiIHRyYW5zZm9ybT0ic2NhbGUoMSAxKSByb3RhdGUoMCkgdHJhbnNsYXRlKDQgMzc5LjU2KSI+Cjxwb2x5Z29uIGZpbGw9IndoaXRlIiBzdHJva2U9Im5vbmUiIHBvaW50cz0iLTQsNCAtNCwtMzc5LjU2IDQ4Ni4zNywtMzc5LjU2IDQ4Ni4zNyw0IC00LDQiLz4KPCEtLSBjaGVtaWNhbCBmaWVsZCAtLT4KPGcgaWQ9Im5vZGUxIiBjbGFzcz0ibm9kZSI+Cjx0aXRsZT5jaGVtaWNhbCBmaWVsZDwvdGl0bGU+CjxlbGxpcHNlIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIGN4PSI4MC41OSIgY3k9Ii0yMjMuNzgiIHJ4PSI4MC41OSIgcnk9IjgwLjU5Ii8+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjgwLjU5IiB5PSItMjE5LjU4IiBmb250LWZhbWlseT0iVGltZXMsc2VyaWYiIGZvbnQtc2l6ZT0iMTQuMDAiPmNoZW1pY2FsIGZpZWxkOkZpZWxkPC90ZXh0Pgo8L2c+CjwhLS0gZXh0cmFjZWxsdWxhciBtYXRyaXggLS0+CjxnIGlkPSJub2RlMiIgY2xhc3M9Im5vZGUiPgo8dGl0bGU+ZXh0cmFjZWxsdWxhciBtYXRyaXg8L3RpdGxlPgo8ZWxsaXBzZSBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBjeD0iMzMwLjU5IiBjeT0iLTIyMy43OCIgcng9IjE1MS43OCIgcnk9IjE1MS43OCIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSIzMzAuNTkiIHk9Ii0yMTkuNTgiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+ZXh0cmFjZWxsdWxhciBtYXRyaXg6RXh0cmFjZWxsdWxhck1hdHJpeDwvdGV4dD4KPC9nPgo8IS0tIGNvbGxpc2lvbiAtLT4KPGcgaWQ9Im5vZGUzIiBjbGFzcz0ibm9kZSI+Cjx0aXRsZT5jb2xsaXNpb248L3RpdGxlPgo8cG9seWdvbiBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBwb2ludHM9IjM5MC4zMiwtMzYgMjcwLjg2LC0zNiAyNzAuODYsMCAzOTAuMzIsMCAzOTAuMzIsLTM2Ii8+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjMzMC41OSIgeT0iLTEzLjgiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+Y29sbGlzaW9uOkNvbGxpc2lvbjwvdGV4dD4KPC9nPgo8IS0tIGV4dHJhY2VsbHVsYXIgbWF0cml4JiM0NTsmZ3Q7Y29sbGlzaW9uIC0tPgo8ZyBpZD0iZWRnZTEiIGNsYXNzPSJlZGdlIj4KPHRpdGxlPmV4dHJhY2VsbHVsYXIgbWF0cml4JiM0NTsmZ3Q7Y29sbGlzaW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNMzMwLjU5LC02MC40M0MzMzAuNTksLTUxLjE4IDMzMC41OSwtNDIuOTcgMzMwLjU5LC0zNi4zNCIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIzMjcuMDksLTYwLjIzIDMzMC41OSwtNzAuMjMgMzM0LjA5LC02MC4yMyAzMjcuMDksLTYwLjIzIi8+CjwvZz4KPC9nPgo8L3N2Zz4K"/>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5800d02a34fb74f">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=840f4be3b03f9d1f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Load-model-from-file">Load model from file<a class="anchor-link" href="#Load-model-from-file">¶</a></h2><p>Here we load a different model from a file and modify it.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1a9c1a3f53543d66">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7643,7 +7683,9 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">cell_sorting</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># load a model from file and graph</span>
+<span class="n">demo2</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">(</span><span class="n">model_file</span><span class="o">=</span><span class="s1">'cell_sorting.json'</span><span class="p">)</span>
+<span class="n">demo2</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -7655,50 +7697,40 @@ a.anchor-link {
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>ModelBuilder({ 'id': 'model_000016',
-  'name': 'cell_sorting',
-  'objects': { 'dark': { 'attributes': {},
-                         'boundary_conditions': {},
-                         'contained_objects': [],
-                         'type': 'CellPopulation'},
-               'environment': { 'attributes': {},
-                                'boundary_conditions': {},
-                                'contained_objects': ['dark', 'light'],
-                                'type': 'CellField'},
-               'external_material': { 'attributes': {},
-                                      'boundary_conditions': {},
-                                      'contained_objects': [],
-                                      'type': 'Material'},
-               'light': { 'attributes': {},
-                          'boundary_conditions': {},
-                          'contained_objects': [],
-                          'type': 'CellPopulation'}},
-  'processes': { 'contact': { 'attributes': {},
-                              'participating_objects': ['environment'],
-                              'type': 'ContactForce'},
-                 'fluctuation': { 'attributes': {},
-                                  'participating_objects': ['dark', 'light'],
-                                  'type': 'MotileForce'},
-                 'volume exclusion': { 'attributes': {},
-                                       'participating_objects': [ 'dark',
-                                                                  'light',
-                                                                  'external_material'],
-                                       'type': 'VolumeExclusion'}}})</pre>
+<div class="jp-RenderedSVG jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="image/svg+xml" tabindex="0">
+<img alt="No description has been provided for this image" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8IS0tIEdlbmVyYXRlZCBieSBncmFwaHZpeiB2ZXJzaW9uIDkuMC4wICgwKQogLS0+CjwhLS0gUGFnZXM6IDEgLS0+Cjxzdmcgd2lkdGg9IjczM3B0IiBoZWlnaHQ9IjUwNXB0Igogdmlld0JveD0iMC4wMCAwLjAwIDczMy4yNSA1MDUuMTMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgo8ZyBpZD0iZ3JhcGgwIiBjbGFzcz0iZ3JhcGgiIHRyYW5zZm9ybT0ic2NhbGUoMSAxKSByb3RhdGUoMCkgdHJhbnNsYXRlKDQgNTAxLjEzKSI+Cjxwb2x5Z29uIGZpbGw9IndoaXRlIiBzdHJva2U9Im5vbmUiIHBvaW50cz0iLTQsNCAtNCwtNTAxLjEzIDcyOS4yNSwtNTAxLjEzIDcyOS4yNSw0IC00LDQiLz4KPCEtLSBkYXJrIC0tPgo8ZyBpZD0ibm9kZTEiIGNsYXNzPSJub2RlIj4KPHRpdGxlPmRhcms8L3RpdGxlPgo8ZWxsaXBzZSBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBjeD0iMzA4LjM5IiBjeT0iLTE3Ni4zOSIgcng9IjgxLjM0IiByeT0iODEuMzQiLz4KPHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzA4LjM5IiB5PSItMTcyLjE5IiBmb250LWZhbWlseT0iVGltZXMsc2VyaWYiIGZvbnQtc2l6ZT0iMTQuMDAiPmRhcms6Q2VsbFBvcHVsYXRpb248L3RleHQ+CjwvZz4KPCEtLSB2b2x1bWUgZXhjbHVzaW9uIC0tPgo8ZyBpZD0ibm9kZTUiIGNsYXNzPSJub2RlIj4KPHRpdGxlPnZvbHVtZSBleGNsdXNpb248L3RpdGxlPgo8cG9seWdvbiBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBwb2ludHM9IjM5Ni41NSwtMzYgMTc4LjIyLC0zNiAxNzguMjIsMCAzOTYuNTUsMCAzOTYuNTUsLTM2Ii8+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjI4Ny4zOSIgeT0iLTEzLjgiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+dm9sdW1lIGV4Y2x1c2lvbjpWb2x1bWVFeGNsdXNpb248L3RleHQ+CjwvZz4KPCEtLSBkYXJrJiM0NTsmZ3Q7dm9sdW1lIGV4Y2x1c2lvbiAtLT4KPGcgaWQ9ImVkZ2UxIiBjbGFzcz0iZWRnZSI+Cjx0aXRsZT5kYXJrJiM0NTsmZ3Q7dm9sdW1lIGV4Y2x1c2lvbjwvdGl0bGU+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1kYXNoYXJyYXk9IjUsMiIgZD0iTTI5Ni4xNCwtODQuMkMyOTMuNjksLTY1LjkyIDI5MS4zNiwtNDguNjEgMjg5LjczLC0zNi40MyIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIyOTIuNjQsLTg0LjQyIDI5Ny40NCwtOTMuODYgMjk5LjU4LC04My40OCAyOTIuNjQsLTg0LjQyIi8+CjwvZz4KPCEtLSBmbHVjdHVhdGlvbiAtLT4KPGcgaWQ9Im5vZGU3IiBjbGFzcz0ibm9kZSI+Cjx0aXRsZT5mbHVjdHVhdGlvbjwvdGl0bGU+Cjxwb2x5Z29uIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHBvaW50cz0iNTYzLjg4LC0zNiA0MTQuOSwtMzYgNDE0LjksMCA1NjMuODgsMCA1NjMuODgsLTM2Ii8+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjQ4OS4zOSIgeT0iLTEzLjgiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+Zmx1Y3R1YXRpb246TW90aWxlRm9yY2U8L3RleHQ+CjwvZz4KPCEtLSBkYXJrJiM0NTsmZ3Q7Zmx1Y3R1YXRpb24gLS0+CjxnIGlkPSJlZGdlNSIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+ZGFyayYjNDU7Jmd0O2ZsdWN0dWF0aW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNMzY1Ljg0LC0xMDMuMTFDMzc2LjExLC05Mi4wOSAzODcuMTQsLTgxLjMxIDM5OC4zOSwtNzIgNDE1LjE1LC01OC4xNCA0MzYsLTQ1LjcxIDQ1My41LC0zNi4zOCIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIzNjMuMzEsLTEwMC42OSAzNTkuMTcsLTExMC40NCAzNjguNDksLTEwNS40IDM2My4zMSwtMTAwLjY5Ii8+CjwvZz4KPCEtLSBsaWdodCAtLT4KPGcgaWQ9Im5vZGUyIiBjbGFzcz0ibm9kZSI+Cjx0aXRsZT5saWdodDwvdGl0bGU+CjxlbGxpcHNlIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIGN4PSI0ODkuMzkiIGN5PSItMTc2LjM5IiByeD0iODEuODQiIHJ5PSI4MS44NCIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI0ODkuMzkiIHk9Ii0xNzIuMTkiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+bGlnaHQ6Q2VsbFBvcHVsYXRpb248L3RleHQ+CjwvZz4KPCEtLSBsaWdodCYjNDU7Jmd0O3ZvbHVtZSBleGNsdXNpb24gLS0+CjxnIGlkPSJlZGdlMiIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+bGlnaHQmIzQ1OyZndDt2b2x1bWUgZXhjbHVzaW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNNDMyLjM4LC0xMDIuODVDNDIxLjc4LC05MS43NCA0MTAuMjgsLTgwLjk5IDM5OC4zOSwtNzIgMzc5LjA1LC01Ny4zOCAzNTUuMDQsLTQ1LjMxIDMzNC4zMSwtMzYuNCIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSI0MjkuNTMsLTEwNC45MiA0MzguODksLTEwOS44OCA0MzQuNjYsLTEwMC4xNyA0MjkuNTMsLTEwNC45MiIvPgo8L2c+CjwhLS0gbGlnaHQmIzQ1OyZndDtmbHVjdHVhdGlvbiAtLT4KPGcgaWQ9ImVkZ2U2IiBjbGFzcz0iZWRnZSI+Cjx0aXRsZT5saWdodCYjNDU7Jmd0O2ZsdWN0dWF0aW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNNDg5LjM5LC04Mi45NUM0ODkuMzksLTY1LjE1IDQ4OS4zOSwtNDguMzcgNDg5LjM5LC0zNi40NyIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSI0ODUuODksLTgyLjkzIDQ4OS4zOSwtOTIuOTMgNDkyLjg5LC04Mi45MyA0ODUuODksLTgyLjkzIi8+CjwvZz4KPCEtLSBlbnZpcm9ubWVudCAtLT4KPGcgaWQ9Im5vZGUzIiBjbGFzcz0ibm9kZSI+Cjx0aXRsZT5lbnZpcm9ubWVudDwvdGl0bGU+CjxlbGxpcHNlIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIGN4PSI0ODkuMzkiIGN5PSItNDA2Ljk1IiByeD0iOTAuMTgiIHJ5PSI5MC4xOCIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI0ODkuMzkiIHk9Ii00MDIuNzUiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+ZW52aXJvbm1lbnQ6Q2VsbEZpZWxkPC90ZXh0Pgo8L2c+CjwhLS0gZW52aXJvbm1lbnQmIzQ1OyZndDtkYXJrIC0tPgo8ZyBpZD0iZWRnZTciIGNsYXNzPSJlZGdlIj4KPHRpdGxlPmVudmlyb25tZW50JiM0NTsmZ3Q7ZGFyazwvdGl0bGU+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZD0iTTQzMy42MSwtMzM1LjUxQzQwOS42MSwtMzA1LjIxIDM4MS43OCwtMjcwLjA3IDM1OC40NiwtMjQwLjYxIi8+CjwvZz4KPCEtLSBlbnZpcm9ubWVudCYjNDU7Jmd0O2xpZ2h0IC0tPgo8ZyBpZD0iZWRnZTgiIGNsYXNzPSJlZGdlIj4KPHRpdGxlPmVudmlyb25tZW50JiM0NTsmZ3Q7bGlnaHQ8L3RpdGxlPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik00ODkuMzksLTMxNi42QzQ4OS4zOSwtMjk3LjQ1IDQ4OS4zOSwtMjc3LjMxIDQ4OS4zOSwtMjU4LjQ4Ii8+CjwvZz4KPCEtLSBjb250YWN0IC0tPgo8ZyBpZD0ibm9kZTYiIGNsYXNzPSJub2RlIj4KPHRpdGxlPmNvbnRhY3Q8L3RpdGxlPgo8cG9seWdvbiBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBwb2ludHM9IjcyNS4yNSwtMTk0LjM5IDU4OS41MiwtMTk0LjM5IDU4OS41MiwtMTU4LjM5IDcyNS4yNSwtMTU4LjM5IDcyNS4yNSwtMTk0LjM5Ii8+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjY1Ny4zOSIgeT0iLTE3Mi4xOSIgZm9udC1mYW1pbHk9IlRpbWVzLHNlcmlmIiBmb250LXNpemU9IjE0LjAwIj5jb250YWN0OkNvbnRhY3RGb3JjZTwvdGV4dD4KPC9nPgo8IS0tIGVudmlyb25tZW50JiM0NTsmZ3Q7Y29udGFjdCAtLT4KPGcgaWQ9ImVkZ2U0IiBjbGFzcz0iZWRnZSI+Cjx0aXRsZT5lbnZpcm9ubWVudCYjNDU7Jmd0O2NvbnRhY3Q8L3RpdGxlPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtZGFzaGFycmF5PSI1LDIiIGQ9Ik01NDkuMTYsLTMyNC42M0M1ODMuODMsLTI3Ny40NyA2MjQuNTEsLTIyMi4xMyA2NDQuNjksLTE5NC42NiIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSI1NDYuNTQsLTMyMi4yOCA1NDMuNDQsLTMzMi40MSA1NTIuMTgsLTMyNi40MyA1NDYuNTQsLTMyMi4yOCIvPgo8L2c+CjwhLS0gZXh0ZXJuYWxfbWF0ZXJpYWwgLS0+CjxnIGlkPSJub2RlNCIgY2xhc3M9Im5vZGUiPgo8dGl0bGU+ZXh0ZXJuYWxfbWF0ZXJpYWw8L3RpdGxlPgo8ZWxsaXBzZSBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBjeD0iMTA0LjM5IiBjeT0iLTE3Ni4zOSIgcng9IjEwNC4zOSIgcnk9IjEwNC4zOSIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSIxMDQuMzkiIHk9Ii0xNzIuMTkiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+ZXh0ZXJuYWxfbWF0ZXJpYWw6TWF0ZXJpYWw8L3RleHQ+CjwvZz4KPCEtLSBleHRlcm5hbF9tYXRlcmlhbCYjNDU7Jmd0O3ZvbHVtZSBleGNsdXNpb24gLS0+CjxnIGlkPSJlZGdlMyIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+ZXh0ZXJuYWxfbWF0ZXJpYWwmIzQ1OyZndDt2b2x1bWUgZXhjbHVzaW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNMTg5LjEzLC05Ny4xNkMxOTguOSwtODguNTUgMjA4Ljc5LC04MC4wMSAyMTguMzksLTcyIDIzMy4xMSwtNTkuNyAyNTAuMjEsLTQ2LjU2IDI2My43LC0zNi40NCIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIxODYuODksLTk0LjQ3IDE4MS43MiwtMTAzLjcyIDE5MS41MywtOTkuNzEgMTg2Ljg5LC05NC40NyIvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="/>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=413f55884e9056aa">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d83ce2b711c50a81">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># add a new object and connect it to an existing process</span>
+<span class="n">demo2</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'medium'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'CellPopulation'</span><span class="p">)</span>
+<span class="n">demo2</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'environment'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'CellField'</span><span class="p">,</span> <span class="n">contained_objects</span><span class="o">=</span><span class="p">[</span><span class="s2">"dark"</span><span class="p">,</span> <span class="s2">"medium"</span><span class="p">,</span> <span class="s2">"light"</span><span class="p">])</span>
+<span class="n">demo2</span><span class="o">.</span><span class="n">add_process</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'volume exclusion'</span><span class="p">,</span> <span class="n">process_type</span><span class="o">=</span><span class="s1">'VolumeExclusion'</span><span class="p">,</span>
+                    <span class="n">participating_objects</span><span class="o">=</span><span class="p">[</span><span class="s2">"dark"</span><span class="p">,</span> <span class="s2">"medium"</span><span class="p">,</span> <span class="s2">"light"</span><span class="p">,</span> <span class="s2">"external_material"</span><span class="p">])</span>
+<span class="n">demo2</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+<span class="n">demo2</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
+<div class="jp-RenderedSVG jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="image/svg+xml" tabindex="0">
+<img alt="No description has been provided for this image" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8IS0tIEdlbmVyYXRlZCBieSBncmFwaHZpeiB2ZXJzaW9uIDkuMC4wICgwKQogLS0+CjwhLS0gUGFnZXM6IDEgLS0+Cjxzdmcgd2lkdGg9Ijk0MHB0IiBoZWlnaHQ9IjUwNXB0Igogdmlld0JveD0iMC4wMCAwLjAwIDk0MC40NSA1MDUuMTMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgo8ZyBpZD0iZ3JhcGgwIiBjbGFzcz0iZ3JhcGgiIHRyYW5zZm9ybT0ic2NhbGUoMSAxKSByb3RhdGUoMCkgdHJhbnNsYXRlKDQgNTAxLjEzKSI+Cjxwb2x5Z29uIGZpbGw9IndoaXRlIiBzdHJva2U9Im5vbmUiIHBvaW50cz0iLTQsNCAtNCwtNTAxLjEzIDkzNi40NSwtNTAxLjEzIDkzNi40NSw0IC00LDQiLz4KPCEtLSBkYXJrIC0tPgo8ZyBpZD0ibm9kZTEiIGNsYXNzPSJub2RlIj4KPHRpdGxlPmRhcms8L3RpdGxlPgo8ZWxsaXBzZSBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBjeD0iNDE2Ljg0IiBjeT0iLTE3Ni4zOSIgcng9IjgxLjM0IiByeT0iODEuMzQiLz4KPHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iNDE2Ljg0IiB5PSItMTcyLjE5IiBmb250LWZhbWlseT0iVGltZXMsc2VyaWYiIGZvbnQtc2l6ZT0iMTQuMDAiPmRhcms6Q2VsbFBvcHVsYXRpb248L3RleHQ+CjwvZz4KPCEtLSB2b2x1bWUgZXhjbHVzaW9uIC0tPgo8ZyBpZD0ibm9kZTYiIGNsYXNzPSJub2RlIj4KPHRpdGxlPnZvbHVtZSBleGNsdXNpb248L3RpdGxlPgo8cG9seWdvbiBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBwb2ludHM9IjYyOCwtMzYgNDA5LjY3LC0zNiA0MDkuNjcsMCA2MjgsMCA2MjgsLTM2Ii8+Cjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjUxOC44NCIgeT0iLTEzLjgiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+dm9sdW1lIGV4Y2x1c2lvbjpWb2x1bWVFeGNsdXNpb248L3RleHQ+CjwvZz4KPCEtLSBkYXJrJiM0NTsmZ3Q7dm9sdW1lIGV4Y2x1c2lvbiAtLT4KPGcgaWQ9ImVkZ2UxIiBjbGFzcz0iZWRnZSI+Cjx0aXRsZT5kYXJrJiM0NTsmZ3Q7dm9sdW1lIGV4Y2x1c2lvbjwvdGl0bGU+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1kYXNoYXJyYXk9IjUsMiIgZD0iTTQ2Ny4yNCwtOTguMTJDNDgyLjQxLC03NC44NiA0OTcuNjUsLTUxLjQ5IDUwNy41OSwtMzYuMjUiLz4KPHBvbHlnb24gZmlsbD0iYmxhY2siIHN0cm9rZT0iYmxhY2siIHBvaW50cz0iNDY0LjM0LC05Ni4xNSA0NjEuODEsLTEwNi40NCA0NzAuMjEsLTk5Ljk3IDQ2NC4zNCwtOTYuMTUiLz4KPC9nPgo8IS0tIGZsdWN0dWF0aW9uIC0tPgo8ZyBpZD0ibm9kZTgiIGNsYXNzPSJub2RlIj4KPHRpdGxlPmZsdWN0dWF0aW9uPC90aXRsZT4KPHBvbHlnb24gZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIzMjUuMzMsLTM2IDE3Ni4zNSwtMzYgMTc2LjM1LDAgMzI1LjMzLDAgMzI1LjMzLC0zNiIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSIyNTAuODQiIHk9Ii0xMy44IiBmb250LWZhbWlseT0iVGltZXMsc2VyaWYiIGZvbnQtc2l6ZT0iMTQuMDAiPmZsdWN0dWF0aW9uOk1vdGlsZUZvcmNlPC90ZXh0Pgo8L2c+CjwhLS0gZGFyayYjNDU7Jmd0O2ZsdWN0dWF0aW9uIC0tPgo8ZyBpZD0iZWRnZTYiIGNsYXNzPSJlZGdlIj4KPHRpdGxlPmRhcmsmIzQ1OyZndDtmbHVjdHVhdGlvbjwvdGl0bGU+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1kYXNoYXJyYXk9IjUsMiIgZD0iTTM1OC43MSwtMTAzLjg5QzM0OC41MywtOTIuNzggMzM3LjcsLTgxLjc2IDMyNi44NCwtNzIgMzEyLjEyLC01OC43OCAyOTQsLTQ2LjAzIDI3OS4xNCwtMzYuMzUiLz4KPHBvbHlnb24gZmlsbD0iYmxhY2siIHN0cm9rZT0iYmxhY2siIHBvaW50cz0iMzU2LjA2LC0xMDYuMTggMzY1LjM1LC0xMTEuMjcgMzYxLjI2LC0xMDEuNDkgMzU2LjA2LC0xMDYuMTgiLz4KPC9nPgo8IS0tIGxpZ2h0IC0tPgo8ZyBpZD0ibm9kZTIiIGNsYXNzPSJub2RlIj4KPHRpdGxlPmxpZ2h0PC90aXRsZT4KPGVsbGlwc2UgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgY3g9IjgxLjg0IiBjeT0iLTE3Ni4zOSIgcng9IjgxLjg0IiByeT0iODEuODQiLz4KPHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iODEuODQiIHk9Ii0xNzIuMTkiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+bGlnaHQ6Q2VsbFBvcHVsYXRpb248L3RleHQ+CjwvZz4KPCEtLSBsaWdodCYjNDU7Jmd0O3ZvbHVtZSBleGNsdXNpb24gLS0+CjxnIGlkPSJlZGdlMyIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+bGlnaHQmIzQ1OyZndDt2b2x1bWUgZXhjbHVzaW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNMTM1Ljk4LC0xMDAuNTNDMTQ3LjAyLC04OS40NyAxNTkuNDIsLTc5LjM0IDE3Mi44NCwtNzIgMTkzLjUsLTYwLjcgMzE1Ljk4LC00My42NSA0MDkuNDEsLTMxLjk2Ii8+Cjxwb2x5Z29uIGZpbGw9ImJsYWNrIiBzdHJva2U9ImJsYWNrIiBwb2ludHM9IjEzMy41OCwtOTcuOTggMTI5LjIyLC0xMDcuNjMgMTM4LjY1LC0xMDIuOCAxMzMuNTgsLTk3Ljk4Ii8+CjwvZz4KPCEtLSBsaWdodCYjNDU7Jmd0O2ZsdWN0dWF0aW9uIC0tPgo8ZyBpZD0iZWRnZTciIGNsYXNzPSJlZGdlIj4KPHRpdGxlPmxpZ2h0JiM0NTsmZ3Q7Zmx1Y3R1YXRpb248L3RpdGxlPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2UtZGFzaGFycmF5PSI1LDIiIGQ9Ik0xNDAuNzgsLTEwMy41OUMxNTEuMDIsLTkyLjU2IDE2MS45MSwtODEuNjQgMTcyLjg0LC03MiAxODcuOTQsLTU4LjY4IDIwNi41NCwtNDUuOTIgMjIxLjc4LC0zNi4yNiIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIxMzguMjYsLTEwMS4xNiAxMzQuMTEsLTExMC45MSAxNDMuNDMsLTEwNS44OCAxMzguMjYsLTEwMS4xNiIvPgo8L2c+CjwhLS0gZW52aXJvbm1lbnQgLS0+CjxnIGlkPSJub2RlMyIgY2xhc3M9Im5vZGUiPgo8dGl0bGU+ZW52aXJvbm1lbnQ8L3RpdGxlPgo8ZWxsaXBzZSBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBjeD0iMzMyLjg0IiBjeT0iLTQwNi45NSIgcng9IjkwLjE4IiByeT0iOTAuMTgiLz4KPHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzMyLjg0IiB5PSItNDAyLjc1IiBmb250LWZhbWlseT0iVGltZXMsc2VyaWYiIGZvbnQtc2l6ZT0iMTQuMDAiPmVudmlyb25tZW50OkNlbGxGaWVsZDwvdGV4dD4KPC9nPgo8IS0tIGVudmlyb25tZW50JiM0NTsmZ3Q7ZGFyayAtLT4KPGcgaWQ9ImVkZ2U4IiBjbGFzcz0iZWRnZSI+Cjx0aXRsZT5lbnZpcm9ubWVudCYjNDU7Jmd0O2Rhcms8L3RpdGxlPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik0zNjMuNzYsLTMyMS44MkMzNzIuMDQsLTI5OS4yOSAzODAuOTQsLTI3NS4wNyAzODkuMDQsLTI1My4wMyIvPgo8L2c+CjwhLS0gZW52aXJvbm1lbnQmIzQ1OyZndDtsaWdodCAtLT4KPGcgaWQ9ImVkZ2UxMCIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+ZW52aXJvbm1lbnQmIzQ1OyZndDtsaWdodDwvdGl0bGU+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZD0iTTI2MC4wMiwtMzUzLjUxQzIzMS44MywtMzMyLjA2IDE5OS45LC0zMDYuMzEgMTcyLjg0LC0yODAuNzggMTU5LjU0LC0yNjguMjIgMTQ2LjA2LC0yNTMuOTQgMTMzLjcsLTI0MC4wOCIvPgo8L2c+CjwhLS0gbWVkaXVtIC0tPgo8ZyBpZD0ibm9kZTUiIGNsYXNzPSJub2RlIj4KPHRpdGxlPm1lZGl1bTwvdGl0bGU+CjxlbGxpcHNlIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIGN4PSI4MzcuODQiIGN5PSItMTc2LjM5IiByeD0iOTQuNjEiIHJ5PSI5NC42MSIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI4MzcuODQiIHk9Ii0xNzIuMTkiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+bWVkaXVtOkNlbGxQb3B1bGF0aW9uPC90ZXh0Pgo8L2c+CjwhLS0gZW52aXJvbm1lbnQmIzQ1OyZndDttZWRpdW0gLS0+CjxnIGlkPSJlZGdlOSIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+ZW52aXJvbm1lbnQmIzQ1OyZndDttZWRpdW08L3RpdGxlPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik00MjEuOTcsLTM5MC44OEM1MDYuNzYsLTM3My42OSA2MzUuNjIsLTMzOS45OSA3MzMuODQsLTI4MC43OCA3NDguNjcsLTI3MS44NCA3NjIuOTUsLTI2MC4zNSA3NzUuOTQsLTI0OC4zMSIvPgo8L2c+CjwhLS0gY29udGFjdCAtLT4KPGcgaWQ9Im5vZGU3IiBjbGFzcz0ibm9kZSI+Cjx0aXRsZT5jb250YWN0PC90aXRsZT4KPHBvbHlnb24gZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIzMTcuNywtMTk0LjM5IDE4MS45NywtMTk0LjM5IDE4MS45NywtMTU4LjM5IDMxNy43LC0xNTguMzkgMzE3LjcsLTE5NC4zOSIvPgo8dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSIyNDkuODQiIHk9Ii0xNzIuMTkiIGZvbnQtZmFtaWx5PSJUaW1lcyxzZXJpZiIgZm9udC1zaXplPSIxNC4wMCI+Y29udGFjdDpDb250YWN0Rm9yY2U8L3RleHQ+CjwvZz4KPCEtLSBlbnZpcm9ubWVudCYjNDU7Jmd0O2NvbnRhY3QgLS0+CjxnIGlkPSJlZGdlNSIgY2xhc3M9ImVkZ2UiPgo8dGl0bGU+ZW52aXJvbm1lbnQmIzQ1OyZndDtjb250YWN0PC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNMjk4LjM4LC0zMTEuMDZDMjgyLjQ1LC0yNjcuMTkgMjY1LjA5LC0yMTkuNCAyNTYuMDcsLTE5NC41NiIvPgo8cG9seWdvbiBmaWxsPSJibGFjayIgc3Ryb2tlPSJibGFjayIgcG9pbnRzPSIyOTUuMDcsLTMxMi4xOSAzMDEuNzcsLTMyMC40IDMwMS42NSwtMzA5LjggMjk1LjA3LC0zMTIuMTkiLz4KPC9nPgo8IS0tIGV4dGVybmFsX21hdGVyaWFsIC0tPgo8ZyBpZD0ibm9kZTQiIGNsYXNzPSJub2RlIj4KPHRpdGxlPmV4dGVybmFsX21hdGVyaWFsPC90aXRsZT4KPGVsbGlwc2UgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgY3g9IjYyMC44NCIgY3k9Ii0xNzYuMzkiIHJ4PSIxMDQuMzkiIHJ5PSIxMDQuMzkiLz4KPHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iNjIwLjg0IiB5PSItMTcyLjE5IiBmb250LWZhbWlseT0iVGltZXMsc2VyaWYiIGZvbnQtc2l6ZT0iMTQuMDAiPmV4dGVybmFsX21hdGVyaWFsOk1hdGVyaWFsPC90ZXh0Pgo8L2c+CjwhLS0gZXh0ZXJuYWxfbWF0ZXJpYWwmIzQ1OyZndDt2b2x1bWUgZXhjbHVzaW9uIC0tPgo8ZyBpZD0iZWRnZTQiIGNsYXNzPSJlZGdlIj4KPHRpdGxlPmV4dGVybmFsX21hdGVyaWFsJiM0NTsmZ3Q7dm9sdW1lIGV4Y2x1c2lvbjwvdGl0bGU+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1kYXNoYXJyYXk9IjUsMiIgZD0iTTU1OC4xNiwtNzkuMjlDNTQ3LjQ1LC02Mi44NiA1MzcuNDYsLTQ3LjU2IDUzMC4yNCwtMzYuNDciLz4KPHBvbHlnb24gZmlsbD0iYmxhY2siIHN0cm9rZT0iYmxhY2siIHBvaW50cz0iNTU0Ljk1LC04MC43NyA1NjMuMzQsLTg3LjI0IDU2MC44MSwtNzYuOTUgNTU0Ljk1LC04MC43NyIvPgo8L2c+CjwhLS0gbWVkaXVtJiM0NTsmZ3Q7dm9sdW1lIGV4Y2x1c2lvbiAtLT4KPGcgaWQ9ImVkZ2UyIiBjbGFzcz0iZWRnZSI+Cjx0aXRsZT5tZWRpdW0mIzQ1OyZndDt2b2x1bWUgZXhjbHVzaW9uPC90aXRsZT4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWRhc2hhcnJheT0iNSwyIiBkPSJNNzY4LjE5LC05Ni40N0M3NTcuNCwtODcuMjUgNzQ1LjgzLC03OC43NCA3MzMuODQsLTcyIDcwMS43NSwtNTMuOTYgNjYzLjU5LC00Mi4wMSA2MjguMzksLTM0LjEiLz4KPHBvbHlnb24gZmlsbD0iYmxhY2siIHN0cm9rZT0iYmxhY2siIHBvaW50cz0iNzY1LjczLC05OC45NyA3NzUuNTMsLTEwMi45OSA3NzAuMzgsLTkzLjczIDc2NS43MywtOTguOTciLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="/>
 </div>
 </div>
 </div>

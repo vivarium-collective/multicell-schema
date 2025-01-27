@@ -7537,7 +7537,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">multicell_utils.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelBuilder</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># import the ModelBuilder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">multicell_utils.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelBuilder</span>
 </pre></div>
 </div>
 </div>
@@ -7551,7 +7552,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">demo_model</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">'demo'</span><span class="p">)</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># Build a template model programmatically</span>
+<span class="n">demo_model</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">'demo'</span><span class="p">)</span>
 <span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'environment'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'Universe'</span><span class="p">,</span> <span class="n">contained_objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'cell field'</span><span class="p">,</span> <span class="s1">'chemical field'</span><span class="p">])</span>
 <span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'chemical field'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'Field'</span><span class="p">)</span>
 <span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'cell field'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'CellField'</span><span class="p">,</span> <span class="n">contained_objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'cell1'</span><span class="p">,</span> <span class="s1">'cell2'</span><span class="p">])</span>
@@ -7574,7 +7576,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">demo_model</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># validate and save</span>
+<span class="n">demo_model</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 <span class="n">demo_model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">'demo_model.json'</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -7602,7 +7605,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">demo_model</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># visualize the model as a graph</span>
+<span class="n">demo_model</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -7628,7 +7632,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">demo_model</span>
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># print the current configuration</span>
+<span class="n">demo_model</span>
 </pre></div>
 </div>
 </div>
@@ -7641,7 +7646,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>ModelBuilder({ 'id': 'model_000006',
+<pre>ModelBuilder({ 'id': 'model_000009',
   'name': 'demo',
   'objects': { 'cell field': { 'attributes': {},
                                'boundary_conditions': {},
