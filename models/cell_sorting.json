@@ -1,0 +1,59 @@
+{
+    "id": "model_000016",
+    "name": "cell_sorting",
+    "objects": {
+        "dark": {
+            "type": "CellPopulation",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        },
+        "light": {
+            "type": "CellPopulation",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        },
+        "environment": {
+            "type": "CellField",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "dark",
+                "light"
+            ]
+        },
+        "external_material": {
+            "type": "Material",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        }
+    },
+    "processes": {
+        "volume exclusion": {
+            "type": "VolumeExclusion",
+            "attributes": {},
+            "participating_objects": [
+                "dark",
+                "light",
+                "external_material"
+            ]
+        },
+        "contact": {
+            "type": "ContactForce",
+            "attributes": {},
+            "participating_objects": [
+                "environment"
+            ]
+        },
+        "fluctuation": {
+            "type": "MotileForce",
+            "attributes": {},
+            "participating_objects": [
+                "dark",
+                "light"
+            ]
+        }
+    }
+}

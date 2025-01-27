@@ -51,9 +51,9 @@ class SchemaCreator:
     def register(self, overwrite=False):
         try:
             if self.schema_type == "object":
-                schema_registry.register_object(self.schema, self.schema["type"])
+                schema_registry.register_object(self.schema, self.schema["type"], overwrite)
             elif self.schema_type == "process":
-                schema_registry.register_process(self.schema, self.schema["type"])
+                schema_registry.register_process(self.schema, self.schema["type"], overwrite)
         except ValueError as e:
             if not overwrite:
                 print(f"Failed to register schema: {e}")
@@ -67,14 +67,14 @@ class SchemaCreator:
         except ValidationError as e:
             raise ValidationError(f"Schema validation failed: {e.message}")
 
-        # directory = os.path.join(project_root, directory, self.schema_type) # objects or processes
-        directory = os.path.join(directory, self.schema_type)
-
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        with open(os.path.join(directory, filename), 'w') as file:
+        # make absolute path to directory
+        absolute_directory = os.path.join(project_root, directory, self.schema_type) # objects or processes
+        local_directory = os.path.join(directory, self.schema_type)
+        if not os.path.exists(absolute_directory):
+            os.makedirs(absolute_directory)
+        with open(os.path.join(absolute_directory, filename), 'w') as file:
             json.dump(self.schema, file, indent=4)
-            print(f"Schema saved to {os.path.join(directory, filename)}")
+            print(f"Schema saved to {os.path.join(local_directory, filename)}")
 
     def load_from_json(self, json_path, name):
         assert name is not None, "Name must be provided when loading from JSON"
@@ -230,10 +230,11 @@ class ModelBuilder:
             print(f"Model validation failed: {e.message}")
             return
 
-        # absolute_directory = os.path.join(project_root, directory)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        with open(os.path.join(directory, filename), 'w') as file:
+        # make absolute path to directory
+        absolute_directory = os.path.join(project_root, directory)
+        if not os.path.exists(absolute_directory):
+            os.makedirs(absolute_directory)
+        with open(os.path.join(absolute_directory, filename), 'w') as file:
             json.dump(self.model, file, indent=4)
         print(f"Model saved to {os.path.join(directory, filename)}")
 

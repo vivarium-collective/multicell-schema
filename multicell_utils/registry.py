@@ -126,10 +126,10 @@ class SchemaRegistry:
                     if not any(base_type in allowed_children_types for base_type in self.object_inheritance.get(child_type, [])):
                         print(f"Invalid containment: {child_type} object is not contained by {parent_type}")
 
-    def register_object(self, schema, object_type):
+    def register_object(self, schema, object_type, overwrite=False):
         if 'type' in schema:
             object_type = schema['type']
-        if object_type in self.object_types:
+        if object_type in self.object_types and not overwrite:
             raise ValueError(f"Object schema '{object_type}' is already registered.")
         try:
             self.validate_schema(schema, self.object_meta_schema)
@@ -151,10 +151,10 @@ class SchemaRegistry:
         self.object_inheritance[object_type] = inherits_from
 
 
-    def register_process(self, schema, process_type=None):
+    def register_process(self, schema, process_type=None, overwrite=False):
         if 'type' in schema:
             process_type = schema['type']
-        if process_type in self.process_types:
+        if process_type in self.process_types and not overwrite:
             raise ValueError(f"Process schema type '{process_type}' is already registered.")
         try:
             self.validate_schema(schema, self.process_meta_schema)
@@ -174,9 +174,11 @@ class SchemaRegistry:
             self.process_inheritance[process_type] = schema.get('inherits_from', [])
 
         except ValidationError as e:
-            print(f"Failed to register process schema '{process_name}': {e.message}")
+            print(f"Failed to register process schema '{process_type}': {e.message}")
+
 
     def register_template(self, schema, template_name):
+        # TODO implement template registration
         schema_name = schema['name']
         pass
 

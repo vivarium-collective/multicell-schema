@@ -6,6 +6,7 @@ This project contains models and schemas for validating and building JSON schema
 
 ## Notebooks
 * [Demo](https://vivarium-collective.github.io/multicell-schema/notebooks/demo.html)
+* [Demo 2](https://vivarium-collective.github.io/multicell-schema/notebooks/demo2.html)
 * [Cell Sorting](https://vivarium-collective.github.io/multicell-schema/notebooks/cell_sorting.html)
 
 ## Directory Structure
