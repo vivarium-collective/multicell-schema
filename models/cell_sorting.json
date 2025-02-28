@@ -1,7 +1,15 @@
 {
-    "id": "model_000016",
+    "id": "model_000032",
     "name": "cell_sorting",
     "objects": {
+        "universe": {
+            "type": "Universe",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "environment"
+            ]
+        },
         "dark": {
             "type": "CellPopulation",
             "attributes": {},
@@ -15,12 +23,13 @@
             "contained_objects": []
         },
         "environment": {
-            "type": "CellField",
+            "type": "MaterialObjectSpace",
             "attributes": {},
             "boundary_conditions": {},
             "contained_objects": [
                 "dark",
-                "light"
+                "light",
+                "external_material"
             ]
         },
         "external_material": {
@@ -44,14 +53,21 @@
             "type": "ContactForce",
             "attributes": {},
             "participating_objects": [
-                "environment"
+                "dark",
+                "light"
             ]
         },
-        "fluctuation": {
+        "fluctuation_dark": {
             "type": "MotileForce",
             "attributes": {},
             "participating_objects": [
-                "dark",
+                "dark"
+            ]
+        },
+        "fluctuation_light": {
+            "type": "MotileForce",
+            "attributes": {},
+            "participating_objects": [
                 "light"
             ]
         }

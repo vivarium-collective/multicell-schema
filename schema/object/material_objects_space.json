@@ -1,0 +1,36 @@
+{
+    "type": "MaterialObjectSpace",
+    "boundary_conditions": {},
+    "inherits_from": [],
+    "contained_objects": ["Material", "Cell"],
+    "attributes": {
+        "bounds": {
+            "x": {"type": "um"},
+            "y": {"type": "um"},
+            "z": {"type": "um"},
+            "required": ["x", "y"]
+        },
+        "medium": {
+            "type": "string",
+            "default": "fluid",
+            "description": "what type of object fills an empty space"
+        },
+        "cell species": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "default": ["none"],
+            "description": "List of the cell species."
+        },
+        "cells": {
+            "type": "array",
+            "items": {
+                "$ref": "schemas/cell_schema.json"
+            },
+            "default": [],
+            "description": "List of cells."
+        }
+    },
+    "required": ["bounds", "grid_size"]
+}

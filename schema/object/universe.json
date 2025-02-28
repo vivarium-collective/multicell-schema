@@ -3,7 +3,7 @@
   "inherits_from": [],
   "boundary_conditions": {},
   "contained_objects": [
-    "Field"
+    "Field", "MaterialObjectSpace"
   ],
   "attributes": {}
 }

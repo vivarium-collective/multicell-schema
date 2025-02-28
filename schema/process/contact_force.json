@@ -4,7 +4,7 @@
         "contact_energy_matrix": "array[array[float]]"
     },
     "participating_objects": [
-        "CellField"
+        "Cell"
     ],
     "condition": {
         "object": "CellField",
