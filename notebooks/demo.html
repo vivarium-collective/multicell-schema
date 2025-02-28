@@ -7554,7 +7554,9 @@ a.anchor-link {
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython2"><pre><span></span><span class="c1"># Build a template model programmatically</span>
 <span class="n">demo_model</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">'demo'</span><span class="p">)</span>
-<span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'environment'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'Universe'</span><span class="p">,</span> <span class="n">contained_objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'cell field'</span><span class="p">,</span> <span class="s1">'chemical field'</span><span class="p">])</span>
+<span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'environment'</span><span class="p">,</span>
+                      <span class="n">object_type</span><span class="o">=</span><span class="s1">'Universe'</span><span class="p">,</span>
+                      <span class="n">contained_objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'cell field'</span><span class="p">,</span> <span class="s1">'chemical field'</span><span class="p">])</span>
 <span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'chemical field'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'Field'</span><span class="p">)</span>
 <span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'cell field'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'CellField'</span><span class="p">,</span> <span class="n">contained_objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'cell1'</span><span class="p">,</span> <span class="s1">'cell2'</span><span class="p">])</span>
 <span class="n">demo_model</span><span class="o">.</span><span class="n">add_object</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'cell1'</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">'Cell'</span><span class="p">)</span>
@@ -7646,7 +7648,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>ModelBuilder({ 'id': 'model_000009',
+<pre>ModelBuilder({ 'id': 'model_000018',
   'name': 'demo',
   'objects': { 'cell field': { 'attributes': {},
                                'boundary_conditions': {},
@@ -7694,7 +7696,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython2"><pre><span></span>
+<div class="highlight hl-ipython2"><pre><span></span> 
 </pre></div>
 </div>
 </div>
