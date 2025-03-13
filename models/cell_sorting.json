@@ -1,14 +1,12 @@
 {
-    "id": "model_000032",
+    "id": "model_000035",
     "name": "cell_sorting",
     "objects": {
-        "universe": {
-            "type": "Universe",
+        "light": {
+            "type": "CellPopulation",
             "attributes": {},
             "boundary_conditions": {},
-            "contained_objects": [
-                "environment"
-            ]
+            "contained_objects": []
         },
         "dark": {
             "type": "CellPopulation",
@@ -16,40 +14,49 @@
             "boundary_conditions": {},
             "contained_objects": []
         },
-        "light": {
-            "type": "CellPopulation",
+        "environment": {
+            "type": "Field",
             "attributes": {},
             "boundary_conditions": {},
-            "contained_objects": []
+            "contained_objects": [
+                "Objenvironment",
+                "Diffusive Field"
+            ]
         },
-        "environment": {
-            "type": "MaterialObjectSpace",
+        "Objenvironment": {
+            "type": "CellField",
             "attributes": {},
             "boundary_conditions": {},
             "contained_objects": [
                 "dark",
-                "light",
-                "external_material"
+                "light"
             ]
         },
-        "external_material": {
-            "type": "Material",
+        "Diffusive Field": {
+            "type": "ChemicalField",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "quorum"
+            ]
+        },
+        "quorum": {
+            "type": "Chemical",
             "attributes": {},
             "boundary_conditions": {},
             "contained_objects": []
         }
     },
     "processes": {
-        "volume exclusion": {
+        "repulsion": {
             "type": "VolumeExclusion",
             "attributes": {},
             "participating_objects": [
                 "dark",
-                "light",
-                "external_material"
+                "light"
             ]
         },
-        "contact": {
+        "adhesion": {
             "type": "ContactForce",
             "attributes": {},
             "participating_objects": [
@@ -57,17 +64,20 @@
                 "light"
             ]
         },
-        "fluctuation_dark": {
-            "type": "MotileForce",
+        "Chemotaxis": {
+            "type": "Chemotaxis",
             "attributes": {},
             "participating_objects": [
-                "dark"
+                "dark",
+                "light",
+                "quorum"
             ]
         },
-        "fluctuation_light": {
+        "forcing function": {
             "type": "MotileForce",
             "attributes": {},
             "participating_objects": [
+                "dark",
                 "light"
             ]
         }
