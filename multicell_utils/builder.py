@@ -176,10 +176,10 @@ class ModelBuilder:
     def validate(self, verbose=True):
         schema_registry.validate_template(self.model)
 
-    def graph(self):
+    def graph(self, filename=None, output_dir='out'):
         return create_graph_from_model(self.model,
-                                        # filename=None,
-                                        # output_dir=None
+                                        filename=filename,
+                                        output_dir=output_dir
                                        )
 
     def add_object(self,
@@ -317,10 +317,45 @@ def test_invalid_model():
     demo4.add_process(name='diffusion', process_type='Diffusion', participating_objects='cell')
     validate_model_fails(demo4)
 
+def test_model_specialize():
+    cell_migration = ModelBuilder(model_name="cell_migration")
 
+    # add objects
+    cell_migration.add_object(
+        name="universe",
+        object_type="Universe",
+        contained_objects=[
+            "environment"
+        ]
+    )
+    cell_migration.add_object(
+        name="environment",
+        object_type="MaterialObjectSpace",
+        contained_objects=[
+            "single_cell",
+        ]
+    )
+
+    cell_migration.add_object(
+        name="single_cell",
+        object_type="Cell"
+    )
+
+    # add processes
+    cell_migration.add_process(
+        name="motile force",
+        process_type="MotileForce",
+        participating_objects=["single_cell"]
+    )
+
+    # validate and save generic
+    cell_migration.validate()
+    cell_migration.save(filename='cell_migration_generic.json')
+    cell_migration.graph(filename='cell_migration_generic')
 
 
 if __name__ == '__main__':
     # test_schema_creator()
-    test_invalid_model()
-    test_model_builder()
+    # test_invalid_model()
+    # test_model_builder()
+    test_model_specialize()

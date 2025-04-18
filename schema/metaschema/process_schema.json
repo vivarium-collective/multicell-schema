@@ -8,5 +8,5 @@
         "conditions": {"type": "array"},
         "inherits_from": {"type": "array"}
     },
-    "required": ["type", "contained_objects"]
+    "required": ["type", "participating_objects"]
 }

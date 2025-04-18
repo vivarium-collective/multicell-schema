@@ -3,7 +3,7 @@
   "inherits_from": [],
   "attributes": {},
   "participating_objects": ["Cell"],
-  "update": "",
+  "update": {},
   "dynamics": "Newtonian",
   "orchestrator": "KISAO:000012"
 }
