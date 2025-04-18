@@ -182,6 +182,34 @@ class ModelBuilder:
                                         output_dir=output_dir
                                        )
 
+    def specialize(self, path=None, new_type=None):
+        if path is None or new_type is None:
+            raise ValueError("Must provide both path and new_type for specialization.")
+
+        if not isinstance(path, list) or len(path) != 2:
+            raise ValueError("Path must be a list of two elements: ['objects' or 'processes', name]")
+
+        category, name = path
+        if category not in ["objects", "processes"]:
+            raise ValueError(f"Invalid category '{category}'. Must be 'objects' or 'processes'.")
+
+        if name not in self.model[category]:
+            raise KeyError(f"No entry named '{name}' in '{category}'")
+
+        current = self.model[category][name]
+        current_type = current.get("type")
+
+        # Check inheritance validity
+        if not schema_registry.inherits_from(new_type, current_type):
+            raise ValueError(f"Cannot specialize '{current_type}' to '{new_type}': "
+                             f"{new_type} does not inherit from {current_type}")
+
+        # Replace the type while keeping the rest of the instance
+        specialized = current.copy()
+        specialized["type"] = new_type
+        self.model[category][name] = specialized
+        print(f"Specialized {category[:-1]} '{name}' from '{current_type}' to '{new_type}'")
+
     def add_object(self,
                    name,
                    object_type,
@@ -352,6 +380,16 @@ def test_model_specialize():
     cell_migration.validate()
     cell_migration.save(filename='cell_migration_generic.json')
     cell_migration.graph(filename='cell_migration_generic')
+
+    # specialize the model
+    cell_migration.specialize(
+        path=['objects', 'single_cell'],
+        new_type='CellCPM')
+
+    # validate and save specialized model
+    cell_migration.validate()
+    cell_migration.save(filename='cell_migration_cpm.json')
+    cell_migration.graph(filename='cell_migration_cpm')
 
 
 if __name__ == '__main__':
