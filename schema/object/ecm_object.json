@@ -1,0 +1,10 @@
+{
+    "type": "ExtracellularMatrix",
+    "inherits_from": [
+        "Material"
+    ],
+    "attributes": {
+        "density": 1.0,
+        "stiffness": 1.0
+    }
+}

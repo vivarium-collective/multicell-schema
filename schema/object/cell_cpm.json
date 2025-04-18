@@ -1,0 +1,9 @@
+{
+    "type": "CellCPM",
+    "inherits_from": ["Cell"],
+    "boundary_conditions": {},
+    "contained_objects": [],
+    "attributes": {
+        "domain": {}
+    }
+}

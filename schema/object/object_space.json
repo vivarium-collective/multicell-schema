@@ -1,0 +1,10 @@
+{
+    "type": "ObjectSpace",
+    "inherits_from": [
+        "Field"
+    ],
+    "attributes": {},
+    "contained_objects": [
+        "Chemical"
+    ]
+}

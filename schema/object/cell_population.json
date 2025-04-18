@@ -1,0 +1,10 @@
+{
+    "type": "CellPopulation",
+    "inherits_from": [
+        "Cell"
+    ],
+    "attributes": {},
+    "contained_objects": [
+        "Cell"
+    ]
+}

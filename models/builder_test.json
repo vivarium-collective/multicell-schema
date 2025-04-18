@@ -1,0 +1,58 @@
+{
+    "id": "model_000005",
+    "name": "demo",
+    "objects": {
+        "universe": {
+            "type": "Universe",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "cell field",
+                "chemical field"
+            ]
+        },
+        "chemical field": {
+            "type": "Field",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        },
+        "cell field": {
+            "type": "CellField",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "cell"
+            ]
+        },
+        "cell": {
+            "type": "Cell",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        }
+    },
+    "processes": {
+        "growth": {
+            "type": "CellGrowth",
+            "attributes": {},
+            "participating_objects": [
+                "cell"
+            ]
+        },
+        "diffusion": {
+            "type": "Diffusion",
+            "attributes": {},
+            "participating_objects": [
+                "chemical field"
+            ]
+        },
+        "volume exclusion": {
+            "type": "VolumeExclusion",
+            "attributes": {},
+            "participating_objects": [
+                "cell"
+            ]
+        }
+    }
+}
