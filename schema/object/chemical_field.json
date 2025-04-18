@@ -1,0 +1,10 @@
+{
+    "type": "ChemicalField",
+    "inherits_from": [
+        "Field"
+    ],
+    "attributes": {},
+    "contained_objects": [
+        "Chemical"
+    ]
+}

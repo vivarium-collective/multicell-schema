@@ -55,6 +55,16 @@ class SchemaRegistry:
     def validate_schema(self, schema, meta_schema):
         validate(instance=schema, schema=meta_schema)
 
+    def inherits_from(self, new_type, base_type):
+        # Check if new_type inherits from base_type
+        if new_type == base_type:
+            return True
+        if new_type in self.object_inheritance:
+            for inherited_type in self.object_inheritance[new_type]:
+                if self.inherits_from(inherited_type, base_type):
+                    return True
+        return False
+
     def validate_template(self, model):
         # Validate objects
         for obj_name, obj_schema in model['objects'].items():

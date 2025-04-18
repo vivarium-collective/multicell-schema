@@ -1,0 +1,37 @@
+{
+    "id": "model_000048",
+    "name": "cell_migration",
+    "objects": {
+        "universe": {
+            "type": "Universe",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "environment"
+            ]
+        },
+        "environment": {
+            "type": "MaterialObjectSpace",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "single_cell"
+            ]
+        },
+        "single_cell": {
+            "type": "Cell",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        }
+    },
+    "processes": {
+        "motile force": {
+            "type": "MotileForce",
+            "attributes": {},
+            "participating_objects": [
+                "single_cell"
+            ]
+        }
+    }
+}

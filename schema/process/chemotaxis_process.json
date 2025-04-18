@@ -1,0 +1,9 @@
+{
+    "type": "Chemotaxis",
+    "inherits_from": [],
+    "attributes": {},
+    "participating_objects": [
+        "Chemical",
+        "CellPopulation"
+    ]
+}

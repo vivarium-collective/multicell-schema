@@ -1,0 +1,27 @@
+{
+    "id": "model_000019",
+    "name": "demo",
+    "objects": {
+        "chemical field": {
+            "type": "Field",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        },
+        "extracellular matrix": {
+            "type": "ExtracellularMatrix",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        }
+    },
+    "processes": {
+        "collision": {
+            "type": "Collision",
+            "attributes": {},
+            "participating_objects": [
+                "extracellular matrix"
+            ]
+        }
+    }
+}

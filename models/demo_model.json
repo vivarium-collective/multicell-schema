@@ -1,0 +1,73 @@
+{
+    "id": "model_000018",
+    "name": "demo",
+    "objects": {
+        "environment": {
+            "type": "Universe",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "cell field",
+                "chemical field"
+            ]
+        },
+        "chemical field": {
+            "type": "Field",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        },
+        "cell field": {
+            "type": "CellField",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": [
+                "cell1",
+                "cell2"
+            ]
+        },
+        "cell1": {
+            "type": "Cell",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        },
+        "cell2": {
+            "type": "Cell",
+            "attributes": {},
+            "boundary_conditions": {},
+            "contained_objects": []
+        }
+    },
+    "processes": {
+        "growth1": {
+            "type": "CellGrowth",
+            "attributes": {},
+            "participating_objects": [
+                "cell1"
+            ]
+        },
+        "growth2": {
+            "type": "CellGrowth",
+            "attributes": {},
+            "participating_objects": [
+                "cell2"
+            ]
+        },
+        "diffusion": {
+            "type": "Diffusion",
+            "attributes": {},
+            "participating_objects": [
+                "chemical field"
+            ]
+        },
+        "volume exclusion": {
+            "type": "VolumeExclusion",
+            "attributes": {},
+            "participating_objects": [
+                "cell1",
+                "cell2"
+            ]
+        }
+    }
+}

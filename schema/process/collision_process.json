@@ -1,0 +1,9 @@
+{
+    "type": "CollisionForce",
+    "inherits_from": [],
+    "attributes": {},
+    "participating_objects": [
+        "CellField",
+        "CellPopulation"
+    ]
+}
